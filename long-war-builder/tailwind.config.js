@@ -11,6 +11,7 @@ module.exports = {
     }),
     fontSize: {
       xs: '0.65rem',
+      sm: '1rem',
     },
     extend: {
       backgroundImage: (theme) => ({
