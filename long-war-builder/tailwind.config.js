@@ -6,6 +6,8 @@ module.exports = {
     backgroundColor: (theme) => ({
       ...theme('colors'),
       darkGray: '#1e1f21',
+      lightGray: '#2a2c2e',
+      blueGray: '#1c2c3c',
     }),
     fontSize: {
       xs: '0.65rem',

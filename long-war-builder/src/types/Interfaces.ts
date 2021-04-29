@@ -11,14 +11,16 @@ interface PerkInterface {
   will: number;
 }
 
+interface StatProgressionInterface {
+  health: number;
+  aim: number;
+  will: number;
+}
+
 interface RankInterface {
   name: RankName;
   imgPath: RankImage;
-  statProgression: {
-    health: number;
-    aim: number;
-    will: number;
-  };
+  statProgression: StatProgressionInterface;
   perkProgression: Array<PerkInterface>;
 }
 
@@ -28,4 +30,4 @@ interface ClassInterface {
   ranks: Array<RankInterface>;
 }
 
-export type { ClassInterface, RankInterface, PerkInterface };
+export type { ClassInterface, RankInterface, PerkInterface, StatProgressionInterface };
