@@ -12,7 +12,14 @@ const RankRow = (props: RankRowProps): JSX.Element => {
   const { rank, rankIndex } = props;
   return (
     <tr className="text-gray-50 divide-y divide-gray-600">
-      <td className="text-center">{rank.name}</td>
+      <td className="text-center select-none">
+        <img
+          src={`${process.env.PUBLIC_URL}/${rank.imgPath}`}
+          alt={rank.name}
+          className="transform scale-75 object-none mx-auto"
+        ></img>
+        <p>{rank.name}</p>
+      </td>
       {rank.perkProgression.length == 1 ? (
         <Fragment>
           <td></td>

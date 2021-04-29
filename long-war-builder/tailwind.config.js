@@ -14,12 +14,12 @@ module.exports = {
     },
     extend: {
       backgroundImage: (theme) => ({
-        background: "url('/src/img/background.jpg')",
+        background: "url('/src/background.jpg')",
       }),
     },
   },
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [require('tailwind-scrollbar')],
 };

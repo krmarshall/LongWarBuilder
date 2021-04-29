@@ -65,10 +65,6 @@ const PerkGrid = (props: PerkGridProps): JSX.Element => {
     }
   }, [className]);
 
-  useEffect(() => {
-    console.log(currentBuild);
-  }, [currentBuild]);
-
   const perkSelectHandler = (rankSelected: number, perkSelected: number) => {
     // If the selected rank already has a perk dont allow a second perk selection, do allow if we are selecting the same perk (deselect)
     if (currentBuild[rankSelected] != undefined && currentBuild[rankSelected] != perkSelected) {
@@ -163,10 +159,13 @@ const PerkGrid = (props: PerkGridProps): JSX.Element => {
   };
 
   return (
-    <div className="m-4 p-2 bg-darkGray flex-grow flex flex-wrap justify-center">
+    <div
+      className="m-4 p-2 bg-darkGray flex flex-wrap justify-center overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-400"
+      style={{ maxHeight: '80vh' }}
+    >
       <h3 className="text-gray-50 text-xl">{className ? classData?.class : 'Select A Class'}</h3>
       <table className="table-fixed" id="perkTable">
-        <tr className="text-gray-50">
+        <tr className="text-gray-50 select-none">
           <th style={{ width: '10%' }}>Rank</th>
           <th style={{ width: '30%' }}></th>
           <th style={{ width: '30%' }}>Perk</th>

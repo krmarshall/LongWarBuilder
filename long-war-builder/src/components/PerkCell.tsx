@@ -12,7 +12,7 @@ const PerkCell = (props: PerkCellProps): JSX.Element => {
   return (
     <td
       data-selected=""
-      className="text-center hover:bg-lightGray"
+      className="text-center hover:bg-lightGray select-none"
       onClick={() => {
         props.perkSelectHandler(rankIndex, perkIndex);
       }}
