@@ -11,16 +11,14 @@ interface PerkGridProps {
   mobility: number;
   will: number;
   aim: number;
-  defense: number;
   setHealth(value: number): void;
   setMobility(value: number): void;
   setWill(value: number): void;
   setAim(value: number): void;
-  setDefense(value: number): void;
 }
 
 const PerkGrid = (props: PerkGridProps): JSX.Element => {
-  const { className, health, mobility, will, aim, defense } = props;
+  const { className, health, mobility, will, aim } = props;
   const [classData, setClassData] = useState<undefined | ClassInterface>();
   // eslint-disable-next-line no-sparse-arrays
   const [currentBuild, setCurrentBuild] = useState<Array<undefined | number>>([, , , , , ,]);

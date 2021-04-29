@@ -3,10 +3,9 @@ interface SoldierStatsProps {
   mobility: number;
   will: number;
   aim: number;
-  defense: number;
 }
 
-const SoldierStats = ({ health, mobility, will, aim, defense }: SoldierStatsProps): JSX.Element => {
+const SoldierStats = ({ health, mobility, will, aim }: SoldierStatsProps): JSX.Element => {
   return (
     <div className="m-4 p-4 bg-darkGray h-full min-w-max justify-center text-gray-50">
       <h3 className="text-xl">Soldier Stats</h3>
@@ -14,7 +13,6 @@ const SoldierStats = ({ health, mobility, will, aim, defense }: SoldierStatsProp
       <p>Mobility: {mobility}</p>
       <p>Will: {will}</p>
       <p>Aim: {aim}</p>
-      <p>Defense: {defense}</p>
     </div>
   );
 };

@@ -11,7 +11,6 @@ const SoldierBuilder = (): JSX.Element => {
   const [mobility, setMobility] = useState(rookie.mobility);
   const [will, setWill] = useState(rookie.will);
   const [aim, setAim] = useState(rookie.aim);
-  const [defense, setDefense] = useState(rookie.defense);
 
   useEffect(() => {
     console.log(className);
@@ -31,14 +30,12 @@ const SoldierBuilder = (): JSX.Element => {
           mobility={mobility}
           will={will}
           aim={aim}
-          defense={defense}
           setHealth={setHealth}
           setMobility={setMobility}
           setWill={setWill}
           setAim={setAim}
-          setDefense={setDefense}
         />
-        <SoldierStats health={health} mobility={mobility} will={will} aim={aim} defense={defense} />
+        <SoldierStats health={health} mobility={mobility} will={will} aim={aim} />
       </div>
     </React.Fragment>
   );

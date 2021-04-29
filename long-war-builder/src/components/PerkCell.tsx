@@ -17,6 +17,11 @@ const PerkCell = (props: PerkCellProps): JSX.Element => {
         props.perkSelectHandler(rankIndex, perkIndex);
       }}
     >
+      <img
+        src={`${process.env.PUBLIC_URL}/${perk.imgPath}`}
+        alt={perk.perk}
+        className="transform scale-75 object-none mx-auto -mb-2"
+      ></img>
       <h5 className="text-sm">{perk.perk}</h5>
       <p className="text-xs">{perk.description}</p>
     </td>
