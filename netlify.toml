@@ -1,5 +1,5 @@
 [build]
-	environment = { GENERATE_SOURCEMAP=false }
+	environment = { GENERATE_SOURCEMAP = "false" }
 	base = "long-war-builder/"
 	publish = "build/"
 	command = "craco build"
