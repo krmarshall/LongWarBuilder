@@ -1,8 +1,6 @@
 import { Fragment, useEffect, useState } from 'react';
-import assault from '../data/assault';
-import infantry from '../data/infantry';
-import rocketeer from '../data/rocketeer';
-import { ClassInterface, StatProgressionInterface } from '../types/Interfaces';
+import { assault, engineer, gunner, infantry, medic, rocketeer, scout, sniper } from '../data/classes';
+import { ClassInterface } from '../types/Interfaces';
 import RankRow from './RankRow';
 
 interface PerkGridProps {
@@ -39,23 +37,23 @@ const PerkGrid = (props: PerkGridProps): JSX.Element => {
         break;
       }
       case 'gunner': {
-        setClassData(undefined);
+        setClassData(gunner);
         break;
       }
       case 'sniper': {
-        setClassData(undefined);
+        setClassData(sniper);
         break;
       }
       case 'scout': {
-        setClassData(undefined);
+        setClassData(scout);
         break;
       }
       case 'medic': {
-        setClassData(undefined);
+        setClassData(medic);
         break;
       }
       case 'engineer': {
-        setClassData(undefined);
+        setClassData(engineer);
         break;
       }
       default: {
