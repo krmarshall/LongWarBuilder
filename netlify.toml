@@ -1,7 +1,7 @@
 [build]
 	GENERATE_SOURCEMAP=false
 	base = "long-war-builder/"
-	publish = "long-war-builder/build"
+	publish = "build/"
 	command = "craco build"
 
 [[redirects]]
