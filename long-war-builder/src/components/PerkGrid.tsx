@@ -1,9 +1,7 @@
 import { Fragment, useEffect, useState } from 'react';
-import { ClassName, ClassImage } from '../types/enums/ClassEnums';
 import assault from '../data/assault';
 import { ClassInterface, StatProgressionInterface } from '../types/Interfaces';
 import RankRow from './RankRow';
-import { PerkName } from '../types/enums/PerkEnums';
 
 interface PerkGridProps {
   className: string;
@@ -159,7 +157,7 @@ const PerkGrid = (props: PerkGridProps): JSX.Element => {
   return (
     <div
       className="m-4 p-2 bg-darkGray flex flex-wrap flex-grow justify-center overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-400"
-      style={{ maxHeight: '80vh' }}
+      style={{ maxHeight: '75vh' }}
     >
       <h3 className="text-gray-50 text-xl">{className ? classData?.class : 'Select A Class'}</h3>
       {!classData ? (

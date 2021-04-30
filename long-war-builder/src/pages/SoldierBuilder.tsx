@@ -13,7 +13,10 @@ const SoldierBuilder = (): JSX.Element => {
   const [aim, setAim] = useState(rookie.aim);
 
   useEffect(() => {
-    console.log(className);
+    setHealth(rookie.health);
+    setMobility(rookie.mobility);
+    setWill(rookie.will);
+    setAim(rookie.aim);
   }, [className]);
 
   return (
