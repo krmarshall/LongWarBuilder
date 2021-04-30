@@ -6,7 +6,7 @@ import rookie from '../data/rookie';
 
 const SoldierBuilder = (): JSX.Element => {
   const [className, setClassName] = useState('');
-  // Could probably use a reducer here, but I find them more annoying than just passing state most of the time.
+  // Prob shoulda used a reducer
   const [health, setHealth] = useState(rookie.health);
   const [mobility, setMobility] = useState(rookie.mobility);
   const [will, setWill] = useState(rookie.will);

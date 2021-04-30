@@ -1,5 +1,7 @@
 import { Fragment, useEffect, useState } from 'react';
 import assault from '../data/assault';
+import infantry from '../data/infantry';
+import rocketeer from '../data/rocketeer';
 import { ClassInterface, StatProgressionInterface } from '../types/Interfaces';
 import RankRow from './RankRow';
 
@@ -22,17 +24,18 @@ const PerkGrid = (props: PerkGridProps): JSX.Element => {
   const [currentBuild, setCurrentBuild] = useState<Array<undefined | number>>([, , , , , ,]);
 
   useEffect(() => {
+    clearPerkTree();
     switch (className) {
       case 'assault': {
         setClassData(assault);
         break;
       }
       case 'infantry': {
-        setClassData(undefined);
+        setClassData(infantry);
         break;
       }
       case 'rocketeer': {
-        setClassData(undefined);
+        setClassData(rocketeer);
         break;
       }
       case 'gunner': {
@@ -59,6 +62,7 @@ const PerkGrid = (props: PerkGridProps): JSX.Element => {
         setClassData(undefined);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [className]);
 
   const perkSelectHandler = (rankSelected: number, perkSelected: number) => {
@@ -106,13 +110,35 @@ const PerkGrid = (props: PerkGridProps): JSX.Element => {
     });
   };
 
+  const clearPerkTree = () => {
+    const perkTable = document.getElementById('perkTable');
+    for (let rank = 0; rank < 7; rank++) {
+      let element: HTMLElement;
+      if (rank == 0) {
+        element = perkTable?.childNodes[rank + 1].childNodes[2] as HTMLElement;
+        setElementAsDeselected(element);
+      } else {
+        for (let perk = 0; perk < 3; perk++) {
+          element = perkTable?.childNodes[rank + 1].childNodes[perk + 1] as HTMLElement;
+          setElementAsDeselected(element);
+        }
+      }
+    }
+  };
+
   const setElementAsSelected = (element: HTMLElement) => {
+    if (!element) {
+      return;
+    }
     element.dataset.selected = 'selected';
     element.classList.add('bg-blueGray');
     element.classList.remove('hover:bg-lightGray');
   };
 
   const setElementAsDeselected = (element: HTMLElement) => {
+    if (!element) {
+      return;
+    }
     element.dataset.selected = '';
     element.classList.remove('bg-blueGray');
     element.classList.add('hover:bg-lightGray');
@@ -157,7 +183,7 @@ const PerkGrid = (props: PerkGridProps): JSX.Element => {
   return (
     <div
       className="m-4 p-2 bg-darkGray flex flex-wrap flex-grow justify-center overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-400"
-      style={{ maxHeight: '75vh' }}
+      style={{ maxHeight: '78vh' }}
     >
       <h3 className="text-gray-50 text-xl">{className ? classData?.class : 'Select A Class'}</h3>
       {!classData ? (
