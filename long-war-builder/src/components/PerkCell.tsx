@@ -24,6 +24,10 @@ const PerkCell = (props: PerkCellProps): JSX.Element => {
       ></img>
       <h5 className="text-sm">{perk.perk}</h5>
       <p className="text-xs">{perk.description}</p>
+      <p className="text-xs font-bold underline">
+        {perk.mobility ? 'Mobility: ' + perk.mobility : ''} {perk.aim ? 'Aim: ' + perk.aim : ''}{' '}
+        {perk.will ? 'Will: ' + perk.will : ''}
+      </p>
     </td>
   );
 };

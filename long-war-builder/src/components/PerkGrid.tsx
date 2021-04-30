@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { ClassName, ClassImage } from '../types/enums/ClassEnums';
 import assault from '../data/assault';
 import { ClassInterface, StatProgressionInterface } from '../types/Interfaces';
@@ -162,17 +162,21 @@ const PerkGrid = (props: PerkGridProps): JSX.Element => {
       style={{ maxHeight: '80vh' }}
     >
       <h3 className="text-gray-50 text-xl">{className ? classData?.class : 'Select A Class'}</h3>
-      <table className="table-fixed" id="perkTable">
-        <tr className="text-gray-50 select-none">
-          <th style={{ width: '10%' }}>Rank</th>
-          <th style={{ width: '30%' }}></th>
-          <th style={{ width: '30%' }}>Perk</th>
-          <th style={{ width: '30%' }}></th>
-        </tr>
-        {classData?.ranks.map((rank, rankIndex) => {
-          return <RankRow key={rank.name} rank={rank} rankIndex={rankIndex} perkSelectHandler={perkSelectHandler} />;
-        })}
-      </table>
+      {!classData ? (
+        <Fragment></Fragment>
+      ) : (
+        <table className="table-fixed" id="perkTable">
+          <tr className="text-gray-50 select-none">
+            <th style={{ width: '10%' }}>Rank</th>
+            <th style={{ width: '30%' }}></th>
+            <th style={{ width: '30%' }}>Perk</th>
+            <th style={{ width: '30%' }}></th>
+          </tr>
+          {classData?.ranks.map((rank, rankIndex) => {
+            return <RankRow key={rank.name} rank={rank} rankIndex={rankIndex} perkSelectHandler={perkSelectHandler} />;
+          })}
+        </table>
+      )}
     </div>
   );
 };
