@@ -1,0 +1,10 @@
+[build]
+	GENERATE_SOURCEMAP=false
+	base = "long-war-builder/"
+	publish = "long-war-builder/build"
+	command = "craco build"
+
+[[redirects]]
+	from = "/*"
+	to = "/index.html"       
+	status = 200

@@ -94,19 +94,19 @@ const PerkGrid = (props: PerkGridProps): JSX.Element => {
     }
   };
 
-  const selectPerkTreeFromArray = () => {
-    const perkTable = document.getElementById('perkTable');
-    const perkArray = [0, 1, 2, 0, 0, 2, 0];
-    perkArray.map((perkI, rankI) => {
-      let element: HTMLElement;
-      if (rankI == 0) {
-        element = perkTable?.childNodes[rankI + 1].childNodes[perkI + 2] as HTMLElement;
-      } else {
-        element = perkTable?.childNodes[rankI + 1].childNodes[perkI + 1] as HTMLElement;
-      }
-      setElementAsSelected(element);
-    });
-  };
+  // const selectPerkTreeFromArray = () => {
+  //   const perkTable = document.getElementById('perkTable');
+  //   const perkArray = [0, 1, 2, 0, 0, 2, 0];
+  //   perkArray.map((perkI, rankI) => {
+  //     let element: HTMLElement;
+  //     if (rankI == 0) {
+  //       element = perkTable?.childNodes[rankI + 1].childNodes[perkI + 2] as HTMLElement;
+  //     } else {
+  //       element = perkTable?.childNodes[rankI + 1].childNodes[perkI + 1] as HTMLElement;
+  //     }
+  //     setElementAsSelected(element);
+  //   });
+  // };
 
   const clearPerkTree = () => {
     const perkTable = document.getElementById('perkTable');
