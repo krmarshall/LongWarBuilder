@@ -1,63 +1,52 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useContext, useEffect, useState } from 'react';
+import { context, TypeEnums } from '../context';
 import { assault, engineer, gunner, infantry, medic, rocketeer, scout, sniper } from '../data/classes';
-import { ClassInterface } from '../types/Interfaces';
+import { ClassInterface, RankInterface } from '../types/Interfaces';
 import RankRow from './RankRow';
 
-interface PerkGridProps {
-  className: string;
-  health: number;
-  mobility: number;
-  will: number;
-  aim: number;
-  setHealth(value: number): void;
-  setMobility(value: number): void;
-  setWill(value: number): void;
-  setAim(value: number): void;
-}
-
-const PerkGrid = (props: PerkGridProps): JSX.Element => {
-  const { className, health, mobility, will, aim } = props;
-  const [classData, setClassData] = useState<undefined | ClassInterface>();
-  // eslint-disable-next-line no-sparse-arrays
-  const [currentBuild, setCurrentBuild] = useState<Array<undefined | number>>([, , , , , ,]);
+const PerkGrid = (): JSX.Element => {
+  //@ts-expect-error 2461
+  const [state, dispatch] = useContext(context);
+  const { health, mobility, will, aim } = state.stats;
+  const { className, classData, currentBuild } = state;
 
   useEffect(() => {
     clearPerkTree();
     switch (className) {
       case 'assault': {
-        setClassData(assault);
+        dispatch({ type: TypeEnums.changeClassData, payload: assault });
         break;
       }
       case 'infantry': {
-        setClassData(infantry);
+        dispatch({ type: TypeEnums.changeClassData, payload: infantry });
         break;
       }
       case 'rocketeer': {
-        setClassData(rocketeer);
+        dispatch({ type: TypeEnums.changeClassData, payload: rocketeer });
         break;
       }
       case 'gunner': {
-        setClassData(gunner);
+        dispatch({ type: TypeEnums.changeClassData, payload: gunner });
         break;
       }
       case 'sniper': {
-        setClassData(sniper);
+        dispatch({ type: TypeEnums.changeClassData, payload: sniper });
         break;
       }
       case 'scout': {
-        setClassData(scout);
+        dispatch({ type: TypeEnums.changeClassData, payload: scout });
         break;
       }
       case 'medic': {
-        setClassData(medic);
+        dispatch({ type: TypeEnums.changeClassData, payload: medic });
         break;
       }
       case 'engineer': {
-        setClassData(engineer);
+        dispatch({ type: TypeEnums.changeClassData, payload: engineer });
         break;
       }
       default: {
-        setClassData(undefined);
+        dispatch({ type: TypeEnums.changeClassData, payload: undefined });
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -82,14 +71,14 @@ const PerkGrid = (props: PerkGridProps): JSX.Element => {
       setElementAsDeselected(element);
       const updateArray = currentBuild.slice();
       updateArray[rankSelected] = undefined;
-      setCurrentBuild(updateArray);
+      dispatch({ type: TypeEnums.changeCurrentBuild, payload: updateArray })
       removeStatsFromPerk(rankSelected, perkSelected);
     } else {
       // Select Perk
       setElementAsSelected(element);
       const updateArray = currentBuild.slice();
       updateArray[rankSelected] = perkSelected;
-      setCurrentBuild(updateArray);
+      dispatch({ type: TypeEnums.changeCurrentBuild, payload: updateArray })
       addStatsFromPerk(rankSelected, perkSelected);
     }
   };
@@ -149,15 +138,17 @@ const PerkGrid = (props: PerkGridProps): JSX.Element => {
     }
     // Stats from rank up
     const rankStats = classData?.ranks[rankSelected].statProgression;
-    props.setHealth(health + rankStats.health);
 
     // Stats from perk
     const perkStats = classData?.ranks[rankSelected].perkProgression[perkSelected];
-    props.setMobility(mobility + perkStats.mobility);
 
-    // Stats from both
-    props.setAim(aim + rankStats.aim + perkStats.aim);
-    props.setWill(will + rankStats.will + perkStats.will);
+    const updateStats = {
+      health: health + rankStats.health,
+      mobility: mobility + perkStats.mobility,
+      will: will + rankStats.will + perkStats.will,
+      aim: aim + rankStats.aim + perkStats.aim,
+    };
+    dispatch({ type: TypeEnums.changeStats, payload: updateStats });
   };
 
   const removeStatsFromPerk = (rankSelected: number, perkSelected: number) => {
@@ -167,15 +158,17 @@ const PerkGrid = (props: PerkGridProps): JSX.Element => {
     }
     // Stats from rank up
     const rankStats = classData?.ranks[rankSelected].statProgression;
-    props.setHealth(health - rankStats.health);
 
     // Stats from perk
     const perkStats = classData?.ranks[rankSelected].perkProgression[perkSelected];
-    props.setMobility(mobility - perkStats.mobility);
 
-    // Stats from both
-    props.setAim(aim - rankStats.aim - perkStats.aim);
-    props.setWill(will - rankStats.will - perkStats.will);
+    const updateStats = {
+      health: health - rankStats.health,
+      mobility: mobility - perkStats.mobility,
+      will: will - rankStats.will - perkStats.will,
+      aim: aim - rankStats.aim - perkStats.aim,
+    };
+    dispatch({ type: TypeEnums.changeStats, payload: updateStats });
   };
 
   return (
@@ -194,7 +187,7 @@ const PerkGrid = (props: PerkGridProps): JSX.Element => {
             <th style={{ width: '30%' }}>Perk</th>
             <th style={{ width: '30%' }}></th>
           </tr>
-          {classData?.ranks.map((rank, rankIndex) => {
+          {classData?.ranks.map((rank: RankInterface, rankIndex: number) => {
             return <RankRow key={rank.name} rank={rank} rankIndex={rankIndex} perkSelectHandler={perkSelectHandler} />;
           })}
         </table>

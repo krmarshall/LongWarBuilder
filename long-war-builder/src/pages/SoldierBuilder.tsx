@@ -1,22 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import ClassSelector from '../components/ClassSelector';
 import SoldierStats from '../components/SoldierStats';
 import PerkGrid from '../components/PerkGrid';
 import rookie from '../data/rookie';
+import BuildStorage from '../components/BuildStorage';
+import { context, TypeEnums } from '../context';
 
 const SoldierBuilder = (): JSX.Element => {
-  const [className, setClassName] = useState('');
-  // Prob shoulda used a reducer
-  const [health, setHealth] = useState(rookie.health);
-  const [mobility, setMobility] = useState(rookie.mobility);
-  const [will, setWill] = useState(rookie.will);
-  const [aim, setAim] = useState(rookie.aim);
+  //@ts-expect-error 2461
+  const [state, dispatch] = useContext(context);
+  const { className } = state;
 
   useEffect(() => {
-    setHealth(rookie.health);
-    setMobility(rookie.mobility);
-    setWill(rookie.will);
-    setAim(rookie.aim);
+    const statUpdate = {
+      health: rookie.health,
+      mobility: rookie.mobility,
+      will: rookie.will,
+      aim: rookie.aim,
+    };
+
+    dispatch({ type: TypeEnums.changeStats, payload: statUpdate });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [className]);
 
   return (
@@ -24,21 +28,14 @@ const SoldierBuilder = (): JSX.Element => {
       <div className="flex content-center justify-center">
         <h2 className="text-gray-50 my-2 text-2xl">Soldier Planner</h2>
       </div>
-      <ClassSelector setClassName={setClassName} />
+      <ClassSelector />
 
       <div className="flex flex-row flex-nowrap">
-        <PerkGrid
-          className={className}
-          health={health}
-          mobility={mobility}
-          will={will}
-          aim={aim}
-          setHealth={setHealth}
-          setMobility={setMobility}
-          setWill={setWill}
-          setAim={setAim}
-        />
-        <SoldierStats health={health} mobility={mobility} will={will} aim={aim} />
+        <PerkGrid />
+        <div className="flex flex-col flex-nowrap">
+          <SoldierStats />
+          <BuildStorage />
+        </div>
       </div>
     </React.Fragment>
   );

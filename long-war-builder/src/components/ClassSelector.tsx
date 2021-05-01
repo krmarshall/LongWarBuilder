@@ -1,12 +1,13 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { ClassImage } from '../types/enums/ClassEnums';
+import { context, TypeEnums } from '../context';
 
-interface ClassSelectorProps {
-  setClassName(value: string): void;
-}
-
-const ClassSelector = (props: ClassSelectorProps): JSX.Element => {
+const ClassSelector = (): JSX.Element => {
   const [selectedImage, setSelectedImage] = useState<HTMLElement>();
+
+  //@ts-expect-error 2461
+  const [state, dispatch] = useContext(context);
+
   const imageClasses = 'transform scale-75 object-none mx-0.5 -my-2 opacity-40';
 
   const styleSelectedImage = (event: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
@@ -31,7 +32,7 @@ const ClassSelector = (props: ClassSelectorProps): JSX.Element => {
         alt="assault"
         className={imageClasses}
         onClick={(event) => {
-          props.setClassName('assault');
+          dispatch({ type: TypeEnums.changeClass, payload: 'assault' });
           styleSelectedImage(event);
         }}
       ></img>
@@ -40,7 +41,7 @@ const ClassSelector = (props: ClassSelectorProps): JSX.Element => {
         alt="infantry"
         className={imageClasses}
         onClick={(event) => {
-          props.setClassName('infantry');
+          dispatch({ type: TypeEnums.changeClass, payload: 'infantry' });
           styleSelectedImage(event);
         }}
       ></img>
@@ -49,7 +50,7 @@ const ClassSelector = (props: ClassSelectorProps): JSX.Element => {
         alt="rocketeer"
         className={imageClasses}
         onClick={(event) => {
-          props.setClassName('rocketeer');
+          dispatch({ type: TypeEnums.changeClass, payload: 'rocketeer' });
           styleSelectedImage(event);
         }}
       ></img>
@@ -58,7 +59,7 @@ const ClassSelector = (props: ClassSelectorProps): JSX.Element => {
         alt="gunner"
         className={imageClasses}
         onClick={(event) => {
-          props.setClassName('gunner');
+          dispatch({ type: TypeEnums.changeClass, payload: 'gunner' });
           styleSelectedImage(event);
         }}
       ></img>
@@ -67,7 +68,7 @@ const ClassSelector = (props: ClassSelectorProps): JSX.Element => {
         alt="sniper"
         className={imageClasses}
         onClick={(event) => {
-          props.setClassName('sniper');
+          dispatch({ type: TypeEnums.changeClass, payload: 'sniper' });
           styleSelectedImage(event);
         }}
       ></img>
@@ -76,7 +77,7 @@ const ClassSelector = (props: ClassSelectorProps): JSX.Element => {
         alt="scout"
         className={imageClasses}
         onClick={(event) => {
-          props.setClassName('scout');
+          dispatch({ type: TypeEnums.changeClass, payload: 'scout' });
           styleSelectedImage(event);
         }}
       ></img>
@@ -85,7 +86,7 @@ const ClassSelector = (props: ClassSelectorProps): JSX.Element => {
         alt="medic"
         className={imageClasses}
         onClick={(event) => {
-          props.setClassName('medic');
+          dispatch({ type: TypeEnums.changeClass, payload: 'medic' });
           styleSelectedImage(event);
         }}
       ></img>
@@ -94,7 +95,7 @@ const ClassSelector = (props: ClassSelectorProps): JSX.Element => {
         alt="engineer"
         className={imageClasses}
         onClick={(event) => {
-          props.setClassName('engineer');
+          dispatch({ type: TypeEnums.changeClass, payload: 'engineer' });
           styleSelectedImage(event);
         }}
       ></img>

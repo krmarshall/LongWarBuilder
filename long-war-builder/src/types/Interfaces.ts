@@ -30,4 +30,19 @@ interface ClassInterface {
   ranks: Array<RankInterface>;
 }
 
-export type { ClassInterface, RankInterface, PerkInterface, StatProgressionInterface };
+interface LocalStorageBuild {
+  perks: Array<number>;
+}
+
+interface LocalStorageClassInterface {
+  [key: string]: LocalStorageBuild;
+}
+
+export type {
+  ClassInterface,
+  RankInterface,
+  PerkInterface,
+  StatProgressionInterface,
+  LocalStorageBuild,
+  LocalStorageClassInterface,
+};
