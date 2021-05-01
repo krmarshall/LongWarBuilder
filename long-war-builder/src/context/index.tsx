@@ -6,8 +6,9 @@ interface StateInterface {
   stats: any;
   classData: any;
   // eslint-disable-next-line no-sparse-arrays
-  currentBuild: Array<number>;
+  currentBuild: Array<number | undefined>;
   classBuilds: any;
+  loadBuildSignal: boolean;
 }
 
 interface ActionInterface {
@@ -25,9 +26,10 @@ enum TypeEnums {
   'changeClassData' = 'changeClassData',
   'changeCurrentBuild' = 'changeCurrentBuild',
   'changeClassBuilds' = 'changeClassBuilds',
+  'changeLoadBuildSignal' = 'changeLoadBuildSignal',
 }
 
-const initialState = {
+const initialState: StateInterface = {
   className: '',
   stats: {
     health: rookie.health,
@@ -36,9 +38,9 @@ const initialState = {
     aim: rookie.aim,
   },
   classData: undefined,
-  // eslint-disable-next-line no-sparse-arrays
-  currentBuild: [, , , , , ,],
-  classBuilds: undefined,
+  currentBuild: [undefined, undefined, undefined, undefined, undefined, undefined, undefined],
+  classBuilds: {},
+  loadBuildSignal: false,
 };
 
 const context = createContext(initialState);
@@ -48,7 +50,6 @@ const { Provider } = context;
 const StateProvider = ({ children }: ProviderParamsInterface): JSX.Element => {
   //@ts-expect-error 2769
   const [state, dispatch] = useReducer((state: StateInterface, action: ActionInterface) => {
-    console.log(state);
     switch (action.type) {
       case TypeEnums.changeClass: {
         const newState = { ...state };
@@ -73,6 +74,11 @@ const StateProvider = ({ children }: ProviderParamsInterface): JSX.Element => {
       case TypeEnums.changeClassBuilds: {
         const newState = { ...state };
         newState.classBuilds = action.payload;
+        return newState;
+      }
+      case TypeEnums.changeLoadBuildSignal: {
+        const newState = { ...state };
+        newState.loadBuildSignal = action.payload;
         return newState;
       }
       default: {

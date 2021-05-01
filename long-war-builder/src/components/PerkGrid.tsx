@@ -8,7 +8,7 @@ const PerkGrid = (): JSX.Element => {
   //@ts-expect-error 2461
   const [state, dispatch] = useContext(context);
   const { health, mobility, will, aim } = state.stats;
-  const { className, classData, currentBuild } = state;
+  const { className, classData, currentBuild, loadBuildSignal } = state;
 
   useEffect(() => {
     clearPerkTree();
@@ -52,6 +52,12 @@ const PerkGrid = (): JSX.Element => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [className]);
 
+  useEffect(() => {
+    clearPerkTree();
+    selectPerkTreeFromArray(currentBuild);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loadBuildSignal]);
+
   const perkSelectHandler = (rankSelected: number, perkSelected: number) => {
     // If the selected rank already has a perk dont allow a second perk selection, do allow if we are selecting the same perk (deselect)
     if (currentBuild[rankSelected] != undefined && currentBuild[rankSelected] != perkSelected) {
@@ -62,55 +68,61 @@ const PerkGrid = (): JSX.Element => {
     let element: HTMLElement;
     if (rankSelected == 0) {
       // Specialist rank has blank filler cells so has a different index
-      element = perkTable?.childNodes[rankSelected + 1].childNodes[perkSelected + 2] as HTMLElement;
+      element = perkTable?.childNodes[rankSelected].childNodes[perkSelected + 2] as HTMLElement;
     } else {
-      element = perkTable?.childNodes[rankSelected + 1].childNodes[perkSelected + 1] as HTMLElement;
+      element = perkTable?.childNodes[rankSelected].childNodes[perkSelected + 1] as HTMLElement;
     }
     if (element.dataset.selected) {
       // Deselect Perk
       setElementAsDeselected(element);
       const updateArray = currentBuild.slice();
       updateArray[rankSelected] = undefined;
-      dispatch({ type: TypeEnums.changeCurrentBuild, payload: updateArray })
+      dispatch({ type: TypeEnums.changeCurrentBuild, payload: updateArray });
       removeStatsFromPerk(rankSelected, perkSelected);
     } else {
       // Select Perk
       setElementAsSelected(element);
       const updateArray = currentBuild.slice();
       updateArray[rankSelected] = perkSelected;
-      dispatch({ type: TypeEnums.changeCurrentBuild, payload: updateArray })
+      dispatch({ type: TypeEnums.changeCurrentBuild, payload: updateArray });
       addStatsFromPerk(rankSelected, perkSelected);
     }
   };
 
-  // const selectPerkTreeFromArray = () => {
-  //   const perkTable = document.getElementById('perkTable');
-  //   const perkArray = [0, 1, 2, 0, 0, 2, 0];
-  //   perkArray.map((perkI, rankI) => {
-  //     let element: HTMLElement;
-  //     if (rankI == 0) {
-  //       element = perkTable?.childNodes[rankI + 1].childNodes[perkI + 2] as HTMLElement;
-  //     } else {
-  //       element = perkTable?.childNodes[rankI + 1].childNodes[perkI + 1] as HTMLElement;
-  //     }
-  //     setElementAsSelected(element);
-  //   });
-  // };
+  const selectPerkTreeFromArray = (perkArray: Array<number | undefined>) => {
+    const perkTable = document.getElementById('perkTable');
+    perkArray.map((perkI, rankI) => {
+      let element: HTMLElement;
+      if (typeof perkI != undefined) {
+        if (rankI == 0) {
+          element = perkTable?.childNodes[rankI].childNodes[(perkI as number) + 2] as HTMLElement;
+        } else {
+          element = perkTable?.childNodes[rankI].childNodes[(perkI as number) + 1] as HTMLElement;
+        }
+        setElementAsSelected(element);
+      }
+    });
+  };
 
   const clearPerkTree = () => {
     const perkTable = document.getElementById('perkTable');
     for (let rank = 0; rank < 7; rank++) {
       let element: HTMLElement;
       if (rank == 0) {
-        element = perkTable?.childNodes[rank + 1].childNodes[2] as HTMLElement;
+        element = perkTable?.childNodes[rank].childNodes[2] as HTMLElement;
         setElementAsDeselected(element);
       } else {
         for (let perk = 0; perk < 3; perk++) {
-          element = perkTable?.childNodes[rank + 1].childNodes[perk + 1] as HTMLElement;
+          element = perkTable?.childNodes[rank].childNodes[perk + 1] as HTMLElement;
           setElementAsDeselected(element);
         }
       }
     }
+
+    dispatch({
+      type: TypeEnums.changeCurrentBuild,
+      payload: [undefined, undefined, undefined, undefined, undefined, undefined, undefined],
+    });
   };
 
   const setElementAsSelected = (element: HTMLElement) => {
@@ -180,16 +192,22 @@ const PerkGrid = (): JSX.Element => {
       {!classData ? (
         <Fragment></Fragment>
       ) : (
-        <table className="table-fixed" id="perkTable">
-          <tr className="text-gray-50 select-none">
-            <th style={{ width: '10%' }}>Rank</th>
-            <th style={{ width: '30%' }}></th>
-            <th style={{ width: '30%' }}>Perk</th>
-            <th style={{ width: '30%' }}></th>
-          </tr>
-          {classData?.ranks.map((rank: RankInterface, rankIndex: number) => {
-            return <RankRow key={rank.name} rank={rank} rankIndex={rankIndex} perkSelectHandler={perkSelectHandler} />;
-          })}
+        <table className="table-fixed">
+          <thead>
+            <tr className="text-gray-50 select-none">
+              <th style={{ width: '10%' }}>Rank</th>
+              <th style={{ width: '30%' }}></th>
+              <th style={{ width: '30%' }}>Perk</th>
+              <th style={{ width: '30%' }}></th>
+            </tr>
+          </thead>
+          <tbody id="perkTable">
+            {classData?.ranks.map((rank: RankInterface, rankIndex: number) => {
+              return (
+                <RankRow key={rank.name} rank={rank} rankIndex={rankIndex} perkSelectHandler={perkSelectHandler} />
+              );
+            })}
+          </tbody>
         </table>
       )}
     </div>
