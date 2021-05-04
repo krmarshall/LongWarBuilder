@@ -1,11 +1,25 @@
-interface SoldierStatsProps {
-  health: number;
-  mobility: number;
-  will: number;
-  aim: number;
-}
+import { useContext, useEffect } from 'react';
+import { context, TypeEnums } from '../context';
+import rookie from '../data/rookie';
 
-const SoldierStats = ({ health, mobility, will, aim }: SoldierStatsProps): JSX.Element => {
+const SoldierStats = (): JSX.Element => {
+  //@ts-expect-error 2461
+  const [state, dispatch] = useContext(context);
+  const { health, mobility, will, aim } = state.stats;
+  const { className } = state;
+
+  useEffect(() => {
+    const statUpdate = {
+      health: rookie.health,
+      mobility: rookie.mobility,
+      will: rookie.will,
+      aim: rookie.aim,
+    };
+
+    dispatch({ type: TypeEnums.changeStats, payload: statUpdate });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [className]);
+
   return (
     <div className="m-4 p-4 bg-darkGray h-full min-w-max justify-center text-gray-50">
       <h3 className="text-xl">Soldier Stats</h3>

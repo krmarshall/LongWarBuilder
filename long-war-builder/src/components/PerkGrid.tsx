@@ -1,67 +1,73 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useContext, useEffect, useState } from 'react';
+import { context, TypeEnums } from '../context';
 import { assault, engineer, gunner, infantry, medic, rocketeer, scout, sniper } from '../data/classes';
-import { ClassInterface } from '../types/Interfaces';
+import rookie from '../data/rookie';
+import { ClassInterface, RankInterface } from '../types/Interfaces';
 import RankRow from './RankRow';
 
-interface PerkGridProps {
-  className: string;
-  health: number;
-  mobility: number;
-  will: number;
-  aim: number;
-  setHealth(value: number): void;
-  setMobility(value: number): void;
-  setWill(value: number): void;
-  setAim(value: number): void;
-}
+const PerkGrid = (): JSX.Element => {
+  //@ts-expect-error 2461
+  const [state, dispatch] = useContext(context);
+  const { health, mobility, will, aim } = state.stats;
+  const { className, classData, currentBuild, loadBuildSignal } = state;
 
-const PerkGrid = (props: PerkGridProps): JSX.Element => {
-  const { className, health, mobility, will, aim } = props;
-  const [classData, setClassData] = useState<undefined | ClassInterface>();
-  // eslint-disable-next-line no-sparse-arrays
-  const [currentBuild, setCurrentBuild] = useState<Array<undefined | number>>([, , , , , ,]);
-
+  // Watch className for changes and load the relevant class data file for the selected class
   useEffect(() => {
     clearPerkTree();
+    dispatch({
+      type: TypeEnums.changeCurrentBuild,
+      payload: [undefined, undefined, undefined, undefined, undefined, undefined, undefined],
+    });
     switch (className) {
       case 'assault': {
-        setClassData(assault);
+        dispatch({ type: TypeEnums.changeClassData, payload: assault });
         break;
       }
       case 'infantry': {
-        setClassData(infantry);
+        dispatch({ type: TypeEnums.changeClassData, payload: infantry });
         break;
       }
       case 'rocketeer': {
-        setClassData(rocketeer);
+        dispatch({ type: TypeEnums.changeClassData, payload: rocketeer });
         break;
       }
       case 'gunner': {
-        setClassData(gunner);
+        dispatch({ type: TypeEnums.changeClassData, payload: gunner });
         break;
       }
       case 'sniper': {
-        setClassData(sniper);
+        dispatch({ type: TypeEnums.changeClassData, payload: sniper });
         break;
       }
       case 'scout': {
-        setClassData(scout);
+        dispatch({ type: TypeEnums.changeClassData, payload: scout });
         break;
       }
       case 'medic': {
-        setClassData(medic);
+        dispatch({ type: TypeEnums.changeClassData, payload: medic });
         break;
       }
       case 'engineer': {
-        setClassData(engineer);
+        dispatch({ type: TypeEnums.changeClassData, payload: engineer });
         break;
       }
       default: {
-        setClassData(undefined);
+        dispatch({ type: TypeEnums.changeClassData, payload: undefined });
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [className]);
+
+  // Watch the loadBuildSignal for changes, if true load the build from context onto the page, then reset the signal variable
+  useEffect(() => {
+    if (loadBuildSignal) {
+      clearPerkTree();
+      resetStatsToRookie();
+      selectPerkTreeFromArray(currentBuild);
+      dispatch({ type: TypeEnums.resetBuildSignalWatcher, payload: false });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loadBuildSignal]);
 
   const perkSelectHandler = (rankSelected: number, perkSelected: number) => {
     // If the selected rank already has a perk dont allow a second perk selection, do allow if we are selecting the same perk (deselect)
@@ -73,51 +79,70 @@ const PerkGrid = (props: PerkGridProps): JSX.Element => {
     let element: HTMLElement;
     if (rankSelected == 0) {
       // Specialist rank has blank filler cells so has a different index
-      element = perkTable?.childNodes[rankSelected + 1].childNodes[perkSelected + 2] as HTMLElement;
+      element = perkTable?.childNodes[rankSelected].childNodes[perkSelected + 2] as HTMLElement;
     } else {
-      element = perkTable?.childNodes[rankSelected + 1].childNodes[perkSelected + 1] as HTMLElement;
+      element = perkTable?.childNodes[rankSelected].childNodes[perkSelected + 1] as HTMLElement;
     }
     if (element.dataset.selected) {
       // Deselect Perk
       setElementAsDeselected(element);
       const updateArray = currentBuild.slice();
       updateArray[rankSelected] = undefined;
-      setCurrentBuild(updateArray);
+      dispatch({ type: TypeEnums.changeCurrentBuild, payload: updateArray });
       removeStatsFromPerk(rankSelected, perkSelected);
     } else {
       // Select Perk
       setElementAsSelected(element);
       const updateArray = currentBuild.slice();
       updateArray[rankSelected] = perkSelected;
-      setCurrentBuild(updateArray);
+      dispatch({ type: TypeEnums.changeCurrentBuild, payload: updateArray });
       addStatsFromPerk(rankSelected, perkSelected);
     }
   };
 
-  // const selectPerkTreeFromArray = () => {
-  //   const perkTable = document.getElementById('perkTable');
-  //   const perkArray = [0, 1, 2, 0, 0, 2, 0];
-  //   perkArray.map((perkI, rankI) => {
-  //     let element: HTMLElement;
-  //     if (rankI == 0) {
-  //       element = perkTable?.childNodes[rankI + 1].childNodes[perkI + 2] as HTMLElement;
-  //     } else {
-  //       element = perkTable?.childNodes[rankI + 1].childNodes[perkI + 1] as HTMLElement;
-  //     }
-  //     setElementAsSelected(element);
-  //   });
-  // };
+  const selectPerkTreeFromArray = (perkArray: Array<number | undefined>) => {
+    // Can't just call addStatsFromPerk, think the dispatch calls are too fast? So lump them all together
+    const updateStats = {
+      health: rookie.health,
+      mobility: rookie.mobility,
+      will: rookie.will,
+      aim: rookie.aim,
+    };
+    const perkTable = document.getElementById('perkTable');
+    perkArray.map((perkI, rankI) => {
+      let element: HTMLElement;
+      if (typeof perkI != undefined && perkI != null) {
+        if (rankI == 0) {
+          element = perkTable?.childNodes[rankI].childNodes[(perkI as number) + 2] as HTMLElement;
+        } else {
+          element = perkTable?.childNodes[rankI].childNodes[(perkI as number) + 1] as HTMLElement;
+        }
+        setElementAsSelected(element);
+
+        // Stats from rank up
+        const rankStats = classData?.ranks[rankI].statProgression;
+        // Stats from perk
+        const perkStats = classData?.ranks[rankI].perkProgression[perkI as number];
+        // Add all the relevant stats to the update stats object
+        updateStats.health += rankStats.health;
+        updateStats.mobility += perkStats.mobility;
+        updateStats.will += rankStats.will + perkStats.will;
+        updateStats.aim += rankStats.aim + perkStats.aim;
+      }
+    });
+    dispatch({ type: TypeEnums.changeStats, payload: updateStats });
+  };
 
   const clearPerkTree = () => {
     const perkTable = document.getElementById('perkTable');
     for (let rank = 0; rank < 7; rank++) {
       let element: HTMLElement;
       if (rank == 0) {
-        element = perkTable?.childNodes[rank + 1].childNodes[2] as HTMLElement;
+        element = perkTable?.childNodes[rank].childNodes[2] as HTMLElement;
         setElementAsDeselected(element);
       } else {
         for (let perk = 0; perk < 3; perk++) {
-          element = perkTable?.childNodes[rank + 1].childNodes[perk + 1] as HTMLElement;
+          element = perkTable?.childNodes[rank].childNodes[perk + 1] as HTMLElement;
           setElementAsDeselected(element);
         }
       }
@@ -149,15 +174,17 @@ const PerkGrid = (props: PerkGridProps): JSX.Element => {
     }
     // Stats from rank up
     const rankStats = classData?.ranks[rankSelected].statProgression;
-    props.setHealth(health + rankStats.health);
 
     // Stats from perk
     const perkStats = classData?.ranks[rankSelected].perkProgression[perkSelected];
-    props.setMobility(mobility + perkStats.mobility);
 
-    // Stats from both
-    props.setAim(aim + rankStats.aim + perkStats.aim);
-    props.setWill(will + rankStats.will + perkStats.will);
+    const updateStats = {
+      health: health + rankStats.health,
+      mobility: mobility + perkStats.mobility,
+      will: will + rankStats.will + perkStats.will,
+      aim: aim + rankStats.aim + perkStats.aim,
+    };
+    dispatch({ type: TypeEnums.changeStats, payload: updateStats });
   };
 
   const removeStatsFromPerk = (rankSelected: number, perkSelected: number) => {
@@ -167,15 +194,28 @@ const PerkGrid = (props: PerkGridProps): JSX.Element => {
     }
     // Stats from rank up
     const rankStats = classData?.ranks[rankSelected].statProgression;
-    props.setHealth(health - rankStats.health);
 
     // Stats from perk
     const perkStats = classData?.ranks[rankSelected].perkProgression[perkSelected];
-    props.setMobility(mobility - perkStats.mobility);
 
-    // Stats from both
-    props.setAim(aim - rankStats.aim - perkStats.aim);
-    props.setWill(will - rankStats.will - perkStats.will);
+    const updateStats = {
+      health: health - rankStats.health,
+      mobility: mobility - perkStats.mobility,
+      will: will - rankStats.will - perkStats.will,
+      aim: aim - rankStats.aim - perkStats.aim,
+    };
+    dispatch({ type: TypeEnums.changeStats, payload: updateStats });
+  };
+
+  const resetStatsToRookie = () => {
+    const statUpdate = {
+      health: rookie.health,
+      mobility: rookie.mobility,
+      will: rookie.will,
+      aim: rookie.aim,
+    };
+
+    dispatch({ type: TypeEnums.changeStats, payload: statUpdate });
   };
 
   return (
@@ -187,16 +227,22 @@ const PerkGrid = (props: PerkGridProps): JSX.Element => {
       {!classData ? (
         <Fragment></Fragment>
       ) : (
-        <table className="table-fixed" id="perkTable">
-          <tr className="text-gray-50 select-none">
-            <th style={{ width: '10%' }}>Rank</th>
-            <th style={{ width: '30%' }}></th>
-            <th style={{ width: '30%' }}>Perk</th>
-            <th style={{ width: '30%' }}></th>
-          </tr>
-          {classData?.ranks.map((rank, rankIndex) => {
-            return <RankRow key={rank.name} rank={rank} rankIndex={rankIndex} perkSelectHandler={perkSelectHandler} />;
-          })}
+        <table className="table-fixed">
+          <thead>
+            <tr className="text-gray-50 select-none">
+              <th style={{ width: '10%' }}>Rank</th>
+              <th style={{ width: '30%' }}></th>
+              <th style={{ width: '30%' }}>Perk</th>
+              <th style={{ width: '30%' }}></th>
+            </tr>
+          </thead>
+          <tbody id="perkTable">
+            {classData?.ranks.map((rank: RankInterface, rankIndex: number) => {
+              return (
+                <RankRow key={rank.name} rank={rank} rankIndex={rankIndex} perkSelectHandler={perkSelectHandler} />
+              );
+            })}
+          </tbody>
         </table>
       )}
     </div>
