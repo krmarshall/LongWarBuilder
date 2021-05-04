@@ -14,7 +14,7 @@ const PerkCell = ({ perk, rankIndex, perkIndex }: PerkCellProps): JSX.Element =>
 
   const selectPerkHandler = () => {
     const updatedBuild = [...state.currentBuild];
-    updatedBuild[rankIndex] = perkIndex;
+    updatedBuild[rankIndex] = updatedBuild[rankIndex] == perkIndex ? undefined : perkIndex;
     dispatch({ type: TypeEnums.changeCurrentBuild, payload: updatedBuild });
   };
 
