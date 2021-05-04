@@ -9,7 +9,6 @@ interface StateInterface {
   // eslint-disable-next-line no-sparse-arrays
   currentBuild: Array<number | undefined>;
   classBuilds: any;
-  loadBuildSignal: boolean;
 }
 
 interface ActionInterface {
@@ -43,7 +42,6 @@ const initialState: StateInterface = {
   classData: undefined,
   currentBuild: [undefined, undefined, undefined, undefined, undefined, undefined, undefined],
   classBuilds: {},
-  loadBuildSignal: false,
 };
 
 const context = createContext(initialState);
@@ -58,6 +56,7 @@ const StateProvider = ({ children }: ProviderParamsInterface): JSX.Element => {
         const newState = { ...state };
         newState.selectedClass = action.payload.selectedClass;
         newState.classData = action.payload.classData;
+        newState.currentBuild = action.payload.currentBuild;
         return newState;
       }
       case TypeEnums.changeStats: {
@@ -77,13 +76,7 @@ const StateProvider = ({ children }: ProviderParamsInterface): JSX.Element => {
       }
       case TypeEnums.loadSavedBuild: {
         const newState = { ...state };
-        newState.loadBuildSignal = action.payload.loadBuildSignal;
         newState.currentBuild = action.payload.currentBuild;
-        return newState;
-      }
-      case TypeEnums.resetBuildSignalWatcher: {
-        const newState = { ...state };
-        newState.loadBuildSignal = action.payload.loadBuildSignal;
         return newState;
       }
       case TypeEnums.loadUrlBuild: {

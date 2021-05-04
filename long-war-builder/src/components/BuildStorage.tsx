@@ -57,7 +57,7 @@ const BuildStorage = (): JSX.Element => {
 
   const selectPerksFromSelectedBuild = (keyValue: string) => {
     const build = classBuilds[keyValue];
-    dispatch({ type: TypeEnums.loadSavedBuild, payload: { loadBuildSignal: true, currentBuild: build } });
+    dispatch({ type: TypeEnums.loadSavedBuild, payload: { currentBuild: build } });
   };
 
   const deleteBuild = (keyValue: string) => {

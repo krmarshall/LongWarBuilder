@@ -33,6 +33,17 @@ const ClassSelector = (): JSX.Element => {
     setSelectedImage(element);
   };
 
+  const classSelectHandler = (classLw: ClassName) => {
+    dispatch({
+      type: TypeEnums.changeClass,
+      payload: {
+        selectedClass: classLw,
+        classData: bioClasses[classLw],
+        currentBuild: [undefined, undefined, undefined, undefined, undefined, undefined, undefined],
+      },
+    });
+  };
+
   return (
     <div className="flex flex-row flex-nowrap content-center justify-center text-gray-50">
       {classList.map((classLw) => {
@@ -45,10 +56,7 @@ const ClassSelector = (): JSX.Element => {
             className="transform scale-75 object-none mx-0.5 -my-2 opacity-40 shadow"
             draggable="false"
             onClick={(event) => {
-              dispatch({
-                type: TypeEnums.changeClass,
-                payload: { selectedClass: classLw, classData: bioClasses[classLw as ClassName] },
-              });
+              classSelectHandler(classLw as ClassName);
               styleSelectedImage(event.target as HTMLElement);
             }}
           ></img>

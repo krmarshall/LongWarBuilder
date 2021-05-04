@@ -1,4 +1,4 @@
-import { Fragment, useCallback, useContext, useEffect, useLayoutEffect, useState } from 'react';
+import { Fragment, useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { context, TypeEnums } from '../context';
 import { bioClasses } from '../data/classes';
@@ -10,93 +10,31 @@ import RankRow from './RankRow';
 const PerkGrid = (): JSX.Element => {
   const [perkTable, setPerkTable] = useState(document.getElementById('perkTable'));
   const [urlLoaded, setUrlLoaded] = useState(false);
-  const [buildLoaded, setBuildLoaded] = useState(false);
+
   //@ts-expect-error 2461
   const [state, dispatch] = useContext(context);
-  const { health, mobility, will, aim } = state.stats;
-  const { selectedClass, classData, currentBuild, loadBuildSignal } = state;
+  const { selectedClass, classData, currentBuild } = state;
 
   //@ts-expect-error 2339
   const { code } = useParams();
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     setPerkTable(document.getElementById('perkTable'));
-  });
+  }, [classData]);
 
   useEffect(() => {
     if (code != undefined && !urlLoaded) {
       loadBuildFromQueryParam();
       setUrlLoaded(true);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [code, urlLoaded]);
 
-  // If the page was passed a build code load it on render
   useEffect(() => {
-    // ############# LEFT OFF HERE ##############
-    // selectedClass and classData are populated by this point, but current build isnt?
-    if (code != undefined && perkTable != null && urlLoaded && !buildLoaded) {
-      console.log(currentBuild);
-      console.log(classData);
-      console.log(selectedClass);
-      selectPerkTreeFromArray(currentBuild, classData);
-      setBuildLoaded(true);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [code, perkTable, urlLoaded, buildLoaded]);
-
-  // Watch className for changes and clear the perk tree on change
-  useEffect(() => {
-    clearPerkTree();
-    dispatch({
-      type: TypeEnums.changeCurrentBuild,
-      payload: [undefined, undefined, undefined, undefined, undefined, undefined, undefined],
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedClass]);
-
-  // Watch the loadBuildSignal for changes, if true load the build from context onto the page, then reset the signal variable
-  useEffect(() => {
-    if (loadBuildSignal) {
+    if (perkTable != null) {
       clearPerkTree();
-      resetStatsToRookie();
       selectPerkTreeFromArray(currentBuild, classData);
-      dispatch({ type: TypeEnums.resetBuildSignalWatcher, payload: false });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loadBuildSignal]);
-
-  const perkSelectHandler = (rankSelected: number, perkSelected: number) => {
-    // If the selected rank already has a perk dont allow a second perk selection, do allow if we are selecting the same perk (deselect)
-    if (currentBuild[rankSelected] != undefined && currentBuild[rankSelected] != perkSelected) {
-      return;
-    }
-
-    const perkTable = document.getElementById('perkTable');
-    let element: HTMLElement;
-    if (rankSelected == 0) {
-      // Specialist rank has blank filler cells so has a different index
-      element = perkTable?.childNodes[rankSelected].childNodes[perkSelected + 2] as HTMLElement;
-    } else {
-      element = perkTable?.childNodes[rankSelected].childNodes[perkSelected + 1] as HTMLElement;
-    }
-    if (element.dataset.selected) {
-      // Deselect Perk
-      setElementAsDeselected(element);
-      const updateArray = currentBuild.slice();
-      updateArray[rankSelected] = undefined;
-      dispatch({ type: TypeEnums.changeCurrentBuild, payload: updateArray });
-      removeStatsFromPerk(rankSelected, perkSelected);
-    } else {
-      // Select Perk
-      setElementAsSelected(element);
-      const updateArray = currentBuild.slice();
-      updateArray[rankSelected] = perkSelected;
-      dispatch({ type: TypeEnums.changeCurrentBuild, payload: updateArray });
-      addStatsFromPerk(rankSelected, perkSelected);
-    }
-  };
+  }, [currentBuild, perkTable]);
 
   const selectPerkTreeFromArray = (perkArray: Array<number | undefined>, classDataParam: ClassInterface) => {
     // Can't just call addStatsFromPerk, think the dispatch calls are too fast? So lump them all together
@@ -163,75 +101,22 @@ const PerkGrid = (): JSX.Element => {
     element.classList.add('hover:bg-lightGray');
   };
 
-  const addStatsFromPerk = (rankSelected: number, perkSelected: number) => {
-    // Would prefer to destructure objects but gets messy with variable naming
-    if (!classData) {
-      return;
-    }
-    // Stats from rank up
-    const rankStats = classData?.ranks[rankSelected].statProgression;
-
-    // Stats from perk
-    const perkStats = classData?.ranks[rankSelected].perkProgression[perkSelected];
-
-    const updateStats = {
-      health: health + rankStats.health,
-      mobility: mobility + perkStats.mobility,
-      will: will + rankStats.will + perkStats.will,
-      aim: aim + rankStats.aim + perkStats.aim,
-    };
-    dispatch({ type: TypeEnums.changeStats, payload: updateStats });
-  };
-
-  const removeStatsFromPerk = (rankSelected: number, perkSelected: number) => {
-    // Would prefer to destructure objects but gets messy with variable naming
-    if (!classData) {
-      return;
-    }
-    // Stats from rank up
-    const rankStats = classData?.ranks[rankSelected].statProgression;
-
-    // Stats from perk
-    const perkStats = classData?.ranks[rankSelected].perkProgression[perkSelected];
-
-    const updateStats = {
-      health: health - rankStats.health,
-      mobility: mobility - perkStats.mobility,
-      will: will - rankStats.will - perkStats.will,
-      aim: aim - rankStats.aim - perkStats.aim,
-    };
-    dispatch({ type: TypeEnums.changeStats, payload: updateStats });
-  };
-
-  const resetStatsToRookie = () => {
-    const statUpdate = {
-      health: rookie.health,
-      mobility: rookie.mobility,
-      will: rookie.will,
-      aim: rookie.aim,
-    };
-
-    dispatch({ type: TypeEnums.changeStats, payload: statUpdate });
-  };
-
   const loadBuildFromQueryParam = () => {
     // eyJjbGFzcyI6IkFzc2F1bHQiLCJidWlsZCI6WzAsMSwyLDAsMSwyLDBdfQ==
     try {
-      //
+      const buildString = atob(code);
+      const buildObject = JSON.parse(buildString);
+      dispatch({
+        type: TypeEnums.loadUrlBuild,
+        payload: {
+          selectedClass: buildObject.class,
+          classData: bioClasses[buildObject.class as ClassName],
+          currentBuild: buildObject.build,
+        },
+      });
     } catch (error) {
       console.log(error);
     }
-    const buildString = atob(code);
-    const buildObject = JSON.parse(buildString);
-    console.log(buildObject);
-    dispatch({
-      type: TypeEnums.loadUrlBuild,
-      payload: {
-        selectedClass: buildObject.class,
-        classData: bioClasses[buildObject.class as ClassName],
-        currentBuild: buildObject.build,
-      },
-    });
   };
 
   return (
@@ -254,9 +139,7 @@ const PerkGrid = (): JSX.Element => {
           </thead>
           <tbody id="perkTable">
             {classData?.ranks.map((rank: RankInterface, rankIndex: number) => {
-              return (
-                <RankRow key={rank.name} rank={rank} rankIndex={rankIndex} perkSelectHandler={perkSelectHandler} />
-              );
+              return <RankRow key={rank.name} rank={rank} rankIndex={rankIndex} />;
             })}
           </tbody>
         </table>

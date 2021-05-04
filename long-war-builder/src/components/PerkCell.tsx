@@ -1,22 +1,25 @@
+import { useContext } from 'react';
+import { context, TypeEnums } from '../context';
 import { PerkInterface } from '../types/Interfaces';
 
 interface PerkCellProps {
   perk: PerkInterface;
   rankIndex: number;
   perkIndex: number;
-  perkSelectHandler(rankSelected: number, perkSelected: number): void;
 }
 
-const PerkCell = (props: PerkCellProps): JSX.Element => {
-  const { perk, rankIndex, perkIndex } = props;
+const PerkCell = ({ perk, rankIndex, perkIndex }: PerkCellProps): JSX.Element => {
+  //@ts-expect-error 2461
+  const [state, dispatch] = useContext(context);
+
+  const selectPerkHandler = () => {
+    const updatedBuild = [...state.currentBuild];
+    updatedBuild[rankIndex] = perkIndex;
+    dispatch({ type: TypeEnums.changeCurrentBuild, payload: updatedBuild });
+  };
+
   return (
-    <td
-      data-selected=""
-      className="text-center hover:bg-lightGray select-none"
-      onClick={() => {
-        props.perkSelectHandler(rankIndex, perkIndex);
-      }}
-    >
+    <td data-selected="" className="text-center hover:bg-lightGray select-none" onClick={selectPerkHandler}>
       <img
         src={`${process.env.PUBLIC_URL}/${perk.imgPath}`}
         alt={perk.perk}
