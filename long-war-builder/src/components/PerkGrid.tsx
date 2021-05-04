@@ -1,6 +1,7 @@
 import { Fragment, useContext, useEffect, useState } from 'react';
 import { context, TypeEnums } from '../context';
 import { assault, engineer, gunner, infantry, medic, rocketeer, scout, sniper } from '../data/classes';
+import rookie from '../data/rookie';
 import { ClassInterface, RankInterface } from '../types/Interfaces';
 import RankRow from './RankRow';
 
@@ -10,8 +11,13 @@ const PerkGrid = (): JSX.Element => {
   const { health, mobility, will, aim } = state.stats;
   const { className, classData, currentBuild, loadBuildSignal } = state;
 
+  // Watch className for changes and load the relevant class data file for the selected class
   useEffect(() => {
     clearPerkTree();
+    dispatch({
+      type: TypeEnums.changeCurrentBuild,
+      payload: [undefined, undefined, undefined, undefined, undefined, undefined, undefined],
+    });
     switch (className) {
       case 'assault': {
         dispatch({ type: TypeEnums.changeClassData, payload: assault });
@@ -52,9 +58,14 @@ const PerkGrid = (): JSX.Element => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [className]);
 
+  // Watch the loadBuildSignal for changes, if true load the build from context onto the page, then reset the signal variable
   useEffect(() => {
-    clearPerkTree();
-    selectPerkTreeFromArray(currentBuild);
+    if (loadBuildSignal) {
+      clearPerkTree();
+      resetStatsToRookie();
+      selectPerkTreeFromArray(currentBuild);
+      dispatch({ type: TypeEnums.resetBuildSignalWatcher, payload: false });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loadBuildSignal]);
 
@@ -90,18 +101,36 @@ const PerkGrid = (): JSX.Element => {
   };
 
   const selectPerkTreeFromArray = (perkArray: Array<number | undefined>) => {
+    // Can't just call addStatsFromPerk, think the dispatch calls are too fast? So lump them all together
+    const updateStats = {
+      health: rookie.health,
+      mobility: rookie.mobility,
+      will: rookie.will,
+      aim: rookie.aim,
+    };
     const perkTable = document.getElementById('perkTable');
     perkArray.map((perkI, rankI) => {
       let element: HTMLElement;
-      if (typeof perkI != undefined) {
+      if (typeof perkI != undefined && perkI != null) {
         if (rankI == 0) {
           element = perkTable?.childNodes[rankI].childNodes[(perkI as number) + 2] as HTMLElement;
         } else {
           element = perkTable?.childNodes[rankI].childNodes[(perkI as number) + 1] as HTMLElement;
         }
         setElementAsSelected(element);
+
+        // Stats from rank up
+        const rankStats = classData?.ranks[rankI].statProgression;
+        // Stats from perk
+        const perkStats = classData?.ranks[rankI].perkProgression[perkI as number];
+        // Add all the relevant stats to the update stats object
+        updateStats.health += rankStats.health;
+        updateStats.mobility += perkStats.mobility;
+        updateStats.will += rankStats.will + perkStats.will;
+        updateStats.aim += rankStats.aim + perkStats.aim;
       }
     });
+    dispatch({ type: TypeEnums.changeStats, payload: updateStats });
   };
 
   const clearPerkTree = () => {
@@ -118,11 +147,6 @@ const PerkGrid = (): JSX.Element => {
         }
       }
     }
-
-    dispatch({
-      type: TypeEnums.changeCurrentBuild,
-      payload: [undefined, undefined, undefined, undefined, undefined, undefined, undefined],
-    });
   };
 
   const setElementAsSelected = (element: HTMLElement) => {
@@ -181,6 +205,17 @@ const PerkGrid = (): JSX.Element => {
       aim: aim - rankStats.aim - perkStats.aim,
     };
     dispatch({ type: TypeEnums.changeStats, payload: updateStats });
+  };
+
+  const resetStatsToRookie = () => {
+    const statUpdate = {
+      health: rookie.health,
+      mobility: rookie.mobility,
+      will: rookie.will,
+      aim: rookie.aim,
+    };
+
+    dispatch({ type: TypeEnums.changeStats, payload: statUpdate });
   };
 
   return (

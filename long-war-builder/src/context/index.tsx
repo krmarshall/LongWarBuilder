@@ -26,7 +26,8 @@ enum TypeEnums {
   'changeClassData' = 'changeClassData',
   'changeCurrentBuild' = 'changeCurrentBuild',
   'changeClassBuilds' = 'changeClassBuilds',
-  'changeLoadBuildSignal' = 'changeLoadBuildSignal',
+  'loadSavedBuild' = 'loadSavedBuild',
+  'resetBuildSignalWatcher' = 'resetBuildSignalWatcher',
 }
 
 const initialState: StateInterface = {
@@ -76,9 +77,15 @@ const StateProvider = ({ children }: ProviderParamsInterface): JSX.Element => {
         newState.classBuilds = action.payload;
         return newState;
       }
-      case TypeEnums.changeLoadBuildSignal: {
+      case TypeEnums.loadSavedBuild: {
         const newState = { ...state };
-        newState.loadBuildSignal = action.payload;
+        newState.loadBuildSignal = action.payload.loadBuildSignal;
+        newState.currentBuild = action.payload.currentBuild;
+        return newState;
+      }
+      case TypeEnums.resetBuildSignalWatcher: {
+        const newState = { ...state };
+        newState.loadBuildSignal = action.payload.loadBuildSignal;
         return newState;
       }
       default: {
