@@ -8,3 +8,9 @@
 	from = "/*"
 	to = "/index.html"       
 	status = 200
+
+[[plugins]]
+	package = "netlify-plugin-image-optim"
+
+[[plugins]]
+	package = "netlify-plugin-hashfiles"
