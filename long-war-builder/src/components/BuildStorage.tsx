@@ -70,14 +70,14 @@ const BuildStorage = (): JSX.Element => {
   };
 
   return (
-    <div className="m-4 p-4 bg-darkGray h-full min-w-max justify-center text-gray-50">
+    <div className="m-4 p-4 bg-darkGray rounded h-auto min-w-max justify-center text-gray-50 shadow-lg">
       <h3 className="text-xl text-center">Build Storage</h3>
       <ul>
         {classBuildsKeys?.map((keyValue) => {
           return (
             <li
               key={keyValue}
-              className="cursor-pointer hover:bg-lightGray border rounded p-1 m-1 border-gray-400 flex flex-row flex-nowrap"
+              className="cursor-pointer bg-lightGray hover:bg-gray-700 border rounded p-1 m-1 border-gray-400 flex flex-row flex-nowrap"
             >
               <p
                 className="flex-grow"
@@ -102,7 +102,7 @@ const BuildStorage = (): JSX.Element => {
       <input
         type="text"
         id="buildName"
-        className="text-gray-700 rounded bg-gray-300 placeholder-gray-500 m-1 p-1"
+        className="text-gray-700 rounded bg-gray-200 placeholder-gray-500 m-1 p-1"
         placeholder="Build Name"
         value={buildName}
         onChange={(event) => {

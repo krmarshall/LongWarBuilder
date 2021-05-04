@@ -9,7 +9,7 @@ const App = (): JSX.Element => {
           className="bg-background bg-no-repeat bg-cover bg-local h-screen w-screen flex flex-wrap content-center justify-center py-6"
           id="background-image"
         >
-          <div className="bg-darkGray bg-opacity-95 h-full w-3/4 rounded-lg" id="grey-box">
+          <div className="bg-darkGray bg-opacity-80 h-full w-3/4 rounded-lg" id="grey-box">
             <Switch>
               <Route exact path="/">
                 <SoldierBuilder />

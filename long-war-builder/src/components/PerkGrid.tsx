@@ -220,8 +220,8 @@ const PerkGrid = (): JSX.Element => {
 
   return (
     <div
-      className="m-4 p-2 bg-darkGray flex flex-wrap flex-grow justify-center overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-400"
-      style={{ maxHeight: '78vh' }}
+      className="m-4 p-2 bg-darkGray rounded flex flex-wrap flex-grow justify-center overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-300 shadow-lg"
+      style={{ maxHeight: '75vh' }}
     >
       <h3 className="text-gray-50 text-xl">{className ? classData?.class : 'Select A Class'}</h3>
       {!classData ? (

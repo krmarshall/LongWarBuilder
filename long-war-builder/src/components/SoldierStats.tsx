@@ -21,8 +21,8 @@ const SoldierStats = (): JSX.Element => {
   }, [className]);
 
   return (
-    <div className="m-4 p-4 bg-darkGray h-full min-w-max justify-center text-gray-50">
-      <h3 className="text-xl">Soldier Stats</h3>
+    <div className="m-4 p-4 bg-darkGray rounded h-auto min-w-max justify-center text-gray-50 shadow-lg">
+      <h3 className="text-xl text-center">Soldier Stats</h3>
       <div className="space-x-2">
         <img
           src={`${process.env.PUBLIC_URL}/img/stats/health.png`}

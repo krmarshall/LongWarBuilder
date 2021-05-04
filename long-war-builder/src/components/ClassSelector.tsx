@@ -9,7 +9,7 @@ const ClassSelector = (): JSX.Element => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [state, dispatch] = useContext(context);
 
-  const imageClasses = 'transform scale-75 object-none mx-0.5 -my-2 opacity-40';
+  const imageClasses = 'transform scale-75 object-none mx-0.5 -my-2 opacity-40 shadow';
 
   const styleSelectedImage = (event: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     const element = event.target as HTMLElement;
