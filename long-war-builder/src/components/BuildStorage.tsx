@@ -120,7 +120,7 @@ const BuildStorage = (): JSX.Element => {
       ></input>
       <br />
       <div className="flex content-center justify-center">
-        <button className="rounded py-1 px-2 font-bold bg-lightGray hover:bg-blueGray" onClick={saveBuildToStorage}>
+        <button className="rounded py-1 px-2 m-1 font-bold bg-lightGray hover:bg-blueGray" onClick={saveBuildToStorage}>
           Save Build
         </button>
       </div>

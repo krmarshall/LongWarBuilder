@@ -31,6 +31,7 @@ const ClassSelector = (): JSX.Element => {
         src={`${process.env.PUBLIC_URL}/${ClassImage.assault}`}
         alt="assault"
         className={imageClasses}
+        draggable="false"
         onClick={(event) => {
           dispatch({ type: TypeEnums.changeClass, payload: 'assault' });
           styleSelectedImage(event);
@@ -40,6 +41,7 @@ const ClassSelector = (): JSX.Element => {
         src={`${process.env.PUBLIC_URL}/${ClassImage.infantry}`}
         alt="infantry"
         className={imageClasses}
+        draggable="false"
         onClick={(event) => {
           dispatch({ type: TypeEnums.changeClass, payload: 'infantry' });
           styleSelectedImage(event);
@@ -49,6 +51,7 @@ const ClassSelector = (): JSX.Element => {
         src={`${process.env.PUBLIC_URL}/${ClassImage.rocketeer}`}
         alt="rocketeer"
         className={imageClasses}
+        draggable="false"
         onClick={(event) => {
           dispatch({ type: TypeEnums.changeClass, payload: 'rocketeer' });
           styleSelectedImage(event);
@@ -58,6 +61,7 @@ const ClassSelector = (): JSX.Element => {
         src={`${process.env.PUBLIC_URL}/${ClassImage.gunner}`}
         alt="gunner"
         className={imageClasses}
+        draggable="false"
         onClick={(event) => {
           dispatch({ type: TypeEnums.changeClass, payload: 'gunner' });
           styleSelectedImage(event);
@@ -67,6 +71,7 @@ const ClassSelector = (): JSX.Element => {
         src={`${process.env.PUBLIC_URL}/${ClassImage.sniper}`}
         alt="sniper"
         className={imageClasses}
+        draggable="false"
         onClick={(event) => {
           dispatch({ type: TypeEnums.changeClass, payload: 'sniper' });
           styleSelectedImage(event);
@@ -76,6 +81,7 @@ const ClassSelector = (): JSX.Element => {
         src={`${process.env.PUBLIC_URL}/${ClassImage.scout}`}
         alt="scout"
         className={imageClasses}
+        draggable="false"
         onClick={(event) => {
           dispatch({ type: TypeEnums.changeClass, payload: 'scout' });
           styleSelectedImage(event);
@@ -85,6 +91,7 @@ const ClassSelector = (): JSX.Element => {
         src={`${process.env.PUBLIC_URL}/${ClassImage.medic}`}
         alt="medic"
         className={imageClasses}
+        draggable="false"
         onClick={(event) => {
           dispatch({ type: TypeEnums.changeClass, payload: 'medic' });
           styleSelectedImage(event);
@@ -94,6 +101,7 @@ const ClassSelector = (): JSX.Element => {
         src={`${process.env.PUBLIC_URL}/${ClassImage.engineer}`}
         alt="engineer"
         className={imageClasses}
+        draggable="false"
         onClick={(event) => {
           dispatch({ type: TypeEnums.changeClass, payload: 'engineer' });
           styleSelectedImage(event);
