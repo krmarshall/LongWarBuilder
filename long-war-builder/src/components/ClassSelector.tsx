@@ -6,6 +6,7 @@ const ClassSelector = (): JSX.Element => {
   const [selectedImage, setSelectedImage] = useState<HTMLElement>();
 
   //@ts-expect-error 2461
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [state, dispatch] = useContext(context);
 
   const imageClasses = 'transform scale-75 object-none mx-0.5 -my-2 opacity-40';

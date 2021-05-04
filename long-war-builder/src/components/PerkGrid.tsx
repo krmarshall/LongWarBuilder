@@ -1,8 +1,8 @@
-import { Fragment, useContext, useEffect, useState } from 'react';
+import { Fragment, useContext, useEffect } from 'react';
 import { context, TypeEnums } from '../context';
 import { assault, engineer, gunner, infantry, medic, rocketeer, scout, sniper } from '../data/classes';
 import rookie from '../data/rookie';
-import { ClassInterface, RankInterface } from '../types/Interfaces';
+import { RankInterface } from '../types/Interfaces';
 import RankRow from './RankRow';
 
 const PerkGrid = (): JSX.Element => {

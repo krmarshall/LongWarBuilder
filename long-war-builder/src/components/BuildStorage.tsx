@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
 import { context, TypeEnums } from '../context';
-import { LocalStorageClassInterface } from '../types/Interfaces';
 
 const BuildStorage = (): JSX.Element => {
   const [buildName, setBuildName] = useState('');
@@ -8,14 +7,6 @@ const BuildStorage = (): JSX.Element => {
   const [state, dispatch] = useContext(context);
   const { className, classBuilds, currentBuild } = state;
   const [classBuildsKeys, setClassBuildsKeys] = useState<Array<string>>();
-  const assault = {
-    buildTitle: {
-      perks: [0, 0, 0, 0, 0, 0, 0],
-    },
-    anotherOne: {
-      perks: [1, 1, 1, 1, 1, 1, 1],
-    },
-  };
 
   useEffect(() => {
     loadBuildsFromLocalStorage();

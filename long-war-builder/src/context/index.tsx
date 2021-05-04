@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { createContext, useReducer } from 'react';
 import rookie from '../data/rookie';
 
