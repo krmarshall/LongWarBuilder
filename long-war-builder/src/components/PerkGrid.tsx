@@ -1,6 +1,6 @@
 import { Fragment, useContext, useEffect } from 'react';
+import { useParams } from 'react-router';
 import { context, TypeEnums } from '../context';
-import { assault, engineer, gunner, infantry, medic, rocketeer, scout, sniper } from '../data/classes';
 import rookie from '../data/rookie';
 import { RankInterface } from '../types/Interfaces';
 import RankRow from './RankRow';
@@ -9,54 +9,28 @@ const PerkGrid = (): JSX.Element => {
   //@ts-expect-error 2461
   const [state, dispatch] = useContext(context);
   const { health, mobility, will, aim } = state.stats;
-  const { className, classData, currentBuild, loadBuildSignal } = state;
+  const { selectedClass, classData, currentBuild, loadBuildSignal } = state;
 
-  // Watch className for changes and load the relevant class data file for the selected class
+  //@ts-expect-error 2339
+  const { code } = useParams();
+
+  // If the page was passed a build code load it on render
+  useEffect(() => {
+    if (code != undefined) {
+      loadBuildFromQueryParam();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [code]);
+
+  // Watch className for changes and clear the perk tree on change
   useEffect(() => {
     clearPerkTree();
     dispatch({
       type: TypeEnums.changeCurrentBuild,
       payload: [undefined, undefined, undefined, undefined, undefined, undefined, undefined],
     });
-    switch (className) {
-      case 'assault': {
-        dispatch({ type: TypeEnums.changeClassData, payload: assault });
-        break;
-      }
-      case 'infantry': {
-        dispatch({ type: TypeEnums.changeClassData, payload: infantry });
-        break;
-      }
-      case 'rocketeer': {
-        dispatch({ type: TypeEnums.changeClassData, payload: rocketeer });
-        break;
-      }
-      case 'gunner': {
-        dispatch({ type: TypeEnums.changeClassData, payload: gunner });
-        break;
-      }
-      case 'sniper': {
-        dispatch({ type: TypeEnums.changeClassData, payload: sniper });
-        break;
-      }
-      case 'scout': {
-        dispatch({ type: TypeEnums.changeClassData, payload: scout });
-        break;
-      }
-      case 'medic': {
-        dispatch({ type: TypeEnums.changeClassData, payload: medic });
-        break;
-      }
-      case 'engineer': {
-        dispatch({ type: TypeEnums.changeClassData, payload: engineer });
-        break;
-      }
-      default: {
-        dispatch({ type: TypeEnums.changeClassData, payload: undefined });
-      }
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [className]);
+  }, [selectedClass]);
 
   // Watch the loadBuildSignal for changes, if true load the build from context onto the page, then reset the signal variable
   useEffect(() => {
@@ -218,12 +192,23 @@ const PerkGrid = (): JSX.Element => {
     dispatch({ type: TypeEnums.changeStats, payload: statUpdate });
   };
 
+  const loadBuildFromQueryParam = () => {
+    // e2NsYXNzOiJhc3NhdWx0IixidWlsZDpbMCwxLDIsMCwxLDIsMF19
+    try {
+      const buildObject = JSON.parse(atob(code));
+      dispatch({ type: TypeEnums.changeClass, payload: buildObject.class });
+      selectPerkTreeFromArray(buildObject.build);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div
       className="m-4 p-2 bg-darkGray rounded flex flex-wrap flex-grow justify-center overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-300 shadow-lg"
       style={{ maxHeight: '75vh' }}
     >
-      <h3 className="text-gray-50 text-xl">{className ? classData?.class : 'Select A Class'}</h3>
+      <h3 className="text-gray-50 text-xl">{selectedClass ? classData?.class : 'Select A Class'}</h3>
       {!classData ? (
         <Fragment></Fragment>
       ) : (

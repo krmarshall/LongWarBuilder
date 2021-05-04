@@ -3,7 +3,7 @@ import React, { createContext, useReducer } from 'react';
 import rookie from '../data/rookie';
 
 interface StateInterface {
-  className: string;
+  selectedClass: string;
   stats: any;
   classData: any;
   // eslint-disable-next-line no-sparse-arrays
@@ -29,10 +29,11 @@ enum TypeEnums {
   'changeClassBuilds' = 'changeClassBuilds',
   'loadSavedBuild' = 'loadSavedBuild',
   'resetBuildSignalWatcher' = 'resetBuildSignalWatcher',
+  'loadUrlBuild' = 'loadUrlBuild',
 }
 
 const initialState: StateInterface = {
-  className: '',
+  selectedClass: '',
   stats: {
     health: rookie.health,
     mobility: rookie.mobility,
@@ -55,7 +56,8 @@ const StateProvider = ({ children }: ProviderParamsInterface): JSX.Element => {
     switch (action.type) {
       case TypeEnums.changeClass: {
         const newState = { ...state };
-        newState.className = action.payload;
+        newState.selectedClass = action.payload.selectedClass;
+        newState.classData = action.payload.classData;
         return newState;
       }
       case TypeEnums.changeStats: {
@@ -63,11 +65,11 @@ const StateProvider = ({ children }: ProviderParamsInterface): JSX.Element => {
         newState.stats = action.payload;
         return newState;
       }
-      case TypeEnums.changeClassData: {
-        const newState = { ...state };
-        newState.classData = action.payload;
-        return newState;
-      }
+      // case TypeEnums.changeClassData: {
+      //   const newState = { ...state };
+      //   newState.classData = action.payload;
+      //   return newState;
+      // }
       case TypeEnums.changeCurrentBuild: {
         const newState = { ...state };
         newState.currentBuild = action.payload;

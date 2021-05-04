@@ -3,9 +3,9 @@ import { ClassImage, ClassName } from '../../types/enums/ClassEnums';
 import { RankImage, RankName } from '../../types/enums/RankEnums';
 import { PerkDescription, PerkImage, PerkName } from '../../types/enums/PerkEnums';
 
-const engineer: ClassInterface = {
-  class: ClassName.engineer,
-  imgPath: ClassImage.engineer,
+const Engineer: ClassInterface = {
+  class: ClassName.Engineer,
+  imgPath: ClassImage.Engineer,
   ranks: [
     {
       name: RankName.specialist,
@@ -239,4 +239,4 @@ const engineer: ClassInterface = {
   ],
 };
 
-export default engineer;
+export default Engineer;

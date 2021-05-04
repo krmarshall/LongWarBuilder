@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react';
-import { ClassImage } from '../types/enums/ClassEnums';
+import { ClassImage, ClassName } from '../types/enums/ClassEnums';
 import { context, TypeEnums } from '../context';
+import { bioClasses } from '../data/classes';
 
 const ClassSelector = (): JSX.Element => {
   const [selectedImage, setSelectedImage] = useState<HTMLElement>();
@@ -9,7 +10,7 @@ const ClassSelector = (): JSX.Element => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [state, dispatch] = useContext(context);
 
-  const imageClasses = 'transform scale-75 object-none mx-0.5 -my-2 opacity-40 shadow';
+  const classList = ['Assault', 'Infantry', 'Rocketeer', 'Gunner', 'Sniper', 'Scout', 'Medic', 'Engineer'];
 
   const styleSelectedImage = (event: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     const element = event.target as HTMLElement;
@@ -28,86 +29,24 @@ const ClassSelector = (): JSX.Element => {
 
   return (
     <div className="flex flex-row flex-nowrap content-center justify-center text-gray-50">
-      <img
-        src={`${process.env.PUBLIC_URL}/${ClassImage.assault}`}
-        alt="assault"
-        className={imageClasses}
-        draggable="false"
-        onClick={(event) => {
-          dispatch({ type: TypeEnums.changeClass, payload: 'assault' });
-          styleSelectedImage(event);
-        }}
-      ></img>
-      <img
-        src={`${process.env.PUBLIC_URL}/${ClassImage.infantry}`}
-        alt="infantry"
-        className={imageClasses}
-        draggable="false"
-        onClick={(event) => {
-          dispatch({ type: TypeEnums.changeClass, payload: 'infantry' });
-          styleSelectedImage(event);
-        }}
-      ></img>
-      <img
-        src={`${process.env.PUBLIC_URL}/${ClassImage.rocketeer}`}
-        alt="rocketeer"
-        className={imageClasses}
-        draggable="false"
-        onClick={(event) => {
-          dispatch({ type: TypeEnums.changeClass, payload: 'rocketeer' });
-          styleSelectedImage(event);
-        }}
-      ></img>
-      <img
-        src={`${process.env.PUBLIC_URL}/${ClassImage.gunner}`}
-        alt="gunner"
-        className={imageClasses}
-        draggable="false"
-        onClick={(event) => {
-          dispatch({ type: TypeEnums.changeClass, payload: 'gunner' });
-          styleSelectedImage(event);
-        }}
-      ></img>
-      <img
-        src={`${process.env.PUBLIC_URL}/${ClassImage.sniper}`}
-        alt="sniper"
-        className={imageClasses}
-        draggable="false"
-        onClick={(event) => {
-          dispatch({ type: TypeEnums.changeClass, payload: 'sniper' });
-          styleSelectedImage(event);
-        }}
-      ></img>
-      <img
-        src={`${process.env.PUBLIC_URL}/${ClassImage.scout}`}
-        alt="scout"
-        className={imageClasses}
-        draggable="false"
-        onClick={(event) => {
-          dispatch({ type: TypeEnums.changeClass, payload: 'scout' });
-          styleSelectedImage(event);
-        }}
-      ></img>
-      <img
-        src={`${process.env.PUBLIC_URL}/${ClassImage.medic}`}
-        alt="medic"
-        className={imageClasses}
-        draggable="false"
-        onClick={(event) => {
-          dispatch({ type: TypeEnums.changeClass, payload: 'medic' });
-          styleSelectedImage(event);
-        }}
-      ></img>
-      <img
-        src={`${process.env.PUBLIC_URL}/${ClassImage.engineer}`}
-        alt="engineer"
-        className={imageClasses}
-        draggable="false"
-        onClick={(event) => {
-          dispatch({ type: TypeEnums.changeClass, payload: 'engineer' });
-          styleSelectedImage(event);
-        }}
-      ></img>
+      {classList.map((classLw) => {
+        return (
+          <img
+            key={classLw}
+            src={`${process.env.PUBLIC_URL}/${ClassImage[classLw as ClassName]}`}
+            alt={classLw}
+            className="transform scale-75 object-none mx-0.5 -my-2 opacity-40 shadow"
+            draggable="false"
+            onClick={(event) => {
+              dispatch({
+                type: TypeEnums.changeClass,
+                payload: { selectedClass: classLw, classData: bioClasses[classLw as ClassName] },
+              });
+              styleSelectedImage(event);
+            }}
+          ></img>
+        );
+      })}
     </div>
   );
 };

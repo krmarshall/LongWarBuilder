@@ -3,9 +3,9 @@ import { ClassImage, ClassName } from '../../types/enums/ClassEnums';
 import { RankImage, RankName } from '../../types/enums/RankEnums';
 import { PerkDescription, PerkImage, PerkName } from '../../types/enums/PerkEnums';
 
-const scout: ClassInterface = {
-  class: ClassName.scout,
-  imgPath: ClassImage.scout,
+const Scout: ClassInterface = {
+  class: ClassName.Scout,
+  imgPath: ClassImage.Scout,
   ranks: [
     {
       name: RankName.specialist,
@@ -239,4 +239,4 @@ const scout: ClassInterface = {
   ],
 };
 
-export default scout;
+export default Scout;

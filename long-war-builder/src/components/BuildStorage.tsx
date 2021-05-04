@@ -5,16 +5,16 @@ const BuildStorage = (): JSX.Element => {
   const [buildName, setBuildName] = useState('');
   //@ts-expect-error 2461
   const [state, dispatch] = useContext(context);
-  const { className, classBuilds, currentBuild } = state;
+  const { selectedClass, classBuilds, currentBuild } = state;
   const [classBuildsKeys, setClassBuildsKeys] = useState<Array<string>>();
 
   useEffect(() => {
     loadBuildsFromLocalStorage();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [className]);
+  }, [selectedClass]);
 
   const loadBuildsFromLocalStorage = () => {
-    const storageString = localStorage.getItem(className);
+    const storageString = localStorage.getItem(selectedClass);
     if (storageString == null) {
       dispatch({ type: TypeEnums.changeClassBuilds, payload: undefined });
       setClassBuildsKeys(undefined);
@@ -27,7 +27,7 @@ const BuildStorage = (): JSX.Element => {
   };
 
   const saveBuildToStorage = () => {
-    if (!className) {
+    if (!selectedClass) {
       alert('Please select a class.');
       return;
     }
@@ -48,7 +48,7 @@ const BuildStorage = (): JSX.Element => {
     }
     const updateClassBuilds = { ...classBuilds };
     updateClassBuilds[buildName] = currentBuild;
-    localStorage.setItem(className, JSON.stringify(updateClassBuilds));
+    localStorage.setItem(selectedClass, JSON.stringify(updateClassBuilds));
     dispatch({ type: TypeEnums.changeClassBuilds, payload: updateClassBuilds });
     const keys = Object.keys(updateClassBuilds);
     setClassBuildsKeys(keys);
@@ -63,14 +63,14 @@ const BuildStorage = (): JSX.Element => {
   const deleteBuild = (keyValue: string) => {
     const updateClassBuilds = { ...classBuilds };
     delete updateClassBuilds[keyValue];
-    localStorage.setItem(className, JSON.stringify(updateClassBuilds));
+    localStorage.setItem(selectedClass, JSON.stringify(updateClassBuilds));
     dispatch({ type: TypeEnums.changeClassBuilds, payload: updateClassBuilds });
     const keys = Object.keys(updateClassBuilds);
     setClassBuildsKeys(keys);
   };
 
   return (
-    <div className="m-4 p-4 bg-darkGray rounded h-auto min-w-max justify-center text-gray-50 shadow-lg">
+    <div className="m-4 p-4 ml-0  bg-darkGray rounded h-auto min-w-max justify-center text-gray-50 shadow-lg">
       <h3 className="text-xl text-center">Build Storage</h3>
       <ul>
         {classBuildsKeys?.map((keyValue) => {

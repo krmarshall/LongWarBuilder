@@ -3,9 +3,9 @@ import { ClassImage, ClassName } from '../../types/enums/ClassEnums';
 import { RankImage, RankName } from '../../types/enums/RankEnums';
 import { PerkDescription, PerkImage, PerkName } from '../../types/enums/PerkEnums';
 
-const assault: ClassInterface = {
-  class: ClassName.assault,
-  imgPath: ClassImage.assault,
+const Assault: ClassInterface = {
+  class: ClassName.Assault,
+  imgPath: ClassImage.Assault,
   ranks: [
     {
       name: RankName.specialist,
@@ -239,4 +239,4 @@ const assault: ClassInterface = {
   ],
 };
 
-export default assault;
+export default Assault;
