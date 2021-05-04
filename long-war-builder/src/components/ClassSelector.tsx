@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useLayoutEffect, useState } from 'react';
 import { ClassImage, ClassName } from '../types/enums/ClassEnums';
 import { context, TypeEnums } from '../context';
 import { bioClasses } from '../data/classes';
@@ -7,13 +7,19 @@ const ClassSelector = (): JSX.Element => {
   const [selectedImage, setSelectedImage] = useState<HTMLElement>();
 
   //@ts-expect-error 2461
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [state, dispatch] = useContext(context);
+
+  const { selectedClass } = state;
 
   const classList = ['Assault', 'Infantry', 'Rocketeer', 'Gunner', 'Sniper', 'Scout', 'Medic', 'Engineer'];
 
-  const styleSelectedImage = (event: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
-    const element = event.target as HTMLElement;
+  useLayoutEffect(() => {
+    const element = document.getElementById(selectedClass);
+    styleSelectedImage(element as HTMLElement);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedClass]);
+
+  const styleSelectedImage = (element: HTMLElement) => {
     if (selectedImage == element) {
       return;
     }
@@ -33,6 +39,7 @@ const ClassSelector = (): JSX.Element => {
         return (
           <img
             key={classLw}
+            id={classLw}
             src={`${process.env.PUBLIC_URL}/${ClassImage[classLw as ClassName]}`}
             alt={classLw}
             className="transform scale-75 object-none mx-0.5 -my-2 opacity-40 shadow"
@@ -42,7 +49,7 @@ const ClassSelector = (): JSX.Element => {
                 type: TypeEnums.changeClass,
                 payload: { selectedClass: classLw, classData: bioClasses[classLw as ClassName] },
               });
-              styleSelectedImage(event);
+              styleSelectedImage(event.target as HTMLElement);
             }}
           ></img>
         );

@@ -65,11 +65,6 @@ const StateProvider = ({ children }: ProviderParamsInterface): JSX.Element => {
         newState.stats = action.payload;
         return newState;
       }
-      // case TypeEnums.changeClassData: {
-      //   const newState = { ...state };
-      //   newState.classData = action.payload;
-      //   return newState;
-      // }
       case TypeEnums.changeCurrentBuild: {
         const newState = { ...state };
         newState.currentBuild = action.payload;
@@ -89,6 +84,13 @@ const StateProvider = ({ children }: ProviderParamsInterface): JSX.Element => {
       case TypeEnums.resetBuildSignalWatcher: {
         const newState = { ...state };
         newState.loadBuildSignal = action.payload.loadBuildSignal;
+        return newState;
+      }
+      case TypeEnums.loadUrlBuild: {
+        const newState = { ...state };
+        newState.selectedClass = action.payload.selectedClass;
+        newState.classData = action.payload.classData;
+        newState.currentBuild = action.payload.currentBuild;
         return newState;
       }
       default: {

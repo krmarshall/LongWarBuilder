@@ -1,11 +1,16 @@
-import { Fragment, useContext, useEffect } from 'react';
+import { Fragment, useCallback, useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { context, TypeEnums } from '../context';
+import { bioClasses } from '../data/classes';
 import rookie from '../data/rookie';
-import { RankInterface } from '../types/Interfaces';
+import { ClassName } from '../types/enums/ClassEnums';
+import { ClassInterface, RankInterface } from '../types/Interfaces';
 import RankRow from './RankRow';
 
 const PerkGrid = (): JSX.Element => {
+  const [perkTable, setPerkTable] = useState(document.getElementById('perkTable'));
+  const [urlLoaded, setUrlLoaded] = useState(false);
+  const [buildLoaded, setBuildLoaded] = useState(false);
   //@ts-expect-error 2461
   const [state, dispatch] = useContext(context);
   const { health, mobility, will, aim } = state.stats;
@@ -14,13 +19,32 @@ const PerkGrid = (): JSX.Element => {
   //@ts-expect-error 2339
   const { code } = useParams();
 
-  // If the page was passed a build code load it on render
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
-    if (code != undefined) {
+    setPerkTable(document.getElementById('perkTable'));
+  });
+
+  useEffect(() => {
+    if (code != undefined && !urlLoaded) {
       loadBuildFromQueryParam();
+      setUrlLoaded(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [code]);
+  }, [code, urlLoaded]);
+
+  // If the page was passed a build code load it on render
+  useEffect(() => {
+    // ############# LEFT OFF HERE ##############
+    // selectedClass and classData are populated by this point, but current build isnt?
+    if (code != undefined && perkTable != null && urlLoaded && !buildLoaded) {
+      console.log(currentBuild);
+      console.log(classData);
+      console.log(selectedClass);
+      selectPerkTreeFromArray(currentBuild, classData);
+      setBuildLoaded(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [code, perkTable, urlLoaded, buildLoaded]);
 
   // Watch className for changes and clear the perk tree on change
   useEffect(() => {
@@ -37,7 +61,7 @@ const PerkGrid = (): JSX.Element => {
     if (loadBuildSignal) {
       clearPerkTree();
       resetStatsToRookie();
-      selectPerkTreeFromArray(currentBuild);
+      selectPerkTreeFromArray(currentBuild, classData);
       dispatch({ type: TypeEnums.resetBuildSignalWatcher, payload: false });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -74,7 +98,7 @@ const PerkGrid = (): JSX.Element => {
     }
   };
 
-  const selectPerkTreeFromArray = (perkArray: Array<number | undefined>) => {
+  const selectPerkTreeFromArray = (perkArray: Array<number | undefined>, classDataParam: ClassInterface) => {
     // Can't just call addStatsFromPerk, think the dispatch calls are too fast? So lump them all together
     const updateStats = {
       health: rookie.health,
@@ -82,7 +106,6 @@ const PerkGrid = (): JSX.Element => {
       will: rookie.will,
       aim: rookie.aim,
     };
-    const perkTable = document.getElementById('perkTable');
     perkArray.map((perkI, rankI) => {
       let element: HTMLElement;
       if (typeof perkI != undefined && perkI != null) {
@@ -94,9 +117,9 @@ const PerkGrid = (): JSX.Element => {
         setElementAsSelected(element);
 
         // Stats from rank up
-        const rankStats = classData?.ranks[rankI].statProgression;
+        const rankStats = classDataParam?.ranks[rankI].statProgression;
         // Stats from perk
-        const perkStats = classData?.ranks[rankI].perkProgression[perkI as number];
+        const perkStats = classDataParam?.ranks[rankI].perkProgression[perkI as number];
         // Add all the relevant stats to the update stats object
         updateStats.health += rankStats.health;
         updateStats.mobility += perkStats.mobility;
@@ -108,7 +131,6 @@ const PerkGrid = (): JSX.Element => {
   };
 
   const clearPerkTree = () => {
-    const perkTable = document.getElementById('perkTable');
     for (let rank = 0; rank < 7; rank++) {
       let element: HTMLElement;
       if (rank == 0) {
@@ -193,14 +215,23 @@ const PerkGrid = (): JSX.Element => {
   };
 
   const loadBuildFromQueryParam = () => {
-    // e2NsYXNzOiJhc3NhdWx0IixidWlsZDpbMCwxLDIsMCwxLDIsMF19
+    // eyJjbGFzcyI6IkFzc2F1bHQiLCJidWlsZCI6WzAsMSwyLDAsMSwyLDBdfQ==
     try {
-      const buildObject = JSON.parse(atob(code));
-      dispatch({ type: TypeEnums.changeClass, payload: buildObject.class });
-      selectPerkTreeFromArray(buildObject.build);
+      //
     } catch (error) {
       console.log(error);
     }
+    const buildString = atob(code);
+    const buildObject = JSON.parse(buildString);
+    console.log(buildObject);
+    dispatch({
+      type: TypeEnums.loadUrlBuild,
+      payload: {
+        selectedClass: buildObject.class,
+        classData: bioClasses[buildObject.class as ClassName],
+        currentBuild: buildObject.build,
+      },
+    });
   };
 
   return (
