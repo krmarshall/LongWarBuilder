@@ -7,7 +7,8 @@ module.exports = {
       ...theme('colors'),
       darkGray: '#1e1f21',
       lightGray: '#2a2c2e',
-      blueGray: '#1c2c3c',
+      blueGray: '#223e59',
+      scrollbarGray: '#d1d5db',
     }),
     fontSize: {
       xs: '0.65rem',
