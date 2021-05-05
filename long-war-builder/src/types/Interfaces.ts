@@ -38,6 +38,11 @@ interface LocalStorageClassInterface {
   [key: string]: LocalStorageBuild;
 }
 
+interface UrlBuildInterface {
+  class: ClassName;
+  build: Array<number | undefined>;
+}
+
 export type {
   ClassInterface,
   RankInterface,
@@ -45,4 +50,5 @@ export type {
   StatProgressionInterface,
   LocalStorageBuild,
   LocalStorageClassInterface,
+  UrlBuildInterface,
 };

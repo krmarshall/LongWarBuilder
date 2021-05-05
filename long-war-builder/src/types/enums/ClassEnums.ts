@@ -1,24 +1,24 @@
 // Class Enums
 enum ClassName {
-  'assault' = 'Assault',
-  'infantry' = 'Infantry',
-  'rocketeer' = 'Rocketeer',
-  'gunner' = 'Gunner',
-  'sniper' = 'Sniper',
-  'scout' = 'Scout',
-  'medic' = 'Medic',
-  'engineer' = 'Engineer',
+  'Assault' = 'Assault',
+  'Infantry' = 'Infantry',
+  'Rocketeer' = 'Rocketeer',
+  'Gunner' = 'Gunner',
+  'Sniper' = 'Sniper',
+  'Scout' = 'Scout',
+  'Medic' = 'Medic',
+  'Engineer' = 'Engineer',
 }
 
 enum ClassImage {
-  'assault' = 'img/classes/assault.png',
-  'infantry' = 'img/classes/infantry.png',
-  'rocketeer' = 'img/classes/rocketeer.png',
-  'gunner' = 'img/classes/gunner.png',
-  'sniper' = 'img/classes/sniper.png',
-  'scout' = 'img/classes/scout.png',
-  'medic' = 'img/classes/medic.png',
-  'engineer' = 'img/classes/engineer.png',
+  'Assault' = 'img/classes/assault.png',
+  'Infantry' = 'img/classes/infantry.png',
+  'Rocketeer' = 'img/classes/rocketeer.png',
+  'Gunner' = 'img/classes/gunner.png',
+  'Sniper' = 'img/classes/sniper.png',
+  'Scout' = 'img/classes/scout.png',
+  'Medic' = 'img/classes/medic.png',
+  'Engineer' = 'img/classes/engineer.png',
 }
 
 export { ClassName, ClassImage };

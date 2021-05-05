@@ -3,9 +3,9 @@ import { ClassImage, ClassName } from '../../types/enums/ClassEnums';
 import { RankImage, RankName } from '../../types/enums/RankEnums';
 import { PerkDescription, PerkImage, PerkName } from '../../types/enums/PerkEnums';
 
-const sniper: ClassInterface = {
-  class: ClassName.sniper,
-  imgPath: ClassImage.sniper,
+const Sniper: ClassInterface = {
+  class: ClassName.Sniper,
+  imgPath: ClassImage.Sniper,
   ranks: [
     {
       name: RankName.specialist,
@@ -239,4 +239,4 @@ const sniper: ClassInterface = {
   ],
 };
 
-export default sniper;
+export default Sniper;

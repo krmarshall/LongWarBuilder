@@ -3,6 +3,7 @@ import ClassSelector from '../components/ClassSelector';
 import SoldierStats from '../components/SoldierStats';
 import PerkGrid from '../components/PerkGrid';
 import BuildStorage from '../components/BuildStorage';
+import Notification from '../components/Notification';
 
 const SoldierBuilder = (): JSX.Element => {
   return (
@@ -17,6 +18,7 @@ const SoldierBuilder = (): JSX.Element => {
         <div className="flex flex-col flex-nowrap">
           <SoldierStats />
           <BuildStorage />
+          <Notification />
         </div>
       </div>
     </React.Fragment>

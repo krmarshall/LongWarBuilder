@@ -3,9 +3,9 @@ import { ClassImage, ClassName } from '../../types/enums/ClassEnums';
 import { RankImage, RankName } from '../../types/enums/RankEnums';
 import { PerkDescription, PerkImage, PerkName } from '../../types/enums/PerkEnums';
 
-const rocketeer: ClassInterface = {
-  class: ClassName.rocketeer,
-  imgPath: ClassImage.rocketeer,
+const Rocketeer: ClassInterface = {
+  class: ClassName.Rocketeer,
+  imgPath: ClassImage.Rocketeer,
   ranks: [
     {
       name: RankName.specialist,
@@ -239,4 +239,4 @@ const rocketeer: ClassInterface = {
   ],
 };
 
-export default rocketeer;
+export default Rocketeer;

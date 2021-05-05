@@ -1,10 +1,21 @@
-import assault from './assault';
-import engineer from './engineer';
-import gunner from './gunner';
-import infantry from './infantry';
-import medic from './medic';
-import rocketeer from './rocketeer';
-import scout from './scout';
-import sniper from './sniper';
+import Assault from './Assault';
+import Engineer from './Engineer';
+import Gunner from './Gunner';
+import Infantry from './Infantry';
+import Medic from './Medic';
+import Rocketeer from './Rocketeer';
+import Scout from './Scout';
+import Sniper from './Sniper';
 
-export { assault, engineer, gunner, infantry, medic, rocketeer, scout, sniper };
+const bioClasses = {
+  Assault,
+  Engineer,
+  Gunner,
+  Infantry,
+  Medic,
+  Rocketeer,
+  Scout,
+  Sniper,
+};
+
+export { bioClasses };

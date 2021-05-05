@@ -6,7 +6,7 @@ const SoldierStats = (): JSX.Element => {
   //@ts-expect-error 2461
   const [state, dispatch] = useContext(context);
   const { health, mobility, will, aim } = state.stats;
-  const { className } = state;
+  const { selectedClass } = state;
 
   useEffect(() => {
     const statUpdate = {
@@ -17,12 +17,11 @@ const SoldierStats = (): JSX.Element => {
     };
 
     dispatch({ type: TypeEnums.changeStats, payload: statUpdate });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [className]);
+  }, [selectedClass]);
 
   return (
-    <div className="m-4 p-4 bg-darkGray h-full min-w-max justify-center text-gray-50">
-      <h3 className="text-xl">Soldier Stats</h3>
+    <div className="m-4 ml-0 p-4 bg-darkGray rounded h-auto min-w-max justify-center text-gray-50 shadow-lg">
+      <h3 className="text-xl text-center">Soldier Stats</h3>
       <div className="space-x-2">
         <img
           src={`${process.env.PUBLIC_URL}/img/stats/health.png`}
