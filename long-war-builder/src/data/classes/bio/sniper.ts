@@ -1,7 +1,7 @@
-import { ClassInterface } from '../../types/Interfaces';
-import { ClassImage, ClassName } from '../../types/enums/ClassEnums';
-import { RankImage, RankName } from '../../types/enums/RankEnums';
-import { PerkDescription, PerkImage, PerkName } from '../../types/enums/PerkEnums';
+import { ClassInterface } from '../../../types/Interfaces';
+import { ClassImage, ClassName } from '../../../types/enums/ClassEnums';
+import { RankImage, RankName } from '../../../types/enums/RankEnums';
+import { PerkDescription, PerkImage, PerkName } from '../../../types/enums/PerkEnums';
 
 const Sniper: ClassInterface = {
   class: ClassName.Sniper,

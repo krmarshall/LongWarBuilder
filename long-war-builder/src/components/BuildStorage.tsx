@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import { bioClasses } from '../data/classes';
+import { bulkClassData } from '../data/classes';
 import { ClassName, MecName } from '../types/enums/ClassEnums';
 import { context, StateInterface, TypeEnums } from '../context';
 import { UrlBuildInterface } from '../types/Interfaces';
@@ -49,7 +49,7 @@ const BuildStorage = (): JSX.Element => {
         type: TypeEnums.loadUrlBuild,
         payload: {
           selectedClass: buildObject.class,
-          classData: bioClasses[buildObject.class as ClassName],
+          classData: bulkClassData[buildObject.class as ClassName],
           currentBuild: buildObject.build,
         },
       });

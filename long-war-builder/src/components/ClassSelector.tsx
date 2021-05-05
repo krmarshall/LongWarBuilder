@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { ClassImage, ClassName } from '../types/enums/ClassEnums';
 import { context, StateInterface, TypeEnums } from '../context';
-import { bioClasses } from '../data/classes';
+import { bulkClassData } from '../data/classes';
 
 const ClassSelector = (): JSX.Element => {
   const [selectedImage, setSelectedImage] = useState<HTMLElement>();
@@ -38,7 +38,7 @@ const ClassSelector = (): JSX.Element => {
       type: TypeEnums.changeClass,
       payload: {
         selectedClass: classLw,
-        classData: bioClasses[classLw],
+        classData: bulkClassData[classLw],
         currentBuild: [undefined, undefined, undefined, undefined, undefined, undefined, undefined],
       },
     });
