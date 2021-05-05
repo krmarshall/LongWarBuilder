@@ -13,7 +13,6 @@ const PerkGrid = (): JSX.Element => {
 
   useEffect(() => {
     setPerkTable(document.getElementById('perkTable'));
-    console.log(`${process.env.PUBLIC_URL}/build`);
   }, [classData]);
 
   useEffect(() => {

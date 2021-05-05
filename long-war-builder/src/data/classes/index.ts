@@ -1,11 +1,11 @@
-import Assault from './Assault';
-import Engineer from './Engineer';
-import Gunner from './Gunner';
-import Infantry from './Infantry';
-import Medic from './Medic';
-import Rocketeer from './Rocketeer';
-import Scout from './Scout';
-import Sniper from './Sniper';
+import Assault from './assault';
+import Engineer from './engineer';
+import Gunner from './gunner';
+import Infantry from './infantry';
+import Medic from './medic';
+import Rocketeer from './rocketeer';
+import Scout from './scout';
+import Sniper from './sniper';
 
 const bioClasses = {
   Assault,
