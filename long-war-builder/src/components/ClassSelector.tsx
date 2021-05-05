@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { ClassImage, ClassName } from '../types/enums/ClassEnums';
-import { context, TypeEnums } from '../context';
+import { context, StateInterface, TypeEnums } from '../context';
 import { bioClasses } from '../data/classes';
 
 const ClassSelector = (): JSX.Element => {
@@ -9,9 +9,10 @@ const ClassSelector = (): JSX.Element => {
   //@ts-expect-error 2461
   const [state, dispatch] = useContext(context);
 
-  const { selectedClass } = state;
+  const { selectedClass } = state as StateInterface;
 
   const classList = ['Assault', 'Infantry', 'Rocketeer', 'Gunner', 'Sniper', 'Scout', 'Medic', 'Engineer'];
+  const mecList = ['Marauder', 'Valkyrie', 'Archer', 'Goliath', 'Jaeger', 'Pathfinder', 'Guardian', 'Shogun'];
 
   useEffect(() => {
     const element = document.getElementById(selectedClass);

@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { context, TypeEnums } from '../context';
+import { context, StateInterface, TypeEnums } from '../context';
 import { PerkInterface } from '../types/Interfaces';
 
 interface PerkCellProps {
@@ -11,9 +11,10 @@ interface PerkCellProps {
 const PerkCell = ({ perk, rankIndex, perkIndex }: PerkCellProps): JSX.Element => {
   //@ts-expect-error 2461
   const [state, dispatch] = useContext(context);
+  const { currentBuild } = state as StateInterface;
 
   const selectPerkHandler = () => {
-    const updatedBuild = [...state.currentBuild];
+    const updatedBuild = [...currentBuild];
     updatedBuild[rankIndex] = updatedBuild[rankIndex] == perkIndex ? undefined : perkIndex;
     dispatch({ type: TypeEnums.changeCurrentBuild, payload: updatedBuild });
   };

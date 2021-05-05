@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { bioClasses } from '../data/classes';
-import { ClassName } from '../types/enums/ClassEnums';
-import { context, TypeEnums } from '../context';
+import { ClassName, MecName } from '../types/enums/ClassEnums';
+import { context, StateInterface, TypeEnums } from '../context';
 import { UrlBuildInterface } from '../types/Interfaces';
 
 const BuildStorage = (): JSX.Element => {
@@ -10,7 +10,7 @@ const BuildStorage = (): JSX.Element => {
   const [urlLoaded, setUrlLoaded] = useState(false);
   //@ts-expect-error 2461
   const [state, dispatch] = useContext(context);
-  const { selectedClass, classBuilds, currentBuild } = state;
+  const { selectedClass, classBuilds, currentBuild } = state as StateInterface;
   const [classBuildsKeys, setClassBuildsKeys] = useState<Array<string>>();
 
   //@ts-expect-error 2339
@@ -60,7 +60,7 @@ const BuildStorage = (): JSX.Element => {
 
   const generateBuildUrl = () => {
     const buildObject: UrlBuildInterface = {
-      class: selectedClass,
+      class: selectedClass as ClassName | MecName,
       build: currentBuild,
     };
     const buildString = JSON.stringify(buildObject);
@@ -99,7 +99,7 @@ const BuildStorage = (): JSX.Element => {
       return;
     }
     const updateClassBuilds = { ...classBuilds };
-    updateClassBuilds[buildName] = currentBuild;
+    updateClassBuilds[buildName] = { perks: currentBuild };
     localStorage.setItem(selectedClass, JSON.stringify(updateClassBuilds));
     dispatch({ type: TypeEnums.changeClassBuilds, payload: updateClassBuilds });
     const keys = Object.keys(updateClassBuilds);
@@ -109,7 +109,7 @@ const BuildStorage = (): JSX.Element => {
 
   const selectPerksFromSelectedBuild = (keyValue: string) => {
     const build = classBuilds[keyValue];
-    dispatch({ type: TypeEnums.loadSavedBuild, payload: { currentBuild: build } });
+    dispatch({ type: TypeEnums.loadSavedBuild, payload: { currentBuild: build.perks } });
   };
 
   const deleteBuild = (keyValue: string) => {

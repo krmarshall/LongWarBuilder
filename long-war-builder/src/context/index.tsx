@@ -1,19 +1,20 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { createContext, useReducer } from 'react';
 import rookie from '../data/rookie';
+import { AllStatsInterface, ClassInterface, LocalStorageClassInterface } from '../types/Interfaces';
 
 interface StateInterface {
   selectedClass: string;
-  stats: any;
-  classData: any;
+  stats: AllStatsInterface;
+  classData: ClassInterface | undefined;
   // eslint-disable-next-line no-sparse-arrays
   currentBuild: Array<number | undefined>;
-  classBuilds: any;
+  classBuilds: LocalStorageClassInterface;
   notificationMessage: string;
 }
 
 interface ActionInterface {
   type: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   payload: any;
 }
 
@@ -104,3 +105,4 @@ const StateProvider = ({ children }: ProviderParamsInterface): JSX.Element => {
 
 export default StateProvider;
 export { context, TypeEnums };
+export type { StateInterface };
