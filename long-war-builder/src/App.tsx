@@ -1,8 +1,21 @@
+import { useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Empty from './pages/Empty';
 import SoldierBuilder from './pages/SoldierBuilder';
+import { PerkImage } from './types/enums/PerkEnums';
 
 const App = (): JSX.Element => {
+  useEffect(() => {
+    const imageKeys = Object.keys(PerkImage);
+    console.log(imageKeys);
+    imageKeys.map((key) => {
+      const image = new Image();
+      // @ts-expect-error 7053
+      image.src = `${process.env.PUBLIC_URL}/${PerkImage[key]}`;
+      console.log(image.src);
+    });
+  });
+
   return (
     <Router>
       <div className="App">
