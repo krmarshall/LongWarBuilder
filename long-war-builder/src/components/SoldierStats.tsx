@@ -17,7 +17,6 @@ const SoldierStats = (): JSX.Element => {
     };
 
     dispatch({ type: TypeEnums.changeStats, payload: statUpdate });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedClass]);
 
   return (

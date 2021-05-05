@@ -1,4 +1,4 @@
-import { useContext, useLayoutEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { ClassImage, ClassName } from '../types/enums/ClassEnums';
 import { context, TypeEnums } from '../context';
 import { bioClasses } from '../data/classes';
@@ -13,10 +13,9 @@ const ClassSelector = (): JSX.Element => {
 
   const classList = ['Assault', 'Infantry', 'Rocketeer', 'Gunner', 'Sniper', 'Scout', 'Medic', 'Engineer'];
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const element = document.getElementById(selectedClass);
     styleSelectedImage(element as HTMLElement);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedClass]);
 
   const styleSelectedImage = (element: HTMLElement) => {

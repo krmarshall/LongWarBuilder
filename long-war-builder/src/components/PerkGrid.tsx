@@ -1,33 +1,20 @@
 import { Fragment, useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router';
 import { context, TypeEnums } from '../context';
-import { bioClasses } from '../data/classes';
 import rookie from '../data/rookie';
-import { ClassName } from '../types/enums/ClassEnums';
 import { ClassInterface, RankInterface } from '../types/Interfaces';
 import RankRow from './RankRow';
 
 const PerkGrid = (): JSX.Element => {
   const [perkTable, setPerkTable] = useState(document.getElementById('perkTable'));
-  const [urlLoaded, setUrlLoaded] = useState(false);
 
   //@ts-expect-error 2461
   const [state, dispatch] = useContext(context);
   const { selectedClass, classData, currentBuild } = state;
 
-  //@ts-expect-error 2339
-  const { code } = useParams();
-
   useEffect(() => {
     setPerkTable(document.getElementById('perkTable'));
+    console.log(`${process.env.PUBLIC_URL}/build`);
   }, [classData]);
-
-  useEffect(() => {
-    if (code != undefined && !urlLoaded) {
-      loadBuildFromQueryParam();
-      setUrlLoaded(true);
-    }
-  }, [code, urlLoaded]);
 
   useEffect(() => {
     if (perkTable != null) {
@@ -99,24 +86,6 @@ const PerkGrid = (): JSX.Element => {
     element.dataset.selected = '';
     element.classList.remove('bg-blueGray');
     element.classList.add('hover:bg-lightGray');
-  };
-
-  const loadBuildFromQueryParam = () => {
-    // eyJjbGFzcyI6IkFzc2F1bHQiLCJidWlsZCI6WzAsMSwyLDAsMSwyLDBdfQ==
-    try {
-      const buildString = atob(code);
-      const buildObject = JSON.parse(buildString);
-      dispatch({
-        type: TypeEnums.loadUrlBuild,
-        payload: {
-          selectedClass: buildObject.class,
-          classData: bioClasses[buildObject.class as ClassName],
-          currentBuild: buildObject.build,
-        },
-      });
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   return (
