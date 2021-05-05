@@ -65,7 +65,7 @@ const BuildStorage = (): JSX.Element => {
     };
     const buildString = JSON.stringify(buildObject);
     const encodedString = btoa(buildString);
-    const link = `${process.env.PUBLIC_URL}/build/${encodedString}`;
+    const link = `https://longwarbuilder.netlify.app/build/${encodedString}`;
     navigator.clipboard
       .writeText(link)
       .then(() => {
