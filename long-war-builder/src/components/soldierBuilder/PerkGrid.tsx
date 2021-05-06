@@ -1,4 +1,4 @@
-import { Fragment, useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { context, StateInterface, TypeEnums } from '../../context';
 import rookie from '../../data/rookie';
 import { ClassInterface, RankInterface } from '../../types/interfaces/ClassInterfaces';
@@ -9,7 +9,7 @@ const PerkGrid = (): JSX.Element => {
 
   //@ts-expect-error 2461
   const [state, dispatch] = useContext(context);
-  const { selectedClass, classData, currentBuild } = state as StateInterface;
+  const { classData, currentBuild } = state as StateInterface;
 
   useEffect(() => {
     setPerkTable(document.getElementById('perkTable'));
@@ -87,28 +87,21 @@ const PerkGrid = (): JSX.Element => {
   };
 
   return (
-    <div className="m-4 p-2 bg-darkGray rounded flex flex-wrap flex-grow justify-center overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-scrollbarGray shadow-lg select-none">
-      <h3 className="text-gray-50 text-xl">{selectedClass ? classData?.class : 'Select A Class'}</h3>
-      {!classData ? (
-        <Fragment></Fragment>
-      ) : (
-        <table className="table-fixed">
-          <thead>
-            <tr className="text-gray-50">
-              <th style={{ width: '10%' }}>Rank</th>
-              <th style={{ width: '30%' }}></th>
-              <th style={{ width: '30%' }}>Perk</th>
-              <th style={{ width: '30%' }}></th>
-            </tr>
-          </thead>
-          <tbody id="perkTable">
-            {classData?.ranks.map((rank: RankInterface, rankIndex: number) => {
-              return <RankRow key={rank.name} rank={rank} rankIndex={rankIndex} />;
-            })}
-          </tbody>
-        </table>
-      )}
-    </div>
+    <table className="table-fixed">
+      <thead>
+        <tr className="text-gray-50">
+          <th style={{ width: '10%' }}>Rank</th>
+          <th style={{ width: '30%' }}></th>
+          <th style={{ width: '30%' }}>Perk</th>
+          <th style={{ width: '30%' }}></th>
+        </tr>
+      </thead>
+      <tbody id="perkTable">
+        {classData?.ranks.map((rank: RankInterface, rankIndex: number) => {
+          return <RankRow key={rank.name} rank={rank} rankIndex={rankIndex} />;
+        })}
+      </tbody>
+    </table>
   );
 };
 
