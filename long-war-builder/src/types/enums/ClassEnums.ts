@@ -11,14 +11,14 @@ enum ClassName {
 }
 
 enum ClassImage {
-  'Assault' = 'img/classes/assault.png',
-  'Infantry' = 'img/classes/infantry.png',
-  'Rocketeer' = 'img/classes/rocketeer.png',
-  'Gunner' = 'img/classes/gunner.png',
-  'Sniper' = 'img/classes/sniper.png',
-  'Scout' = 'img/classes/scout.png',
-  'Medic' = 'img/classes/medic.png',
-  'Engineer' = 'img/classes/engineer.png',
+  'Assault' = 'img/classes/bio/assault.png',
+  'Infantry' = 'img/classes/bio/infantry.png',
+  'Rocketeer' = 'img/classes/bio/rocketeer.png',
+  'Gunner' = 'img/classes/bio/gunner.png',
+  'Sniper' = 'img/classes/bio/sniper.png',
+  'Scout' = 'img/classes/bio/scout.png',
+  'Medic' = 'img/classes/bio/medic.png',
+  'Engineer' = 'img/classes/bio/engineer.png',
 }
 
 enum MecName {
@@ -33,14 +33,14 @@ enum MecName {
 }
 
 enum MecImage {
-  'Marauder' = 'img/mecs/marauder.png',
-  'Valkyrie' = 'img/mecs/valkyrie.png',
-  'Archer' = 'img/mecs/archer.png',
-  'Goliath' = 'img/mecs/goliath.png',
-  'Jaeger' = 'img/mecs/jaeger.png',
-  'Pathfinder' = 'img/mecs/pathfinder.png',
-  'Guardian' = 'img/mecs/guardian.png',
-  'Shogun' = 'img/mecs/shogun.png',
+  'Marauder' = 'img/classes/mec/marauder.png',
+  'Valkyrie' = 'img/classes/mec/valkyrie.png',
+  'Archer' = 'img/classes/mec/archer.png',
+  'Goliath' = 'img/classes/mec/goliath.png',
+  'Jaeger' = 'img/classes/mec/jaeger.png',
+  'Pathfinder' = 'img/classes/mec/pathfinder.png',
+  'Guardian' = 'img/classes/mec/guardian.png',
+  'Shogun' = 'img/classes/mec/shogun.png',
 }
 
 export { ClassName, ClassImage, MecName, MecImage };

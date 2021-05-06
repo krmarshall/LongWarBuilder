@@ -13,9 +13,9 @@ const SoldierBuilder = (): JSX.Element => {
       </div>
       <ClassSelector />
 
-      <div className="flex flex-row flex-nowrap">
+      <div className="flex flex-row flex-nowrap" style={{ maxHeight: '82%' }}>
         <PerkGrid />
-        <div className="flex flex-col flex-nowrap">
+        <div className="flex flex-col flex-nowrap" style={{ maxHeight: '60%' }}>
           <SoldierStats />
           <BuildStorage />
           <Notification />

@@ -122,35 +122,44 @@ const BuildStorage = (): JSX.Element => {
   };
 
   return (
-    <div className="m-4 p-4 ml-0  bg-darkGray rounded h-auto min-w-max justify-center text-gray-50 shadow-lg">
+    <div
+      className="m-4 p-4 ml-0  bg-darkGray h-auto rounded min-w-max justify-center text-gray-50 shadow-lg"
+      style={{ maxHeight: '61%' }}
+    >
       <h3 className="text-xl text-center">Build Storage</h3>
-      <ul>
-        {classBuildsKeys?.map((keyValue) => {
-          return (
-            <li
-              key={keyValue}
-              className="cursor-pointer bg-lightGray hover:bg-gray-700 border rounded p-1 m-1 border-gray-400 flex flex-row flex-nowrap"
-            >
-              <p
-                className="flex-grow"
-                onClick={() => {
-                  selectPerksFromSelectedBuild(keyValue);
-                }}
+      <div
+        className="overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-scrollbarGray"
+        style={{ maxHeight: '57%' }}
+      >
+        <ul>
+          {classBuildsKeys?.map((keyValue) => {
+            return (
+              <li
+                key={keyValue}
+                className="cursor-pointer bg-lightGray hover:bg-gray-700 border rounded p-1 m-1 border-gray-400 flex flex-row flex-nowrap"
               >
-                {keyValue}
-              </p>
-              <p
-                className="flex-grow-0 text-red-600 mx-1"
-                onClick={() => {
-                  deleteBuild(keyValue);
-                }}
-              >
-                X
-              </p>
-            </li>
-          );
-        })}
-      </ul>
+                <p
+                  className="flex-grow"
+                  onClick={() => {
+                    selectPerksFromSelectedBuild(keyValue);
+                  }}
+                >
+                  {keyValue}
+                </p>
+                <p
+                  className="flex-grow-0 text-red-600 mx-1"
+                  onClick={() => {
+                    deleteBuild(keyValue);
+                  }}
+                >
+                  X
+                </p>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+
       <input
         type="text"
         id="buildName"

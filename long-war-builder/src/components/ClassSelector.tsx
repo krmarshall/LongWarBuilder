@@ -1,5 +1,5 @@
-import { useContext, useEffect, useState } from 'react';
-import { ClassImage, ClassName } from '../types/enums/ClassEnums';
+import { Fragment, useContext, useEffect, useState } from 'react';
+import { ClassImage, ClassName, MecImage, MecName } from '../types/enums/ClassEnums';
 import { context, StateInterface, TypeEnums } from '../context';
 import { bulkClassData } from '../data/classes';
 
@@ -33,36 +33,56 @@ const ClassSelector = (): JSX.Element => {
     setSelectedImage(element);
   };
 
-  const classSelectHandler = (classLw: ClassName) => {
+  const classSelectHandler = (className: ClassName | MecName) => {
     dispatch({
       type: TypeEnums.changeClass,
       payload: {
-        selectedClass: classLw,
-        classData: bulkClassData[classLw],
+        selectedClass: className,
+        classData: bulkClassData[className],
         currentBuild: [undefined, undefined, undefined, undefined, undefined, undefined, undefined],
       },
     });
   };
 
   return (
-    <div className="flex flex-row flex-nowrap content-center justify-center text-gray-50">
-      {classList.map((classLw) => {
-        return (
-          <img
-            key={classLw}
-            id={classLw}
-            src={`${process.env.PUBLIC_URL}/${ClassImage[classLw as ClassName]}`}
-            alt={classLw}
-            className="transform scale-75 object-none mx-0.5 -my-2 opacity-40 shadow"
-            draggable="false"
-            onClick={(event) => {
-              classSelectHandler(classLw as ClassName);
-              styleSelectedImage(event.target as HTMLElement);
-            }}
-          ></img>
-        );
-      })}
-    </div>
+    <Fragment>
+      <div className="flex flex-row flex-nowrap content-center justify-center text-gray-50">
+        {classList.map((className) => {
+          return (
+            <img
+              key={className}
+              id={className}
+              src={`${process.env.PUBLIC_URL}/${ClassImage[className as ClassName]}`}
+              alt={className}
+              className="transform scale-70 object-none -my-1.5 -mt-4 opacity-40"
+              draggable="false"
+              onClick={(event) => {
+                classSelectHandler(className as ClassName);
+                styleSelectedImage(event.target as HTMLElement);
+              }}
+            ></img>
+          );
+        })}
+      </div>
+      <div className="flex flex-row flex-nowrap content-center justify-center text-gray-50">
+        {mecList.map((mecName) => {
+          return (
+            <img
+              key={mecName}
+              id={mecName}
+              src={`${process.env.PUBLIC_URL}/${MecImage[mecName as MecName]}`}
+              alt={mecName}
+              className="transform scale-70 object-none -my-1.5 -mb-4 opacity-40"
+              draggable="false"
+              onClick={(event) => {
+                classSelectHandler(mecName as MecName);
+                styleSelectedImage(event.target as HTMLElement);
+              }}
+            ></img>
+          );
+        })}
+      </div>
+    </Fragment>
   );
 };
 
