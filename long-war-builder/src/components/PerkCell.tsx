@@ -20,7 +20,11 @@ const PerkCell = ({ perk, rankIndex, perkIndex }: PerkCellProps): JSX.Element =>
   };
 
   return (
-    <td data-selected="" className="text-center hover:bg-lightGray select-none" onClick={selectPerkHandler}>
+    <td
+      data-selected=""
+      className="text-center hover:bg-lightGray select-none cursor-pointer"
+      onClick={selectPerkHandler}
+    >
       <img
         src={`${process.env.PUBLIC_URL}/${perk.imgPath}`}
         alt={perk.perk}

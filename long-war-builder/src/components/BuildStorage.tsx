@@ -136,7 +136,7 @@ const BuildStorage = (): JSX.Element => {
             return (
               <li
                 key={keyValue}
-                className="cursor-pointer bg-lightGray hover:bg-gray-700 border rounded p-1 m-1 border-gray-400 flex flex-row flex-nowrap"
+                className="cursor-pointer bg-lightGray hover:bg-gray-700 border rounded p-1 m-1 border-gray-400 flex flex-row flex-nowrap select-none"
               >
                 <p
                   className="flex-grow"

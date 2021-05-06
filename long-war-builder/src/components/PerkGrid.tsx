@@ -88,7 +88,7 @@ const PerkGrid = (): JSX.Element => {
 
   return (
     <div
-      className="m-4 p-2 bg-darkGray rounded flex flex-wrap flex-grow justify-center overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-scrollbarGray shadow-lg"
+      className="m-4 p-2 bg-darkGray rounded flex flex-wrap flex-grow justify-center overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-scrollbarGray shadow-lg select-none"
       style={{ maxHeight: '72%' }}
     >
       <h3 className="text-gray-50 text-xl">{selectedClass ? classData?.class : 'Select A Class'}</h3>
@@ -97,7 +97,7 @@ const PerkGrid = (): JSX.Element => {
       ) : (
         <table className="table-fixed">
           <thead>
-            <tr className="text-gray-50 select-none">
+            <tr className="text-gray-50">
               <th style={{ width: '10%' }}>Rank</th>
               <th style={{ width: '30%' }}></th>
               <th style={{ width: '30%' }}>Perk</th>
