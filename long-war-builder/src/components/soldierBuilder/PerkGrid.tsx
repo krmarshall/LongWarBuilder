@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
-import { context, StateInterface, TypeEnums } from '../../context';
-import rookie from '../../data/rookie';
-import { ClassInterface, RankInterface } from '../../types/interfaces/ClassInterfaces';
+import { context, StateInterface } from '../../context';
+import { RankInterface } from '../../types/interfaces/ClassInterfaces';
 import RankRow from './RankRow';
+import { selectGridTreeFromArray, clearGridTree } from '../../commonFunctions/gridFunctions';
 
 const PerkGrid = (): JSX.Element => {
   const [perkTable, setPerkTable] = useState(document.getElementById('perkTable'));
@@ -17,74 +17,10 @@ const PerkGrid = (): JSX.Element => {
 
   useEffect(() => {
     if (perkTable != null) {
-      clearPerkTree();
-      selectPerkTreeFromArray(currentBuild, classData as ClassInterface);
+      clearGridTree(perkTable, 7);
+      selectGridTreeFromArray(perkTable, state, dispatch);
     }
   }, [currentBuild, perkTable]);
-
-  const selectPerkTreeFromArray = (perkArray: Array<number | undefined>, classDataParam: ClassInterface) => {
-    const updateStats = {
-      health: rookie.health,
-      mobility: rookie.mobility,
-      will: rookie.will,
-      aim: rookie.aim,
-    };
-    perkArray.map((perkI, rankI) => {
-      let element: HTMLElement;
-      if (typeof perkI != undefined && perkI != null) {
-        if (rankI == 0) {
-          element = perkTable?.childNodes[rankI].childNodes[(perkI as number) + 2] as HTMLElement;
-        } else {
-          element = perkTable?.childNodes[rankI].childNodes[(perkI as number) + 1] as HTMLElement;
-        }
-        setElementAsSelected(element);
-
-        // Stats from rank up
-        const rankStats = classDataParam?.ranks[rankI].statProgression;
-        // Stats from perk
-        const perkStats = classDataParam?.ranks[rankI].perkProgression[perkI as number];
-        // Add all the relevant stats to the update stats object
-        updateStats.health += rankStats.health;
-        updateStats.mobility += perkStats.mobility;
-        updateStats.will += rankStats.will + perkStats.will;
-        updateStats.aim += rankStats.aim + perkStats.aim;
-      }
-    });
-    dispatch({ type: TypeEnums.changeStats, payload: updateStats });
-  };
-
-  const clearPerkTree = () => {
-    for (let rank = 0; rank < 7; rank++) {
-      let element: HTMLElement;
-      if (rank == 0) {
-        element = perkTable?.childNodes[rank].childNodes[2] as HTMLElement;
-        setElementAsDeselected(element);
-      } else {
-        for (let perk = 0; perk < 3; perk++) {
-          element = perkTable?.childNodes[rank].childNodes[perk + 1] as HTMLElement;
-          setElementAsDeselected(element);
-        }
-      }
-    }
-  };
-
-  const setElementAsSelected = (element: HTMLElement) => {
-    if (!element) {
-      return;
-    }
-    element.dataset.selected = 'selected';
-    element.classList.add('bg-blueGray');
-    element.classList.remove('hover:bg-lightGray');
-  };
-
-  const setElementAsDeselected = (element: HTMLElement) => {
-    if (!element) {
-      return;
-    }
-    element.dataset.selected = '';
-    element.classList.remove('bg-blueGray');
-    element.classList.add('hover:bg-lightGray');
-  };
 
   return (
     <table className="table-fixed">

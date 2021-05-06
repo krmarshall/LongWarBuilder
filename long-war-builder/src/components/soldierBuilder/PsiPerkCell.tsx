@@ -15,7 +15,7 @@ const PsiPerkCell = ({ psiPerk, psiRankIndex, psiPerkIndex }: PsiPerkCellProps):
 
   const selectPsiPerkHandler = () => {
     let updatedPsiBuild;
-    if (typeof currentPsi == undefined) {
+    if (typeof currentPsi == 'undefined') {
       updatedPsiBuild = [undefined, undefined, undefined, undefined, undefined, undefined];
     } else {
       updatedPsiBuild = [...(currentPsi as Array<number | undefined>)];
@@ -32,7 +32,7 @@ const PsiPerkCell = ({ psiPerk, psiRankIndex, psiPerkIndex }: PsiPerkCellProps):
       <img
         src={`${process.env.PUBLIC_URL}/${psiPerk.imgPath}`}
         alt={psiPerk.perk}
-        className="transform scale-75 object-none mx-auto -mb-2"
+        className="transform scale-56 object-none mx-auto -mb-2"
       ></img>
       <h5 className="text-sm">{psiPerk.perk}</h5>
       <p className="text-xs">{psiPerk.description}</p>

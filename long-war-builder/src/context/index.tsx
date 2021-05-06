@@ -63,6 +63,7 @@ const StateProvider = ({ children }: ProviderParamsInterface): JSX.Element => {
         newState.selectedClass = action.payload.selectedClass;
         newState.classData = action.payload.classData;
         newState.currentBuild = action.payload.currentBuild;
+        newState.currentPsi = action.payload.currentPsi;
         return newState;
       }
       case TypeEnums.changeStats: {

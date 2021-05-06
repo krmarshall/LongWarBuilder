@@ -40,6 +40,7 @@ const ClassSelector = (): JSX.Element => {
         selectedClass: className,
         classData: bulkClassData[className],
         currentBuild: [undefined, undefined, undefined, undefined, undefined, undefined, undefined],
+        currentPsi: undefined,
       },
     });
   };
