@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
-import { ClassImage, ClassName, MecImage, MecName } from '../types/enums/ClassEnums';
-import { context, StateInterface, TypeEnums } from '../context';
-import { bulkClassData } from '../data/classes';
+import { ClassImage, ClassName, MecImage, MecName } from '../../types/enums/ClassEnums';
+import { context, StateInterface, TypeEnums } from '../../context';
+import { bulkClassData } from '../../data/classes';
 
 const ClassSelector = (): JSX.Element => {
   const [selectedImage, setSelectedImage] = useState<HTMLElement>();

@@ -1,6 +1,6 @@
 import { useContext } from 'react';
-import { context, StateInterface, TypeEnums } from '../context';
-import { PerkInterface } from '../types/Interfaces';
+import { context, StateInterface, TypeEnums } from '../../context';
+import { PerkInterface } from '../../types/interfaces/ClassInterfaces';
 
 interface PerkCellProps {
   perk: PerkInterface;

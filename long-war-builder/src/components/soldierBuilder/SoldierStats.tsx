@@ -1,6 +1,6 @@
 import { useContext, useEffect } from 'react';
-import { context, TypeEnums } from '../context';
-import rookie from '../data/rookie';
+import { context, TypeEnums } from '../../context';
+import rookie from '../../data/rookie';
 
 const SoldierStats = (): JSX.Element => {
   //@ts-expect-error 2461

@@ -1,5 +1,5 @@
 import { Fragment } from 'react';
-import { RankInterface } from '../types/Interfaces';
+import { RankInterface } from '../../types/interfaces/ClassInterfaces';
 import PerkCell from './PerkCell';
 
 interface RankRowProps {

@@ -1,8 +1,8 @@
 import React from 'react';
-import ClassSelector from '../components/ClassSelector';
-import SoldierStats from '../components/SoldierStats';
-import PerkGrid from '../components/PerkGrid';
-import BuildStorage from '../components/BuildStorage';
+import ClassSelector from '../components/soldierBuilder/ClassSelector';
+import SoldierStats from '../components/soldierBuilder/SoldierStats';
+import PerkGrid from '../components/soldierBuilder/PerkGrid';
+import BuildStorage from '../components/soldierBuilder/BuildStorage';
 import Notification from '../components/Notification';
 
 const SoldierBuilder = (): JSX.Element => {

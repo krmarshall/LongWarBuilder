@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import { bulkClassData } from '../data/classes';
-import { ClassName, MecName } from '../types/enums/ClassEnums';
-import { context, StateInterface, TypeEnums } from '../context';
-import { UrlBuildInterface } from '../types/Interfaces';
+import { bulkClassData } from '../../data/classes';
+import { ClassName, MecName } from '../../types/enums/ClassEnums';
+import { context, StateInterface, TypeEnums } from '../../context';
+import { UrlBuildInterface } from '../../types/interfaces/StorageInterfaces';
 
 const BuildStorage = (): JSX.Element => {
   const [buildName, setBuildName] = useState('');
