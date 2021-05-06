@@ -1,4 +1,4 @@
-import { Fragment, useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { ClassImage, ClassName, MecImage, MecName } from '../types/enums/ClassEnums';
 import { context, StateInterface, TypeEnums } from '../context';
 import { bulkClassData } from '../data/classes';
