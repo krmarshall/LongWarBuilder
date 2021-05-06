@@ -59,6 +59,21 @@ const BuildStorage = (): JSX.Element => {
   };
 
   const generateBuildUrl = () => {
+    if (!selectedClass) {
+      alert('Please select a class.');
+      return;
+    }
+    let emptyArray = true;
+    for (let i = 0; i < currentBuild.length; i++) {
+      if (typeof currentBuild[i] == 'number') {
+        emptyArray = false;
+        break;
+      }
+    }
+    if (emptyArray) {
+      alert('Please select at least one perk.');
+      return;
+    }
     const buildObject: UrlBuildInterface = {
       class: selectedClass as ClassName | MecName,
       build: currentBuild,
@@ -173,13 +188,13 @@ const BuildStorage = (): JSX.Element => {
       <br />
       <div className="flex flex-col flex-wrap content-center justify-center">
         <button
-          className="rounded py-1 px-2 m-1 w-max self-center font-bold bg-lightGray hover:bg-blueGray"
+          className="rounded py-1 px-2 m-1 w-max self-center focus:outline-none font-bold bg-lightGray hover:bg-blueGray"
           onClick={saveBuildToStorage}
         >
           Save Build
         </button>
         <button
-          className="rounded py-1 px-2 m-1 w-max self-center font-bold bg-lightGray hover:bg-blueGray"
+          className="rounded py-1 px-2 m-1 w-max self-center focus:outline-none font-bold bg-lightGray hover:bg-blueGray"
           onClick={generateBuildUrl}
         >
           Copy Link To Build
