@@ -1,12 +1,12 @@
 import { useContext, useEffect, useState } from 'react';
-import { context, TypeEnums } from '../context';
+import { context, StateInterface, TypeEnums } from '../context';
 
 const Notification = (): JSX.Element => {
   const [visible, setVisible] = useState(false);
 
   //@ts-expect-error 2461
   const [state, dispatch] = useContext(context);
-  const { notificationMessage } = state;
+  const { notificationMessage } = state as StateInterface;
 
   useEffect(() => {
     if (notificationMessage == '') {

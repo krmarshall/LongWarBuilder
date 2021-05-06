@@ -1,26 +1,26 @@
-import { ClassInterface } from '../../types/Interfaces';
-import { ClassImage, ClassName } from '../../types/enums/ClassEnums';
-import { RankImage, RankName } from '../../types/enums/RankEnums';
-import { PerkDescription, PerkImage, PerkName } from '../../types/enums/PerkEnums';
+import { ClassInterface } from '../../../types/Interfaces';
+import { ClassImage, ClassName } from '../../../types/enums/ClassEnums';
+import { RankImage, RankName } from '../../../types/enums/RankEnums';
+import { PerkDescription, PerkImage, PerkName } from '../../../types/enums/PerkEnums';
 
-const Scout: ClassInterface = {
-  class: ClassName.Scout,
-  imgPath: ClassImage.Scout,
+const Assault: ClassInterface = {
+  class: ClassName.Assault,
+  imgPath: ClassImage.Assault,
   ranks: [
     {
       name: RankName.specialist,
       imgPath: RankImage.specialist,
       statProgression: {
-        health: 0,
-        aim: 4,
+        health: 1,
+        aim: 3,
         will: 5.5,
       },
       perkProgression: [
         {
-          perk: PerkName.lightningReflexes,
-          imgPath: PerkImage.lightningReflexes,
-          description: PerkDescription.lightningReflexes,
-          mobility: 1,
+          perk: PerkName.runAndGun,
+          imgPath: PerkImage.runAndGun,
+          description: PerkDescription.runAndGun,
+          mobility: 0,
           aim: 0,
           will: 0,
         },
@@ -31,30 +31,30 @@ const Scout: ClassInterface = {
       imgPath: RankImage.lanceCorporal,
       statProgression: {
         health: 0,
-        aim: 3,
+        aim: 2,
         will: 5.5,
       },
       perkProgression: [
         {
-          perk: PerkName.holoTargeting,
-          imgPath: PerkImage.holoTargeting,
-          description: PerkDescription.holoTargeting,
+          perk: PerkName.steadfast,
+          imgPath: PerkImage.steadfast,
+          description: PerkDescription.steadfast,
+          mobility: 0,
+          aim: 0,
+          will: 5,
+        },
+        {
+          perk: PerkName.closeCombatSpecialist,
+          imgPath: PerkImage.closeCombatSpecialist,
+          description: PerkDescription.closeCombatSpecialist,
           mobility: 0,
           aim: 0,
           will: 0,
         },
         {
-          perk: PerkName.damnGoodGround,
-          imgPath: PerkImage.damnGoodGround,
-          description: PerkDescription.damnGoodGround,
-          mobility: 0,
-          aim: 0,
-          will: 0,
-        },
-        {
-          perk: PerkName.loneWolf,
-          imgPath: PerkImage.loneWolf,
-          description: PerkDescription.loneWolf,
+          perk: PerkName.flush,
+          imgPath: PerkImage.flush,
+          description: PerkDescription.flush,
           mobility: 0,
           aim: 0,
           will: 0,
@@ -66,52 +66,17 @@ const Scout: ClassInterface = {
       imgPath: RankImage.corporal,
       statProgression: {
         health: 1,
-        aim: 4,
-        will: 3.5,
-      },
-      perkProgression: [
-        {
-          perk: PerkName.lowProfile,
-          imgPath: PerkImage.lowProfile,
-          description: PerkDescription.lowProfile,
-          mobility: 0,
-          aim: 0,
-          will: 0,
-        },
-        {
-          perk: PerkName.ranger,
-          imgPath: PerkImage.ranger,
-          description: PerkDescription.ranger,
-          mobility: 0,
-          aim: 1,
-          will: 0,
-        },
-        {
-          perk: PerkName.deadeye,
-          imgPath: PerkImage.deadeye,
-          description: PerkDescription.deadeye,
-          mobility: 0,
-          aim: 1,
-          will: 0,
-        },
-      ],
-    },
-    {
-      name: RankName.sergeant,
-      imgPath: RankImage.sergeant,
-      statProgression: {
-        health: 0,
         aim: 3,
         will: 3.5,
       },
       perkProgression: [
         {
-          perk: PerkName.flush,
-          imgPath: PerkImage.flush,
-          description: PerkDescription.flush,
+          perk: PerkName.willToSurvive,
+          imgPath: PerkImage.willToSurvive,
+          description: PerkDescription.willToSurvive,
           mobility: 0,
           aim: 0,
-          will: 0,
+          will: 3,
         },
         {
           perk: PerkName.aggression,
@@ -122,9 +87,9 @@ const Scout: ClassInterface = {
           will: 0,
         },
         {
-          perk: PerkName.battleScanner,
-          imgPath: PerkImage.battleScanner,
-          description: PerkDescription.battleScanner,
+          perk: PerkName.ranger,
+          imgPath: PerkImage.ranger,
+          description: PerkDescription.ranger,
           mobility: 0,
           aim: 0,
           will: 0,
@@ -132,26 +97,26 @@ const Scout: ClassInterface = {
       ],
     },
     {
-      name: RankName.techSergeant,
-      imgPath: RankImage.techSergeant,
+      name: RankName.sergeant,
+      imgPath: RankImage.sergeant,
       statProgression: {
         health: 0,
-        aim: 4,
+        aim: 2,
         will: 3.5,
       },
       perkProgression: [
         {
-          perk: PerkName.concealment,
-          imgPath: PerkImage.concealment,
-          description: PerkDescription.concealment,
+          perk: PerkName.closeEncounters,
+          imgPath: PerkImage.closeEncounters,
+          description: PerkDescription.closeEncounters,
           mobility: 0,
           aim: 0,
-          will: 0,
+          will: 3,
         },
         {
-          perk: PerkName.inTheZone,
-          imgPath: PerkImage.inTheZone,
-          description: PerkDescription.inTheZone,
+          perk: PerkName.rapidFire,
+          imgPath: PerkImage.rapidFire,
+          description: PerkDescription.rapidFire,
           mobility: 0,
           aim: 0,
           will: 0,
@@ -167,11 +132,46 @@ const Scout: ClassInterface = {
       ],
     },
     {
+      name: RankName.techSergeant,
+      imgPath: RankImage.techSergeant,
+      statProgression: {
+        health: 1,
+        aim: 3,
+        will: 3.5,
+      },
+      perkProgression: [
+        {
+          perk: PerkName.resilience,
+          imgPath: PerkImage.resilience,
+          description: PerkDescription.resilience,
+          mobility: 0,
+          aim: 0,
+          will: 0,
+        },
+        {
+          perk: PerkName.killerInstinct,
+          imgPath: PerkImage.killerInstinct,
+          description: PerkDescription.killerInstinct,
+          mobility: 0,
+          aim: 0,
+          will: 0,
+        },
+        {
+          perk: PerkName.executioner,
+          imgPath: PerkImage.executioner,
+          description: PerkDescription.executioner,
+          mobility: 0,
+          aim: 2,
+          will: 2,
+        },
+      ],
+    },
+    {
       name: RankName.gunnerySergeant,
       imgPath: RankImage.gunnerySergeant,
       statProgression: {
         health: 0,
-        aim: 3,
+        aim: 2,
         will: 3.5,
       },
       perkProgression: [
@@ -206,8 +206,8 @@ const Scout: ClassInterface = {
       imgPath: RankImage.masterSergeant,
       statProgression: {
         health: 1,
-        aim: 4,
-        will: 2.5,
+        aim: 3,
+        will: 3.5,
       },
       perkProgression: [
         {
@@ -227,9 +227,9 @@ const Scout: ClassInterface = {
           will: 0,
         },
         {
-          perk: PerkName.smokeAndMirrors,
-          imgPath: PerkImage.smokeAndMirrors,
-          description: PerkDescription.smokeAndMirrors,
+          perk: PerkName.lightningReflexes,
+          imgPath: PerkImage.lightningReflexes,
+          description: PerkDescription.lightningReflexes,
           mobility: 0,
           aim: 0,
           will: 0,
@@ -239,4 +239,4 @@ const Scout: ClassInterface = {
   ],
 };
 
-export default Scout;
+export default Assault;

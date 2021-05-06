@@ -1,6 +1,13 @@
-import { ClassName, ClassImage } from './enums/ClassEnums';
+import { ClassName, ClassImage, MecName, MecImage } from './enums/ClassEnums';
 import { PerkDescription, PerkImage, PerkName } from './enums/PerkEnums';
 import { RankImage, RankName } from './enums/RankEnums';
+
+interface AllStatsInterface {
+  health: number;
+  mobility: number;
+  aim: number;
+  will: number;
+}
 
 interface PerkInterface {
   perk: PerkName;
@@ -11,7 +18,7 @@ interface PerkInterface {
   will: number;
 }
 
-interface StatProgressionInterface {
+interface RankStatsInterface {
   health: number;
   aim: number;
   will: number;
@@ -20,18 +27,18 @@ interface StatProgressionInterface {
 interface RankInterface {
   name: RankName;
   imgPath: RankImage;
-  statProgression: StatProgressionInterface;
+  statProgression: RankStatsInterface;
   perkProgression: Array<PerkInterface>;
 }
 
 interface ClassInterface {
-  class: ClassName;
-  imgPath: ClassImage;
+  class: ClassName | MecName;
+  imgPath: ClassImage | MecImage;
   ranks: Array<RankInterface>;
 }
 
 interface LocalStorageBuild {
-  perks: Array<number>;
+  perks: Array<number | undefined>;
 }
 
 interface LocalStorageClassInterface {
@@ -39,7 +46,7 @@ interface LocalStorageClassInterface {
 }
 
 interface UrlBuildInterface {
-  class: ClassName;
+  class: ClassName | MecName;
   build: Array<number | undefined>;
 }
 
@@ -47,8 +54,9 @@ export type {
   ClassInterface,
   RankInterface,
   PerkInterface,
-  StatProgressionInterface,
+  RankStatsInterface,
   LocalStorageBuild,
   LocalStorageClassInterface,
   UrlBuildInterface,
+  AllStatsInterface,
 };

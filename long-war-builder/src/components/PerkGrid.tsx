@@ -1,5 +1,5 @@
 import { Fragment, useContext, useEffect, useState } from 'react';
-import { context, TypeEnums } from '../context';
+import { context, StateInterface, TypeEnums } from '../context';
 import rookie from '../data/rookie';
 import { ClassInterface, RankInterface } from '../types/Interfaces';
 import RankRow from './RankRow';
@@ -9,7 +9,7 @@ const PerkGrid = (): JSX.Element => {
 
   //@ts-expect-error 2461
   const [state, dispatch] = useContext(context);
-  const { selectedClass, classData, currentBuild } = state;
+  const { selectedClass, classData, currentBuild } = state as StateInterface;
 
   useEffect(() => {
     setPerkTable(document.getElementById('perkTable'));
@@ -18,12 +18,11 @@ const PerkGrid = (): JSX.Element => {
   useEffect(() => {
     if (perkTable != null) {
       clearPerkTree();
-      selectPerkTreeFromArray(currentBuild, classData);
+      selectPerkTreeFromArray(currentBuild, classData as ClassInterface);
     }
   }, [currentBuild, perkTable]);
 
   const selectPerkTreeFromArray = (perkArray: Array<number | undefined>, classDataParam: ClassInterface) => {
-    // Can't just call addStatsFromPerk, think the dispatch calls are too fast? So lump them all together
     const updateStats = {
       health: rookie.health,
       mobility: rookie.mobility,
@@ -88,17 +87,14 @@ const PerkGrid = (): JSX.Element => {
   };
 
   return (
-    <div
-      className="m-4 p-2 bg-darkGray rounded flex flex-wrap flex-grow justify-center overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-scrollbarGray shadow-lg"
-      style={{ maxHeight: '75vh' }}
-    >
+    <div className="m-4 p-2 bg-darkGray rounded flex flex-wrap flex-grow justify-center overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-scrollbarGray shadow-lg select-none">
       <h3 className="text-gray-50 text-xl">{selectedClass ? classData?.class : 'Select A Class'}</h3>
       {!classData ? (
         <Fragment></Fragment>
       ) : (
         <table className="table-fixed">
           <thead>
-            <tr className="text-gray-50 select-none">
+            <tr className="text-gray-50">
               <th style={{ width: '10%' }}>Rank</th>
               <th style={{ width: '30%' }}></th>
               <th style={{ width: '30%' }}>Perk</th>

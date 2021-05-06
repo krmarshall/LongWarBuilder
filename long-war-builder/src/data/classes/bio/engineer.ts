@@ -1,11 +1,11 @@
-import { ClassInterface } from '../../types/Interfaces';
-import { ClassImage, ClassName } from '../../types/enums/ClassEnums';
-import { RankImage, RankName } from '../../types/enums/RankEnums';
-import { PerkDescription, PerkImage, PerkName } from '../../types/enums/PerkEnums';
+import { ClassInterface } from '../../../types/Interfaces';
+import { ClassImage, ClassName } from '../../../types/enums/ClassEnums';
+import { RankImage, RankName } from '../../../types/enums/RankEnums';
+import { PerkDescription, PerkImage, PerkName } from '../../../types/enums/PerkEnums';
 
-const Medic: ClassInterface = {
-  class: ClassName.Medic,
-  imgPath: ClassImage.Medic,
+const Engineer: ClassInterface = {
+  class: ClassName.Engineer,
+  imgPath: ClassImage.Engineer,
   ranks: [
     {
       name: RankName.specialist,
@@ -13,14 +13,14 @@ const Medic: ClassInterface = {
       statProgression: {
         health: 1,
         aim: 3,
-        will: 6.5,
+        will: 5.5,
       },
       perkProgression: [
         {
-          perk: PerkName.fieldMedic,
-          imgPath: PerkImage.fieldMedic,
-          description: PerkDescription.fieldMedic,
-          mobility: 1,
+          perk: PerkName.grenadier,
+          imgPath: PerkImage.grenadier,
+          description: PerkDescription.grenadier,
+          mobility: 0,
           aim: 0,
           will: 0,
         },
@@ -32,29 +32,29 @@ const Medic: ClassInterface = {
       statProgression: {
         health: 0,
         aim: 2,
-        will: 6.5,
+        will: 5.5,
       },
       perkProgression: [
         {
-          perk: PerkName.suppression,
-          imgPath: PerkImage.suppression,
-          description: PerkDescription.suppression,
+          perk: PerkName.holoTargeting,
+          imgPath: PerkImage.holoTargeting,
+          description: PerkDescription.holoTargeting,
+          mobility: 0,
+          aim: 1,
+          will: 0,
+        },
+        {
+          perk: PerkName.smokeGrenade,
+          imgPath: PerkImage.smokeGrenade,
+          description: PerkDescription.smokeGrenade,
           mobility: 0,
           aim: 0,
           will: 0,
         },
         {
-          perk: PerkName.steadfast,
-          imgPath: PerkImage.steadfast,
-          description: PerkDescription.steadfast,
-          mobility: 0,
-          aim: 0,
-          will: 5,
-        },
-        {
-          perk: PerkName.fieldSurgeon,
-          imgPath: PerkImage.fieldSurgeon,
-          description: PerkDescription.fieldSurgeon,
+          perk: PerkName.sapper,
+          imgPath: PerkImage.sapper,
+          description: PerkDescription.sapper,
           mobility: 0,
           aim: 0,
           will: 0,
@@ -65,17 +65,17 @@ const Medic: ClassInterface = {
       name: RankName.corporal,
       imgPath: RankImage.corporal,
       statProgression: {
-        health: 0,
+        health: 1,
         aim: 3,
-        will: 4.5,
+        will: 3.5,
       },
       perkProgression: [
         {
-          perk: PerkName.rapidReaction,
-          imgPath: PerkImage.rapidReaction,
-          description: PerkDescription.rapidReaction,
+          perk: PerkName.ranger,
+          imgPath: PerkImage.ranger,
+          description: PerkDescription.ranger,
           mobility: 0,
-          aim: 3,
+          aim: 2,
           will: 0,
         },
         {
@@ -87,12 +87,12 @@ const Medic: ClassInterface = {
           will: 0,
         },
         {
-          perk: PerkName.revive,
+          perk: PerkName.heatWarheads,
           imgPath: PerkImage.revive,
           description: PerkDescription.revive,
           mobility: 0,
           aim: 0,
-          will: 2,
+          will: 0,
         },
       ],
     },
@@ -100,31 +100,31 @@ const Medic: ClassInterface = {
       name: RankName.sergeant,
       imgPath: RankImage.sergeant,
       statProgression: {
-        health: 1,
+        health: 0,
         aim: 2,
         will: 3.5,
       },
       perkProgression: [
         {
-          perk: PerkName.readyForAnything,
-          imgPath: PerkImage.readyForAnything,
-          description: PerkDescription.readyForAnything,
+          perk: PerkName.willToSurvive,
+          imgPath: PerkImage.willToSurvive,
+          description: PerkDescription.willToSurvive,
           mobility: 0,
           aim: 0,
           will: 3,
         },
         {
-          perk: PerkName.smokeGrenade,
-          imgPath: PerkImage.smokeGrenade,
-          description: PerkDescription.smokeGrenade,
+          perk: PerkName.repair,
+          imgPath: PerkImage.repair,
+          description: PerkDescription.repair,
           mobility: 0,
           aim: 0,
           will: 0,
         },
         {
-          perk: PerkName.paramedic,
-          imgPath: PerkImage.paramedic,
-          description: PerkDescription.paramedic,
+          perk: PerkName.suppression,
+          imgPath: PerkImage.suppression,
+          description: PerkDescription.suppression,
           mobility: 0,
           aim: 0,
           will: 0,
@@ -135,15 +135,15 @@ const Medic: ClassInterface = {
       name: RankName.techSergeant,
       imgPath: RankImage.techSergeant,
       statProgression: {
-        health: 0,
+        health: 1,
         aim: 3,
         will: 3.5,
       },
       perkProgression: [
         {
-          perk: PerkName.opportunist,
-          imgPath: PerkImage.opportunist,
-          description: PerkDescription.opportunist,
+          perk: PerkName.battleScanner,
+          imgPath: PerkImage.battleScanner,
+          description: PerkDescription.battleScanner,
           mobility: 0,
           aim: 0,
           will: 0,
@@ -157,9 +157,9 @@ const Medic: ClassInterface = {
           will: 0,
         },
         {
-          perk: PerkName.combatDrugs,
-          imgPath: PerkImage.combatDrugs,
-          description: PerkDescription.combatDrugs,
+          perk: PerkName.mayhem,
+          imgPath: PerkImage.mayhem,
+          description: PerkDescription.mayhem,
           mobility: 0,
           aim: 0,
           will: 0,
@@ -176,26 +176,26 @@ const Medic: ClassInterface = {
       },
       perkProgression: [
         {
-          perk: PerkName.lockNLoad,
-          imgPath: PerkImage.lockNLoad,
-          description: PerkDescription.lockNLoad,
+          perk: PerkName.extraConditioning,
+          imgPath: PerkImage.extraConditioning,
+          description: PerkDescription.extraConditioning,
+          mobility: 1,
+          aim: 3,
+          will: 3,
+        },
+        {
+          perk: PerkName.packmaster,
+          imgPath: PerkImage.packmaster,
+          description: PerkDescription.packmaster,
           mobility: 0,
           aim: 0,
           will: 0,
         },
         {
-          perk: PerkName.bombard,
-          imgPath: PerkImage.bombard,
-          description: PerkDescription.bombard,
+          perk: PerkName.heatAmmo,
+          imgPath: PerkImage.heatAmmo,
+          description: PerkDescription.heatAmmo,
           mobility: 0,
-          aim: 0,
-          will: 0,
-        },
-        {
-          perk: PerkName.sprinter,
-          imgPath: PerkImage.sprinter,
-          description: PerkDescription.sprinter,
-          mobility: 4,
           aim: 0,
           will: 0,
         },
@@ -211,25 +211,25 @@ const Medic: ClassInterface = {
       },
       perkProgression: [
         {
-          perk: PerkName.extraConditioning,
-          imgPath: PerkImage.extraConditioning,
-          description: PerkDescription.extraConditioning,
-          mobility: 1,
-          aim: 4,
-          will: 4,
-        },
-        {
-          perk: PerkName.packmaster,
-          imgPath: PerkImage.packmaster,
-          description: PerkDescription.packmaster,
+          perk: PerkName.tandemWarheads,
+          imgPath: PerkImage.tandemWarheads,
+          description: PerkDescription.tandemWarheads,
           mobility: 0,
           aim: 0,
           will: 0,
         },
         {
-          perk: PerkName.savior,
-          imgPath: PerkImage.savior,
-          description: PerkDescription.savior,
+          perk: PerkName.fireRocket,
+          imgPath: PerkImage.fireRocket,
+          description: PerkDescription.fireRocket,
+          mobility: 0,
+          aim: 0,
+          will: 0,
+        },
+        {
+          perk: PerkName.bombard,
+          imgPath: PerkImage.bombard,
+          description: PerkDescription.bombard,
           mobility: 0,
           aim: 0,
           will: 0,
@@ -239,4 +239,4 @@ const Medic: ClassInterface = {
   ],
 };
 
-export default Medic;
+export default Engineer;

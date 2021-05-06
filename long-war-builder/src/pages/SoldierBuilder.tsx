@@ -8,14 +8,32 @@ import Notification from '../components/Notification';
 const SoldierBuilder = (): JSX.Element => {
   return (
     <React.Fragment>
-      <div className="flex content-center justify-center">
-        <h2 className="text-gray-50 my-2 text-2xl">Soldier Planner</h2>
-      </div>
-      <ClassSelector />
-
       <div className="flex flex-row flex-nowrap">
+        <img
+          src={`${process.env.PUBLIC_URL}/img/perks/repair.png`}
+          className="transform scale-100 object-none mx-auto"
+          style={{ width: '8%' }}
+        ></img>
+        <h3 className="text-gray-50 text-2xl text-center self-center justify-self-center" style={{ width: '12%' }}>
+          Soldier Builder
+        </h3>
+        <ClassSelector />
+        <div className="flex flex-col text-gray-50 text-sm mt-1" style={{ width: '20%' }}>
+          <button className="self-center justify-center focus:outline-none rounded bg-gray-700 w-max m-0.5 py-0.5 px-2">
+            Soldier Builder
+          </button>
+          <button className="self-center justify-center cursor-not-allowed focus:outline-none rounded bg-gray-700 w-max m-0.5 py-0.5 px-2">
+            Mission Tracker
+          </button>
+          <button className="self-center justify-center cursor-not-allowed focus:outline-none rounded bg-gray-700 w-max m-0.5 py-0.5 px-2">
+            Events Tracker
+          </button>
+        </div>
+      </div>
+
+      <div className="flex flex-row flex-nowrap" style={{ maxHeight: '86%' }}>
         <PerkGrid />
-        <div className="flex flex-col flex-nowrap">
+        <div className="flex flex-col flex-nowrap" style={{ maxHeight: '60%' }}>
           <SoldierStats />
           <BuildStorage />
           <Notification />
