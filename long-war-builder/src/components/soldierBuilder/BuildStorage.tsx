@@ -1,9 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import { bulkClassData } from '../../data/classes';
-import { ClassName, MecName } from '../../types/enums/ClassEnums';
 import { context, StateInterface, TypeEnums } from '../../context';
-import { LocalStorageClassInterface, UrlBuildInterface } from '../../types/interfaces/StorageInterfaces';
+import { LocalStorageClassInterface } from '../../types/interfaces/StorageInterfaces';
+import { decodeBuildFromString, encodeBuildToString } from '../../commonFunctions/encodingFunctions';
 
 const BuildStorage = (): JSX.Element => {
   const [buildName, setBuildName] = useState('');
@@ -41,19 +40,8 @@ const BuildStorage = (): JSX.Element => {
   };
 
   const loadBuildFromQueryParam = () => {
-    // eyJjbGFzcyI6IkFzc2F1bHQiLCJidWlsZCI6WzAsMSwyLDAsMSwyLDBdfQ==
     try {
-      const buildString = atob(code);
-      const buildObject = JSON.parse(buildString);
-      dispatch({
-        type: TypeEnums.loadUrlBuild,
-        payload: {
-          selectedClass: buildObject.class,
-          classData: bulkClassData[buildObject.class as ClassName],
-          currentBuild: buildObject.build,
-          currentPsi: buildObject.psi,
-        },
-      });
+      decodeBuildFromString(code, dispatch);
     } catch (error) {
       console.log(error);
     }
@@ -75,13 +63,7 @@ const BuildStorage = (): JSX.Element => {
       alert('Please select at least one perk.');
       return;
     }
-    const buildObject: UrlBuildInterface = {
-      class: selectedClass as ClassName | MecName,
-      build: currentBuild,
-      psi: currentPsi,
-    };
-    const buildString = JSON.stringify(buildObject);
-    const encodedString = btoa(buildString);
+    const encodedString = encodeBuildToString(state);
     const link = `https://longwarbuilder.netlify.app/build/${encodedString}`;
     navigator.clipboard
       .writeText(link)
@@ -140,7 +122,7 @@ const BuildStorage = (): JSX.Element => {
 
   return (
     <div
-      className="m-4 p-4 ml-0  bg-darkGray h-auto rounded min-w-max justify-center text-gray-50 shadow-lg"
+      className="m-4 p-4 ml-0 bg-darkGray opacity-100 h-auto rounded min-w-max justify-center text-gray-50 shadow-lg"
       style={{ maxHeight: '61%' }}
     >
       <h3 className="text-xl text-center">Build Storage</h3>
