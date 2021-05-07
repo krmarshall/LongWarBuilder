@@ -1,4 +1,4 @@
-import { Fragment, useContext, useState } from 'react';
+import { Fragment, useContext, useEffect, useState } from 'react';
 import { context, StateInterface } from '../../context';
 import PerkGrid from './PerkGrid';
 import PsiGrid from './PsiGrid';
@@ -9,6 +9,10 @@ const GridsContainer = (): JSX.Element => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [state, dispatch] = useContext(context);
   const { selectedClass, classData } = state as StateInterface;
+
+  useEffect(() => {
+    setShowPerks(true);
+  }, [selectedClass]);
 
   const classList = ['Assault', 'Infantry', 'Rocketeer', 'Gunner', 'Sniper', 'Scout', 'Medic', 'Engineer'];
   const mecList = ['Marauder', 'Valkyrie', 'Archer', 'Goliath', 'Jaeger', 'Pathfinder', 'Guardian', 'Shogun'];
