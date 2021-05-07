@@ -18,12 +18,12 @@ const GridsContainer = (): JSX.Element => {
   const mecList = ['Marauder', 'Valkyrie', 'Archer', 'Goliath', 'Jaeger', 'Pathfinder', 'Guardian', 'Shogun'];
 
   const buttonTabClass = 'flex-grow border rounded-lg rounded-t-none border-black focus:outline-none -mt-2';
-  const tabSelected = buttonTabClass + ' bg-gray-500';
-  const tabUnselected = buttonTabClass + ' bg-gray-700';
+  const tabSelected = buttonTabClass + ' bg-gray-500 hover:bg-gray-400';
+  const tabUnselected = buttonTabClass + ' bg-gray-700 hover:bg-gray-600';
 
   return (
     <div className="m-4 p-2 bg-darkGray rounded flex-auto flex-wrap flex-grow justify-center overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-scrollbarGray shadow-lg select-none">
-      {!selectedClass && <h3 className="text-gray-50 text-xl">Select a Class</h3>}
+      {!selectedClass && <h3 className="text-gray-50 text-xl text-center">Select a Class</h3>}
       {classList.includes(selectedClass) && (
         <Fragment>
           <div className="text-gray-50 flex flex-row flex-nowrap content-center">
