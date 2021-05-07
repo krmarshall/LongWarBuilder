@@ -2,58 +2,6 @@ import { StateInterface, TypeEnums } from '../context';
 import Psi from '../data/psi';
 import rookie from '../data/rookie';
 
-const selectGridTreeFromArray = (
-  table: HTMLElement | null,
-  state: StateInterface,
-  dispatch: CallableFunction
-): void => {
-  const { currentBuild } = state;
-  currentBuild.map((perkI, rankI) => {
-    let element: HTMLElement;
-    if (typeof perkI != undefined && perkI != null) {
-      if (rankI == 0) {
-        element = table?.childNodes[rankI].childNodes[(perkI as number) + 2] as HTMLElement;
-      } else {
-        element = table?.childNodes[rankI].childNodes[(perkI as number) + 1] as HTMLElement;
-      }
-      setElementAsSelected(element);
-    }
-  });
-
-  calculateStats(state, dispatch);
-};
-
-const selectPsiGridTreeFromArray = (
-  table: HTMLElement | null,
-  state: StateInterface,
-  dispatch: CallableFunction
-): void => {
-  const { currentPsi } = state;
-  if (currentPsi == undefined) {
-    return;
-  }
-  currentPsi.map((perkI, rankI) => {
-    let element: HTMLElement | null;
-    if (typeof perkI != undefined && perkI != null) {
-      if (rankI in [0, 3]) {
-        element = table?.childNodes[rankI].childNodes[(perkI as number) + 1] as HTMLElement;
-      } else if (rankI in [1, 2]) {
-        if (perkI == 0) {
-          element = table?.childNodes[rankI].childNodes[(perkI as number) + 1] as HTMLElement;
-        } else {
-          element = table?.childNodes[rankI].childNodes[(perkI as number) + 2] as HTMLElement;
-        }
-      } else if (rankI in [4, 5]) {
-        element = table?.childNodes[rankI].childNodes[(perkI as number) + 2] as HTMLElement;
-      } else {
-        element = null;
-      }
-      setElementAsSelected(element);
-    }
-  });
-  calculateStats(state, dispatch);
-};
-
 const calculateStats = (state: StateInterface, dispatch: CallableFunction): void => {
   const { currentBuild, currentPsi, classData } = state;
   const updateStats = {
@@ -89,21 +37,6 @@ const calculateStats = (state: StateInterface, dispatch: CallableFunction): void
   dispatch({ type: TypeEnums.changeStats, payload: updateStats });
 };
 
-const clearGridTree = (table: HTMLElement | null, rankLength: number): void => {
-  for (let rank = 0; rank < rankLength; rank++) {
-    let element: HTMLElement;
-    if (rank == 0) {
-      element = table?.childNodes[rank].childNodes[2] as HTMLElement;
-      setElementAsDeselected(element);
-    } else {
-      for (let perk = 0; perk < 3; perk++) {
-        element = table?.childNodes[rank].childNodes[perk + 1] as HTMLElement;
-        setElementAsDeselected(element);
-      }
-    }
-  }
-};
-
 const setElementAsSelected = (element: HTMLElement | null): void => {
   if (!element) {
     return;
@@ -122,11 +55,4 @@ const setElementAsDeselected = (element: HTMLElement | null): void => {
   element.classList.add('hover:bg-lightGray');
 };
 
-export {
-  selectGridTreeFromArray,
-  selectPsiGridTreeFromArray,
-  calculateStats,
-  clearGridTree,
-  setElementAsSelected,
-  setElementAsDeselected,
-};
+export { calculateStats, setElementAsSelected, setElementAsDeselected };

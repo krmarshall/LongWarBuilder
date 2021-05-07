@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { context, StateInterface } from '../../context';
 import { RankInterface } from '../../types/interfaces/ClassInterfaces';
 import RankRow from './RankRow';
-import { selectGridTreeFromArray, clearGridTree } from '../../commonFunctions/gridFunctions';
+import { setElementAsSelected, calculateStats, setElementAsDeselected } from '../../commonFunctions/gridFunctions';
 
 const PerkGrid = (): JSX.Element => {
   const [perkTable, setPerkTable] = useState(document.getElementById('perkTable'));
@@ -17,10 +17,41 @@ const PerkGrid = (): JSX.Element => {
 
   useEffect(() => {
     if (perkTable != null) {
-      clearGridTree(perkTable, 7);
-      selectGridTreeFromArray(perkTable, state, dispatch);
+      clearGridTree();
+      selectGridTreeFromArray();
     }
   }, [currentBuild, perkTable]);
+
+  const selectGridTreeFromArray = () => {
+    currentBuild.map((perkI, rankI) => {
+      let element: HTMLElement;
+      if (typeof perkI != undefined && perkI != null) {
+        if (rankI == 0) {
+          element = perkTable?.childNodes[rankI].childNodes[(perkI as number) + 2] as HTMLElement;
+        } else {
+          element = perkTable?.childNodes[rankI].childNodes[(perkI as number) + 1] as HTMLElement;
+        }
+        setElementAsSelected(element);
+      }
+    });
+
+    calculateStats(state, dispatch);
+  };
+
+  const clearGridTree = () => {
+    for (let rank = 0; rank < 7; rank++) {
+      let element: HTMLElement;
+      if (rank == 0) {
+        element = perkTable?.childNodes[rank].childNodes[2] as HTMLElement;
+        setElementAsDeselected(element);
+      } else {
+        for (let perk = 0; perk < 3; perk++) {
+          element = perkTable?.childNodes[rank].childNodes[perk + 1] as HTMLElement;
+          setElementAsDeselected(element);
+        }
+      }
+    }
+  };
 
   return (
     <table className="table-fixed">
