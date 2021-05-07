@@ -15,6 +15,7 @@ const RankRow = ({ rank, rankIndex }: RankRowProps): JSX.Element => {
           src={`${process.env.PUBLIC_URL}/${rank.imgPath}`}
           alt={rank.name}
           className="transform scale-75 object-none mx-auto -mb-1.5"
+          draggable="false"
         ></img>
         <p className="text-sm">{rank.name}</p>
       </td>

@@ -32,7 +32,8 @@ const PsiPerkCell = ({ psiPerk, psiRankIndex, psiPerkIndex }: PsiPerkCellProps):
       <img
         src={`${process.env.PUBLIC_URL}/${psiPerk.imgPath}`}
         alt={psiPerk.perk}
-        className="transform scale-56 object-none mx-auto -mb-2"
+        className="transform scale-56 object-none mx-auto -mb-4 -mt-2"
+        draggable="false"
       ></img>
       <h5 className="text-sm">{psiPerk.perk}</h5>
       <p className="text-xs">{psiPerk.description}</p>

@@ -15,6 +15,7 @@ const PsiRankRow = ({ psiRank, psiRankIndex }: PsiRankRowProps): JSX.Element => 
           src={`${process.env.PUBLIC_URL}/img/ranks/psi.png`}
           alt="psiIcon"
           className="transform scale-75 object-none mx-auto -mb-1.5"
+          draggable="false"
         ></img>
         <p className="text-sm">{psiRank.name}</p>
       </td>
