@@ -22,7 +22,7 @@ const GridsContainer = (): JSX.Element => {
   const tabUnselected = buttonTabClass + ' bg-gray-700 hover:bg-gray-600';
 
   return (
-    <div className="m-4 p-2 bg-darkGray rounded flex-auto flex-wrap flex-grow justify-center overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-scrollbarGray shadow-lg select-none">
+    <div className="m-4 p-2 bg-darkGray opacity-100 rounded flex-auto flex-wrap flex-grow justify-center overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-scrollbarGray shadow-lg select-none">
       {!selectedClass && <h3 className="text-gray-50 text-xl text-center">Select a Class</h3>}
       {classList.includes(selectedClass) && (
         <Fragment>

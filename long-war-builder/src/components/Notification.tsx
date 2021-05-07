@@ -27,7 +27,7 @@ const Notification = (): JSX.Element => {
   };
 
   const baseClassName =
-    'rounded shadow-lg w-auto m-auto my-0 cursor-pointer items-center transition-all duration-200 ease-in-out bg-gray-700 text-white text-sm px-2 py-1';
+    'rounded shadow-lg w-auto m-auto my-0 cursor-pointer items-center transition-all duration-200 ease-in-out bg-gray-700 opacity-100 text-white text-sm px-2 py-1';
   const visibleClass = baseClassName + ' opacity-100';
   const hiddenClass = baseClassName + ' opacity-0';
 

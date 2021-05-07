@@ -1,10 +1,11 @@
 import React, { createContext, useReducer } from 'react';
 import rookie from '../data/rookie';
+import { ClassName, MecName } from '../types/enums/ClassEnums';
 import { AllStatsInterface, ClassInterface } from '../types/interfaces/ClassInterfaces';
 import { LocalStorageClassInterface } from '../types/interfaces/StorageInterfaces';
 
 interface StateInterface {
-  selectedClass: string;
+  selectedClass: ClassName | MecName | '';
   stats: AllStatsInterface;
   classData: ClassInterface | undefined;
   // eslint-disable-next-line no-sparse-arrays
