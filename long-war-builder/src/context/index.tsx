@@ -1,6 +1,7 @@
 import React, { createContext, useReducer } from 'react';
 import rookie from '../data/rookie';
-import { AllStatsInterface, ClassInterface, LocalStorageClassInterface } from '../types/Interfaces';
+import { AllStatsInterface, ClassInterface } from '../types/interfaces/ClassInterfaces';
+import { LocalStorageClassInterface } from '../types/interfaces/StorageInterfaces';
 
 interface StateInterface {
   selectedClass: string;
@@ -8,6 +9,7 @@ interface StateInterface {
   classData: ClassInterface | undefined;
   // eslint-disable-next-line no-sparse-arrays
   currentBuild: Array<number | undefined>;
+  currentPsi?: Array<number | undefined>;
   classBuilds: LocalStorageClassInterface;
   notificationMessage: string;
 }
@@ -26,6 +28,7 @@ enum TypeEnums {
   'changeClass' = 'changeClass',
   'changeStats' = 'changeStats',
   'changeCurrentBuild' = 'changeCurrentBuild',
+  'changeCurrentPsi' = 'changeCurrentPsi',
   'changeClassBuilds' = 'changeClassBuilds',
   'loadSavedBuild' = 'loadSavedBuild',
   'loadUrlBuild' = 'loadUrlBuild',
@@ -42,6 +45,7 @@ const initialState: StateInterface = {
   },
   classData: undefined,
   currentBuild: [undefined, undefined, undefined, undefined, undefined, undefined, undefined],
+  currentPsi: undefined,
   classBuilds: {},
   notificationMessage: '',
 };
@@ -59,6 +63,7 @@ const StateProvider = ({ children }: ProviderParamsInterface): JSX.Element => {
         newState.selectedClass = action.payload.selectedClass;
         newState.classData = action.payload.classData;
         newState.currentBuild = action.payload.currentBuild;
+        newState.currentPsi = action.payload.currentPsi;
         return newState;
       }
       case TypeEnums.changeStats: {
@@ -71,6 +76,11 @@ const StateProvider = ({ children }: ProviderParamsInterface): JSX.Element => {
         newState.currentBuild = action.payload;
         return newState;
       }
+      case TypeEnums.changeCurrentPsi: {
+        const newState = { ...state };
+        newState.currentPsi = action.payload;
+        return newState;
+      }
       case TypeEnums.changeClassBuilds: {
         const newState = { ...state };
         newState.classBuilds = action.payload;
@@ -79,6 +89,7 @@ const StateProvider = ({ children }: ProviderParamsInterface): JSX.Element => {
       case TypeEnums.loadSavedBuild: {
         const newState = { ...state };
         newState.currentBuild = action.payload.currentBuild;
+        newState.currentPsi = action.payload.currentPsi;
         return newState;
       }
       case TypeEnums.loadUrlBuild: {
@@ -86,6 +97,7 @@ const StateProvider = ({ children }: ProviderParamsInterface): JSX.Element => {
         newState.selectedClass = action.payload.selectedClass;
         newState.classData = action.payload.classData;
         newState.currentBuild = action.payload.currentBuild;
+        newState.currentPsi = action.payload.currentPsi;
         return newState;
       }
       case TypeEnums.changeNotification: {

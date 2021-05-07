@@ -1,16 +1,16 @@
 import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import { bulkClassData } from '../data/classes';
-import { ClassName, MecName } from '../types/enums/ClassEnums';
-import { context, StateInterface, TypeEnums } from '../context';
-import { UrlBuildInterface } from '../types/Interfaces';
+import { bulkClassData } from '../../data/classes';
+import { ClassName, MecName } from '../../types/enums/ClassEnums';
+import { context, StateInterface, TypeEnums } from '../../context';
+import { LocalStorageClassInterface, UrlBuildInterface } from '../../types/interfaces/StorageInterfaces';
 
 const BuildStorage = (): JSX.Element => {
   const [buildName, setBuildName] = useState('');
   const [urlLoaded, setUrlLoaded] = useState(false);
   //@ts-expect-error 2461
   const [state, dispatch] = useContext(context);
-  const { selectedClass, classBuilds, currentBuild } = state as StateInterface;
+  const { selectedClass, classBuilds, currentBuild, currentPsi } = state as StateInterface;
   const [classBuildsKeys, setClassBuildsKeys] = useState<Array<string>>();
 
   //@ts-expect-error 2339
@@ -34,7 +34,7 @@ const BuildStorage = (): JSX.Element => {
       setClassBuildsKeys(undefined);
       return;
     }
-    const storageObject = JSON.parse(storageString);
+    const storageObject: LocalStorageClassInterface = JSON.parse(storageString);
     dispatch({ type: TypeEnums.changeClassBuilds, payload: storageObject });
     const keys = Object.keys(storageObject);
     setClassBuildsKeys(keys);
@@ -51,6 +51,7 @@ const BuildStorage = (): JSX.Element => {
           selectedClass: buildObject.class,
           classData: bulkClassData[buildObject.class as ClassName],
           currentBuild: buildObject.build,
+          currentPsi: buildObject.psi,
         },
       });
     } catch (error) {
@@ -77,6 +78,7 @@ const BuildStorage = (): JSX.Element => {
     const buildObject: UrlBuildInterface = {
       class: selectedClass as ClassName | MecName,
       build: currentBuild,
+      psi: currentPsi,
     };
     const buildString = JSON.stringify(buildObject);
     const encodedString = btoa(buildString);
@@ -114,7 +116,7 @@ const BuildStorage = (): JSX.Element => {
       return;
     }
     const updateClassBuilds = { ...classBuilds };
-    updateClassBuilds[buildName] = { perks: currentBuild };
+    updateClassBuilds[buildName] = { perks: currentBuild, psi: currentPsi };
     localStorage.setItem(selectedClass, JSON.stringify(updateClassBuilds));
     dispatch({ type: TypeEnums.changeClassBuilds, payload: updateClassBuilds });
     const keys = Object.keys(updateClassBuilds);
@@ -124,7 +126,7 @@ const BuildStorage = (): JSX.Element => {
 
   const selectPerksFromSelectedBuild = (keyValue: string) => {
     const build = classBuilds[keyValue];
-    dispatch({ type: TypeEnums.loadSavedBuild, payload: { currentBuild: build.perks } });
+    dispatch({ type: TypeEnums.loadSavedBuild, payload: { currentBuild: build.perks, currentPsi: build.psi } });
   };
 
   const deleteBuild = (keyValue: string) => {

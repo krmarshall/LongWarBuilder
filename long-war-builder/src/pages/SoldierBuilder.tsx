@@ -1,9 +1,9 @@
 import React from 'react';
-import ClassSelector from '../components/ClassSelector';
-import SoldierStats from '../components/SoldierStats';
-import PerkGrid from '../components/PerkGrid';
-import BuildStorage from '../components/BuildStorage';
+import ClassSelector from '../components/soldierBuilder/ClassSelector';
+import SoldierStats from '../components/soldierBuilder/SoldierStats';
+import BuildStorage from '../components/soldierBuilder/BuildStorage';
 import Notification from '../components/Notification';
+import GridsContainer from '../components/soldierBuilder/GridsContainer';
 
 const SoldierBuilder = (): JSX.Element => {
   return (
@@ -32,7 +32,7 @@ const SoldierBuilder = (): JSX.Element => {
       </div>
 
       <div className="flex flex-row flex-nowrap" style={{ maxHeight: '86%' }}>
-        <PerkGrid />
+        <GridsContainer />
         <div className="flex flex-col flex-nowrap" style={{ maxHeight: '60%' }}>
           <SoldierStats />
           <BuildStorage />

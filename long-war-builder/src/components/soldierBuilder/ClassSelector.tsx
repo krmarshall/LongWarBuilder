@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
-import { ClassImage, ClassName, MecImage, MecName } from '../types/enums/ClassEnums';
-import { context, StateInterface, TypeEnums } from '../context';
-import { bulkClassData } from '../data/classes';
+import { ClassImage, ClassName, MecImage, MecName } from '../../types/enums/ClassEnums';
+import { context, StateInterface, TypeEnums } from '../../context';
+import { bulkClassData } from '../../data/classes';
 
 const ClassSelector = (): JSX.Element => {
   const [selectedImage, setSelectedImage] = useState<HTMLElement>();
@@ -25,10 +25,12 @@ const ClassSelector = (): JSX.Element => {
     }
 
     element.classList.remove('opacity-40');
+    element.classList.remove('hover:opacity-70');
     element.classList.add('opacity-100');
 
     selectedImage?.classList.remove('opacity-100');
     selectedImage?.classList.add('opacity-40');
+    selectedImage?.classList.add('hover:opacity-70');
 
     setSelectedImage(element);
   };
@@ -40,6 +42,7 @@ const ClassSelector = (): JSX.Element => {
         selectedClass: className,
         classData: bulkClassData[className],
         currentBuild: [undefined, undefined, undefined, undefined, undefined, undefined, undefined],
+        currentPsi: undefined,
       },
     });
   };
@@ -54,7 +57,7 @@ const ClassSelector = (): JSX.Element => {
               id={className}
               src={`${process.env.PUBLIC_URL}/${ClassImage[className as ClassName]}`}
               alt={className}
-              className="transform scale-70 object-none -my-1.5 -mt-0 opacity-40 cursor-pointer"
+              className="transform scale-70 object-none -my-1.5 -mt-0 opacity-40 hover:opacity-70 cursor-pointer"
               draggable="false"
               onClick={(event) => {
                 classSelectHandler(className as ClassName);
@@ -72,7 +75,7 @@ const ClassSelector = (): JSX.Element => {
               id={mecName}
               src={`${process.env.PUBLIC_URL}/${MecImage[mecName as MecName]}`}
               alt={mecName}
-              className="transform scale-70 object-none -my-1.5 -mb-4 opacity-40 cursor-pointer"
+              className="transform scale-70 object-none -my-1.5 -mb-4 opacity-40 hover:opacity-70 cursor-pointer"
               draggable="false"
               onClick={(event) => {
                 classSelectHandler(mecName as MecName);
