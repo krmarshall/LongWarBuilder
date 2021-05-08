@@ -11,6 +11,7 @@ const SoldierBuilder = (): JSX.Element => {
       <div className="flex flex-row flex-nowrap">
         <img
           src={`${process.env.PUBLIC_URL}/img/perks/repair.png`}
+          alt="SoldierBuilderLogo"
           className="transform scale-100 object-none mx-auto"
           style={{ width: '8%' }}
         ></img>
