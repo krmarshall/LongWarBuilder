@@ -20,7 +20,7 @@ const SoldierStats = (): JSX.Element => {
   }, [selectedClass]);
 
   return (
-    <div className="m-4 ml-0 p-4 bg-darkGray opacity-100 rounded h-auto min-w-max justify-center text-gray-50 shadow-lg">
+    <div className="m-4 mt-1.5 ml-0 p-4 bg-darkGray opacity-100 rounded h-auto min-w-max justify-center text-gray-50 shadow-lg">
       <h3 className="text-xl text-center">Soldier Stats</h3>
       <div className="space-x-2">
         <img

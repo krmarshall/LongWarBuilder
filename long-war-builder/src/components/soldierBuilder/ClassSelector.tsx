@@ -48,7 +48,7 @@ const ClassSelector = (): JSX.Element => {
   };
 
   return (
-    <div style={{ width: '60%' }}>
+    <div className="mt-0.5" style={{ width: '60%' }}>
       <div className="flex flex-row flex-nowrap content-center justify-center text-gray-50 select-none">
         {classList.map((className) => {
           return (
@@ -57,7 +57,7 @@ const ClassSelector = (): JSX.Element => {
               id={className}
               src={`${process.env.PUBLIC_URL}/${ClassImage[className as ClassName]}`}
               alt={className}
-              className="transform scale-70 object-none -my-1.5 -mt-0 opacity-40 hover:opacity-70 cursor-pointer"
+              className="transform scale-70 object-none -my-1.5 -mt-0 opacity-40 hover:opacity-70 cursor-pointer rounded-xl"
               draggable="false"
               onClick={(event) => {
                 classSelectHandler(className as ClassName);
@@ -75,7 +75,7 @@ const ClassSelector = (): JSX.Element => {
               id={mecName}
               src={`${process.env.PUBLIC_URL}/${MecImage[mecName as MecName]}`}
               alt={mecName}
-              className="transform scale-70 object-none -my-1.5 -mb-4 opacity-40 hover:opacity-70 cursor-pointer"
+              className="transform scale-70 object-none -my-1.5 -mb-4 opacity-40 hover:opacity-70 cursor-pointer rounded-xl"
               draggable="false"
               onClick={(event) => {
                 classSelectHandler(mecName as MecName);

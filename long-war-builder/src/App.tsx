@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Empty from './pages/Empty';
+import MissionTracker from './pages/MissionTracker';
 import SoldierBuilder from './pages/SoldierBuilder';
 
 const App = (): JSX.Element => {
@@ -17,6 +18,9 @@ const App = (): JSX.Element => {
               </Route>
               <Route path="/build/:code?">
                 <SoldierBuilder />
+              </Route>
+              <Route exact path="/missions">
+                <MissionTracker />
               </Route>
             </Switch>
           </div>
