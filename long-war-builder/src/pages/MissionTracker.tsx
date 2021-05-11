@@ -1,5 +1,6 @@
 import { Fragment, useState } from 'react';
 import MissionCalculator from '../components/missionTracker/MissionCalculator';
+import MissionCounter from '../components/missionTracker/MissionCounter';
 import MissionReference from '../components/missionTracker/MissionReference';
 import NavHeader from '../components/NavHeader';
 
@@ -18,6 +19,7 @@ const MissionTracker = (): JSX.Element => {
             threatLevel={threatLevel}
             setThreatLevel={setThreatLevel}
           />
+          <MissionCounter resourceLevel={resourceLevel} threatLevel={threatLevel} />
         </div>
         <div className="flex flex-col flex-nowrap">
           <MissionReference />

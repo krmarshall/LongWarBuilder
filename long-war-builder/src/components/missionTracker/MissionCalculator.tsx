@@ -24,7 +24,7 @@ const MissionTracker = ({
     <div className="flex flex-col flex-nowrap justify-center content-center text-gray-50 m-4 p-4 mt-1 pt-2 bg-darkGray opacity-100 h-auto rounded shadow-lg">
       <div>
         <h3 className="text-lg text-center">
-          Mission Tracker&nbsp;
+          Mission Calculator&nbsp;
           <a
             className="text-blue-600 cursor-pointer"
             onClick={() => {
@@ -63,21 +63,23 @@ const MissionTracker = ({
         </div>
       </div>
 
-      {calculateToggle ? (
-        <CalculateResources
-          resourceLevel={resourceLevel}
-          setResourceLevel={setResourceLevel}
-          threatLevel={threatLevel}
-          setThreatLevel={setThreatLevel}
-        />
-      ) : (
-        <SetResources
-          resourceLevel={resourceLevel}
-          setResourceLevel={setResourceLevel}
-          threatLevel={threatLevel}
-          setThreatLevel={setThreatLevel}
-        />
-      )}
+      <div className="flex flex-row flex-nowrap">
+        {calculateToggle ? (
+          <CalculateResources
+            resourceLevel={resourceLevel}
+            setResourceLevel={setResourceLevel}
+            threatLevel={threatLevel}
+            setThreatLevel={setThreatLevel}
+          />
+        ) : (
+          <SetResources
+            resourceLevel={resourceLevel}
+            setResourceLevel={setResourceLevel}
+            threatLevel={threatLevel}
+            setThreatLevel={setThreatLevel}
+          />
+        )}
+      </div>
     </div>
   );
 };

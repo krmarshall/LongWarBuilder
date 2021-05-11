@@ -1,4 +1,6 @@
-const missionTypes = {
+import { BulkMissionTypesInterface } from '../types/interfaces/MissionInterfaces';
+
+const missionTypes: BulkMissionTypesInterface = {
   Scout: {
     altitude: 'Low',
     followUp: 'Hunt / Preventable',

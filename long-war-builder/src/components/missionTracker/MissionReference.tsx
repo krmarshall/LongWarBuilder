@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import missionTypes from '../../data/missionTypes';
+import { UfoInterface } from '../../types/interfaces/MissionInterfaces';
 
 const MissionReference = (): JSX.Element => {
   const [missionKeys, setMissionKeys] = useState<Array<string>>([]);
@@ -18,7 +19,6 @@ const MissionReference = (): JSX.Element => {
         </thead>
         <tbody id="missionTable">
           {missionKeys.map((key) => {
-            //@ts-expect-error 7053
             const mission = missionTypes[key];
             return (
               <tr key={key} className="border-t border-b border-gray-400 border-opacity-80">
@@ -27,7 +27,7 @@ const MissionReference = (): JSX.Element => {
                   <p>Altitude: {mission.altitude}</p>
                   {mission.followUp && <p>Follow Up: {mission.followUp}</p>}
                   <ul>
-                    {mission.ufoPool.map((ufo: any) => {
+                    {mission.ufoPool.map((ufo: UfoInterface) => {
                       if (ufo.resource2) {
                         return (
                           <li key={ufo.name}>

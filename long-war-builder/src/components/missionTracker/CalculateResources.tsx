@@ -36,69 +36,73 @@ const CalculateResources = ({
 
   return (
     <Fragment>
-      <div className="flex flex-row flex-nowrap justify-left content-center">
-        <p>Resource Level:&nbsp;</p>
-        <p className="font-bold">{resourceLevel}</p>
+      <div className="flex-grow">
+        <div className="flex flex-row flex-nowrap justify-left content-center">
+          <p>Resource Level:&nbsp;</p>
+          <p className="font-bold">{resourceLevel}</p>
+        </div>
+
+        <div className="flex flex-row flex-nowrap justify-left content-center ml-6 mb-4">
+          <p>Alien Resources:&nbsp;</p>
+          <input
+            type="number"
+            value={alienResources}
+            className="text-gray-700 rounded bg-gray-300 placeholder-gray-500 pl-1 w-12 focus:outline-none"
+            onChange={(event) => {
+              setAlienResources(Number(event.target.value));
+            }}
+          ></input>
+        </div>
       </div>
 
-      <div className="flex flex-row flex-nowrap justify-left content-center ml-6 mb-4">
-        <p>Alien Resources:&nbsp;</p>
-        <input
-          type="number"
-          value={alienResources}
-          className="text-gray-700 rounded bg-gray-300 placeholder-gray-500 pl-1 w-12 focus:outline-none"
-          onChange={(event) => {
-            setAlienResources(Number(event.target.value));
-          }}
-        ></input>
-      </div>
+      <div className="flex-grow">
+        <div className="flex flex-row flex-nowrap justify-left content-center">
+          <p>Threat Category Level:&nbsp;</p>
+          <p className="font-bold">{threatLevel}</p>
+        </div>
 
-      <div className="flex flex-row flex-nowrap justify-left content-center">
-        <p>Threat Category Level:&nbsp;</p>
-        <p className="font-bold">{threatLevel}</p>
-      </div>
+        <div className="flex flex-row flex-nowrap justify-left content-center ml-6">
+          <p>Previous Months Threat Category Level:&nbsp;</p>
+          <input
+            type="number"
+            value={previousThreat}
+            className="text-gray-700 rounded bg-gray-300 placeholder-gray-500 pl-1 w-8 focus:outline-none"
+            onChange={(event) => {
+              let value = Number(event.target.value);
+              value = Math.min(value, 4);
+              value = Math.max(value, 0);
+              setPreviousThreat(value);
+            }}
+          ></input>
+        </div>
 
-      <div className="flex flex-row flex-nowrap justify-left content-center ml-6">
-        <p>Previous Months Threat Category Level:&nbsp;</p>
-        <input
-          type="number"
-          value={previousThreat}
-          className="text-gray-700 rounded bg-gray-300 placeholder-gray-500 pl-1 w-8 focus:outline-none"
-          onChange={(event) => {
-            let value = Number(event.target.value);
-            value = Math.min(value, 4);
-            value = Math.max(value, 0);
-            setPreviousThreat(value);
-          }}
-        ></input>
-      </div>
+        <div className="flex flex-row flex-nowrap justify-left content-center ml-6">
+          <p>Splashed Small/Mediums:&nbsp;</p>
+          <input
+            type="number"
+            value={splashedSmalls}
+            className="text-gray-700 rounded bg-gray-300 placeholder-gray-500 pl-1 w-10 focus:outline-none"
+            onChange={(event) => {
+              let value = Number(event.target.value);
+              value = Math.max(value, 0);
+              setSplashedSmalls(value);
+            }}
+          ></input>
+        </div>
 
-      <div className="flex flex-row flex-nowrap justify-left content-center ml-6">
-        <p>Splashed Small/Mediums:&nbsp;</p>
-        <input
-          type="number"
-          value={splashedSmalls}
-          className="text-gray-700 rounded bg-gray-300 placeholder-gray-500 pl-1 w-10 focus:outline-none"
-          onChange={(event) => {
-            let value = Number(event.target.value);
-            value = Math.max(value, 0);
-            setSplashedSmalls(value);
-          }}
-        ></input>
-      </div>
-
-      <div className="flex flex-row flex-nowrap justify-left content-center ml-6">
-        <p>Splashed Larges:&nbsp;</p>
-        <input
-          type="number"
-          value={splashedLarges}
-          className="text-gray-700 rounded bg-gray-300 placeholder-gray-500 pl-1 w-10 focus:outline-none"
-          onChange={(event) => {
-            let value = Number(event.target.value);
-            value = Math.max(value, 0);
-            setSplashedLarges(value);
-          }}
-        ></input>
+        <div className="flex flex-row flex-nowrap justify-left content-center ml-6">
+          <p>Splashed Larges:&nbsp;</p>
+          <input
+            type="number"
+            value={splashedLarges}
+            className="text-gray-700 rounded bg-gray-300 placeholder-gray-500 pl-1 w-10 focus:outline-none"
+            onChange={(event) => {
+              let value = Number(event.target.value);
+              value = Math.max(value, 0);
+              setSplashedLarges(value);
+            }}
+          ></input>
+        </div>
       </div>
     </Fragment>
   );
