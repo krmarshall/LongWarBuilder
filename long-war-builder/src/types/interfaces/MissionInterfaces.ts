@@ -16,15 +16,37 @@ interface BulkMissionTypesInterface {
 }
 
 interface MonthlyMissionsInterface {
-  Abduction: number;
-  Terror?: number;
-  Research?: number;
-  Scout: number;
-  Harvest?: number;
-  Hunt?: number;
-  Bomb?: number;
-  Infiltrate?: number;
-  Council: 1;
+  abduction: number;
+  terror?: number;
+  research?: number;
+  scout: number;
+  harvest?: number;
+  hunt?: number;
+  bomb?: number;
+  infiltrate?: number;
+  council: number;
 }
 
-export type { UfoInterface, MissionTypeInterface, BulkMissionTypesInterface, MonthlyMissionsInterface };
+interface CalculatedInputsInterface {
+  calculateToggle: boolean;
+  resourceLevel: number;
+  alienResources: number;
+  threatLevel: number;
+  prevMonthThreatLevel: number;
+  splashedSmalls: number;
+  splashedLarges: number;
+}
+
+interface MissionStateInterface {
+  calculatedInputs: CalculatedInputsInterface;
+  missions: MonthlyMissionsInterface;
+  notes: string;
+}
+
+export type {
+  UfoInterface,
+  MissionTypeInterface,
+  BulkMissionTypesInterface,
+  MonthlyMissionsInterface,
+  MissionStateInterface,
+};

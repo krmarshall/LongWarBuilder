@@ -1,38 +1,35 @@
-import { Fragment, useState, useEffect } from 'react';
+import { Fragment, useEffect } from 'react';
+import { MissionStateInterface } from '../../types/interfaces/MissionInterfaces';
 
 interface CalculateResourceProps {
-  resourceLevel: number;
-  setResourceLevel(value: number): void;
-  threatLevel: number;
-  setThreatLevel(value: number): void;
+  missionState: MissionStateInterface;
+  missionDispatch: CallableFunction;
 }
 
-const CalculateResources = ({
-  resourceLevel,
-  setResourceLevel,
-  threatLevel,
-  setThreatLevel,
-}: CalculateResourceProps): JSX.Element => {
-  const [alienResources, setAlienResources] = useState(0);
-
-  const [previousThreat, setPreviousThreat] = useState(0);
-  const [splashedSmalls, setSplashedSmalls] = useState(0);
-  const [splashedLarges, setSplashedLarges] = useState(0);
+const CalculateResources = ({ missionState, missionDispatch }: CalculateResourceProps): JSX.Element => {
+  const {
+    alienResources,
+    prevMonthThreatLevel,
+    splashedSmalls,
+    splashedLarges,
+    resourceLevel,
+    threatLevel,
+  } = missionState.calculatedInputs;
 
   useEffect(() => {
     let newResourceLevel = Math.floor(alienResources / 50);
     newResourceLevel = Math.min(newResourceLevel, 4);
     newResourceLevel = Math.max(newResourceLevel, 0);
-    setResourceLevel(newResourceLevel);
-  }, [alienResources]);
+    missionDispatch({ type: 'CHANGE_CALCULATED_INPUTS', payload: { resourceLevel: newResourceLevel } });
+  }, [missionState.calculatedInputs.alienResources]);
 
   useEffect(() => {
-    let newThreatCategory = Math.max(previousThreat - 2, 0) + splashedSmalls + splashedLarges * 2;
+    let newThreatCategory = Math.max(prevMonthThreatLevel - 2, 0) + splashedSmalls + splashedLarges * 2;
     newThreatCategory = Math.floor(newThreatCategory / 2);
     newThreatCategory = Math.min(newThreatCategory, 4);
     newThreatCategory = Math.max(newThreatCategory, 0);
-    setThreatLevel(newThreatCategory);
-  }, [previousThreat, splashedSmalls, splashedLarges]);
+    missionDispatch({ type: 'CHANGE_CALCULATED_INPUTS', payload: { threatLevel: newThreatCategory } });
+  }, [prevMonthThreatLevel, splashedSmalls, splashedLarges]);
 
   return (
     <Fragment>
@@ -49,7 +46,10 @@ const CalculateResources = ({
             value={alienResources}
             className="text-gray-700 rounded bg-gray-300 placeholder-gray-500 pl-1 w-12 focus:outline-none"
             onChange={(event) => {
-              setAlienResources(Number(event.target.value));
+              missionDispatch({
+                type: 'CHANGE_CALCULATED_INPUTS',
+                payload: { alienResources: Number(event.target.value) },
+              });
             }}
           ></input>
         </div>
@@ -65,13 +65,16 @@ const CalculateResources = ({
           <p>Previous Months Threat Category Level:&nbsp;</p>
           <input
             type="number"
-            value={previousThreat}
+            value={prevMonthThreatLevel}
             className="text-gray-700 rounded bg-gray-300 placeholder-gray-500 pl-1 w-8 focus:outline-none"
             onChange={(event) => {
               let value = Number(event.target.value);
               value = Math.min(value, 4);
               value = Math.max(value, 0);
-              setPreviousThreat(value);
+              missionDispatch({
+                type: 'CHANGE_CALCULATED_INPUTS',
+                payload: { prevMonthThreatLevel: value },
+              });
             }}
           ></input>
         </div>
@@ -85,7 +88,10 @@ const CalculateResources = ({
             onChange={(event) => {
               let value = Number(event.target.value);
               value = Math.max(value, 0);
-              setSplashedSmalls(value);
+              missionDispatch({
+                type: 'CHANGE_CALCULATED_INPUTS',
+                payload: { splashedSmalls: value },
+              });
             }}
           ></input>
         </div>
@@ -99,7 +105,10 @@ const CalculateResources = ({
             onChange={(event) => {
               let value = Number(event.target.value);
               value = Math.max(value, 0);
-              setSplashedLarges(value);
+              missionDispatch({
+                type: 'CHANGE_CALCULATED_INPUTS',
+                payload: { splashedLarges: value },
+              });
             }}
           ></input>
         </div>

@@ -1,24 +1,15 @@
-import { useState } from 'react';
 import { useHistory } from 'react-router';
+import { MissionStateInterface } from '../../types/interfaces/MissionInterfaces';
 import CalculateResources from './CalculateResources';
 import SetResources from './SetResources';
 
 interface MissionCalculatorProps {
-  resourceLevel: number;
-  setResourceLevel(value: number): void;
-  threatLevel: number;
-  setThreatLevel(value: number): void;
+  missionState: MissionStateInterface;
+  missionDispatch: CallableFunction;
 }
 
-const MissionTracker = ({
-  resourceLevel,
-  setResourceLevel,
-  threatLevel,
-  setThreatLevel,
-}: MissionCalculatorProps): JSX.Element => {
+const MissionTracker = ({ missionState, missionDispatch }: MissionCalculatorProps): JSX.Element => {
   const history = useHistory();
-
-  const [calculateToggle, setCalculateToggle] = useState(false);
 
   return (
     <div className="flex flex-col flex-nowrap justify-center content-center text-gray-50 m-4 p-4 mt-1 pt-2 bg-darkGray opacity-100 h-auto rounded shadow-lg">
@@ -39,7 +30,7 @@ const MissionTracker = ({
           <p
             className="mr-4 font-medium cursor-pointer"
             onClick={() => {
-              setCalculateToggle(!calculateToggle);
+              missionDispatch({ type: 'TOGGLE_CALCULATE', payload: !missionState.calculatedInputs.calculateToggle });
             }}
           >
             Set
@@ -50,9 +41,12 @@ const MissionTracker = ({
                 id="toggleA"
                 type="checkbox"
                 className="sr-only"
-                checked={calculateToggle}
+                checked={missionState.calculatedInputs.calculateToggle}
                 onChange={() => {
-                  setCalculateToggle(!calculateToggle);
+                  missionDispatch({
+                    type: 'TOGGLE_CALCULATE',
+                    payload: !missionState.calculatedInputs.calculateToggle,
+                  });
                 }}
               />
               <div className="w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
@@ -64,20 +58,10 @@ const MissionTracker = ({
       </div>
 
       <div className="flex flex-row flex-nowrap">
-        {calculateToggle ? (
-          <CalculateResources
-            resourceLevel={resourceLevel}
-            setResourceLevel={setResourceLevel}
-            threatLevel={threatLevel}
-            setThreatLevel={setThreatLevel}
-          />
+        {missionState.calculatedInputs.calculateToggle ? (
+          <CalculateResources missionState={missionState} missionDispatch={missionDispatch} />
         ) : (
-          <SetResources
-            resourceLevel={resourceLevel}
-            setResourceLevel={setResourceLevel}
-            threatLevel={threatLevel}
-            setThreatLevel={setThreatLevel}
-          />
+          <SetResources missionState={missionState} missionDispatch={missionDispatch} />
         )}
       </div>
     </div>
