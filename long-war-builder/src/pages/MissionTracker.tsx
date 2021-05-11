@@ -30,7 +30,6 @@ const MissionTracker = (): JSX.Element => {
     notes: '',
   };
 
-  //@ts-expect-error 2769
   const [missionState, missionDispatch] = useReducer(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (state: MissionStateInterface, action: { type: string; payload: any }) => {
@@ -53,6 +52,10 @@ const MissionTracker = (): JSX.Element => {
         case 'CHANGE_NOTES': {
           const newState = { ...state };
           newState.notes = action.payload;
+          return newState;
+        }
+        case 'LOAD_STATE': {
+          const newState = action.payload;
           return newState;
         }
         default: {
