@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Empty from './pages/Empty';
 import MissionTracker from './pages/MissionTracker';
+import MissionTrackerAbout from './pages/MissionTrackerAbout';
 import SoldierBuilder from './pages/SoldierBuilder';
 
 const App = (): JSX.Element => {
@@ -21,6 +22,9 @@ const App = (): JSX.Element => {
               </Route>
               <Route exact path="/missions">
                 <MissionTracker />
+              </Route>
+              <Route exact path="/missions/about">
+                <MissionTrackerAbout />
               </Route>
             </Switch>
           </div>

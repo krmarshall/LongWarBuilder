@@ -216,6 +216,12 @@ const MissionCounter = ({ missionState, missionDispatch }: MissionCounterProps):
               Save
             </button>
             <button
+              className="rounded py-1 px-2 m-1 w-max self-center focus:outline-none  bg-blue-700 hover:bg-blue-600"
+              onClick={loadMissionStateFromStorage}
+            >
+              Load
+            </button>
+            <button
               className="rounded py-1 px-2 m-1 w-max self-center focus:outline-none  bg-gray-700 hover:bg-gray-600"
               onClick={clearMissionsHandler}
             >
