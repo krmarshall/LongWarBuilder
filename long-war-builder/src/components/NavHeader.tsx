@@ -27,6 +27,14 @@ const NavHeader = ({ classSelector, location }: NavHeaderProps): JSX.Element => 
       >
         Long War <br />
         Assistant
+        {/* <a
+          onClick={() => {
+            history.push('/about');
+          }}
+          className="text-xs text-blue-500 cursor-pointer"
+        >
+          ?
+        </a> */}
       </h3>
 
       {classSelector ? (
