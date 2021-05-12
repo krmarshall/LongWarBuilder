@@ -172,13 +172,13 @@ const BuildStorage = (): JSX.Element => {
       <br />
       <div className="flex flex-col flex-wrap content-center justify-center">
         <button
-          className="rounded py-1 px-2 m-1 w-max self-center focus:outline-none font-bold bg-lightGray hover:bg-blueGray"
+          className="rounded py-1 px-2 m-1 w-max self-center focus:outline-none  bg-gray-700 hover:bg-gray-600"
           onClick={saveBuildToStorage}
         >
           Save Build
         </button>
         <button
-          className="rounded py-1 px-2 m-1 w-max self-center focus:outline-none font-bold bg-lightGray hover:bg-blueGray"
+          className="rounded py-1 px-2 m-1 w-max self-center focus:outline-none  bg-gray-700 hover:bg-gray-600"
           onClick={generateBuildUrl}
         >
           Copy Link To Build

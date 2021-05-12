@@ -88,8 +88,8 @@ const Engineer: ClassInterface = {
         },
         {
           perk: PerkName.heatWarheads,
-          imgPath: PerkImage.revive,
-          description: PerkDescription.revive,
+          imgPath: PerkImage.heatWarheads,
+          description: PerkDescription.heatWarheads,
           mobility: 0,
           aim: 0,
           will: 0,
