@@ -1,7 +1,6 @@
 # LongWarBuilder
-Currently deployed at https://longwarbuilder.netlify.app/
+Currently deployed at https://longwarassistant.netlify.app/
 
-## Todo
-- Event reminder list w/ frequent durations cheat sheet (satellite/uplink build times, exalt hacks)
-- (Maybe) Add items/equipment tab to soldier builder
-- (Maybe) Squad Planner
+## Potential Additions
+- Add items/equipment tab to soldier builder
+- Squad Planner w/ linking to soldier builds
