@@ -64,7 +64,7 @@ const BuildStorage = (): JSX.Element => {
       return;
     }
     const encodedString = encodeBuildToString(state);
-    const link = `https://longwarbuilder.netlify.app/build/${encodedString}`;
+    const link = `https://longwarassistant.netlify.app/build/${encodedString}`;
     navigator.clipboard
       .writeText(link)
       .then(() => {
