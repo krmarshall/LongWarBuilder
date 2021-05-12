@@ -7,8 +7,8 @@ interface CalculateResourceProps {
 }
 
 const CalculateResources = ({ missionState, missionDispatch }: CalculateResourceProps): JSX.Element => {
-  const { alienResources, prevMonthThreatLevel, splashedSmalls, splashedLarges, resourceLevel, threatLevel } =
-    missionState.calculatedInputs;
+  const { prevMonthThreatLevel, splashedSmalls, splashedLarges, threatLevel } = missionState.calculatedInputs;
+  const { alienResources, resourceLevel } = missionState.calculatedInputs;
 
   useEffect(() => {
     let newResourceLevel = Math.floor(alienResources / 50);
