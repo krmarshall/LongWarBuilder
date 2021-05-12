@@ -10,7 +10,10 @@ const MissionReference = (): JSX.Element => {
     setMissionKeys(keys);
   }, []);
   return (
-    <div className="flex flex-auto flex-nowrap justify-center content-center w-max text-gray-50 m-4 p-4 mt-1 pt-2 bg-darkGray opacity-100 rounded shadow-lg overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-scrollbarGray">
+    <div
+      className="flex flex-auto flex-nowrap justify-center content-center w-max text-gray-50 m-4 p-4 mt-1 pt-2 
+    bg-darkGray opacity-100 rounded shadow-lg overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-scrollbarGray"
+    >
       <table className="table-fixed">
         <thead>
           <tr className="text-gray-50 text-lg text-center">

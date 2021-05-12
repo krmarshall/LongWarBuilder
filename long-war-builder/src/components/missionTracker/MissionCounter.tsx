@@ -54,7 +54,10 @@ const MissionCounter = ({ missionState, missionDispatch }: MissionCounterProps):
   };
 
   return (
-    <div className="flex flex-col flex-nowrap justify-center content-center text-gray-50 m-4 p-4 mt-1 pt-2 bg-darkGray opacity-100 h-auto rounded shadow-lg overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-scrollbarGray">
+    <div
+      className="flex flex-col flex-nowrap justify-center content-center text-gray-50 m-4 p-4 mt-1 pt-2 
+    bg-darkGray opacity-100 h-auto rounded shadow-lg overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-scrollbarGray"
+    >
       <div>
         <h3 className="text-lg text-center">Mission Tracker</h3>
       </div>
@@ -238,7 +241,8 @@ const MissionCounter = ({ missionState, missionDispatch }: MissionCounterProps):
             onChange={(event) => {
               missionDispatch({ type: 'CHANGE_NOTES', payload: event.target.value });
             }}
-            className="mt-1 pl-1.5 text-gray-200 rounded bg-lightGray placeholder-gray-500 focus:outline-none w-full overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-scrollbarGray"
+            className="mt-1 pl-1.5 text-gray-200 rounded bg-lightGray placeholder-gray-500 focus:outline-none 
+            w-full overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-scrollbarGray"
           />
         </div>
       </div>
