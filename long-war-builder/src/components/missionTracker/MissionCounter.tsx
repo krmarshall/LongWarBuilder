@@ -10,7 +10,7 @@ interface MissionCounterProps {
 const MissionCounter = ({ missionState, missionDispatch }: MissionCounterProps): JSX.Element => {
   const { resourceLevel, threatLevel } = missionState.calculatedInputs;
   const { abduction, terror, research, scout, harvest, hunt, bomb, infiltrate, council } = missionState.missions;
-  const { notes } = missionState;
+  const { notes, retaliationCounter } = missionState;
 
   const [missionData, setMissionData] = useState<MonthlyMissionsInterface>(missionsTable[resourceLevel][threatLevel]);
 
@@ -22,7 +22,8 @@ const MissionCounter = ({ missionState, missionDispatch }: MissionCounterProps):
     loadMissionStateFromStorage();
   }, []);
 
-  const inputClassName = 'text-gray-700 rounded bg-gray-300 placeholder-gray-500 pl-1 w-12 focus:outline-none';
+  const inputClassName =
+    'text-gray-300 bg-lightGray text-center rounded placeholder-gray-500 pl-1 w-8 focus:outline-none';
   const divContainerClassName = 'flex flex-nowrap my-1';
 
   const saveMissionStateToStorage = () => {
@@ -209,6 +210,28 @@ const MissionCounter = ({ missionState, missionDispatch }: MissionCounterProps):
               }}
             ></input>
             <p>&nbsp;/ {missionData?.council}</p>
+          </div>
+
+          <div className={divContainerClassName}>
+            <p>Retaliation Counter:&nbsp;</p>
+            <input
+              type="number"
+              value={retaliationCounter}
+              className={inputClassName}
+              onChange={(event) => {
+                let number = Number(event.target.value);
+                number = Math.max(number, 0);
+                missionDispatch({ type: 'CHANGE_RETALIATION_COUNTER', payload: number });
+              }}
+            ></input>
+            <p>&nbsp;/ 3&nbsp;</p>
+            <p className="has-tooltip">
+              ?
+              <span className="tooltip w-max text-center">
+                Base Defence occurs after 3 months (not necessarily in a row) of 4 Threat and 4 Resources, or March of
+                Y2.
+              </span>
+            </p>
           </div>
 
           <div className="flex flex-nowrap my-8">

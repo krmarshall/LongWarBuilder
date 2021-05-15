@@ -7,4 +7,17 @@
     transform: translateX(100%);
     background-color: #48bb78;
   }
+
+  .tooltip {
+    @apply invisible absolute p-1 rounded border text-gray-50 border-gray-500 bg-lightGray shadow-lg ml-2 text-sm font-normal not-italic;
+  }
+
+  .has-tooltip {
+    @apply border-b-2 border-dotted border-gray-500 italic text-gray-400;
+  }
+  
+  .has-tooltip:hover .tooltip {
+    @apply visible z-50
+  }
+  
 }

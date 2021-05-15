@@ -28,6 +28,7 @@ const MissionTracker = (): JSX.Element => {
       council: 0,
     },
     notes: '',
+    retaliationCounter: 0,
   };
 
   const [missionState, missionDispatch] = useReducer(
@@ -54,8 +55,16 @@ const MissionTracker = (): JSX.Element => {
           newState.notes = action.payload;
           return newState;
         }
+        case 'CHANGE_RETALIATION_COUNTER': {
+          const newState = { ...state };
+          newState.retaliationCounter = action.payload;
+          return newState;
+        }
         case 'LOAD_STATE': {
           const newState = action.payload;
+          if (typeof newState.retaliationCounter == 'undefined') {
+            newState.retaliationCounter = 0;
+          }
           return newState;
         }
         default: {

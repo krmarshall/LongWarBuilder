@@ -11,7 +11,6 @@ const NavHeader = ({ classSelector, location }: NavHeaderProps): JSX.Element => 
   const buttonClass = 'self-center justify-center focus:outline-none rounded w-max m-0.5 py-0.5 px-2';
   const buttonClassDeselected = buttonClass + ' bg-gray-700 hover:bg-gray-600';
   const buttonClassSelected = buttonClass + ' bg-gray-500 hover:bg-gray-400';
-  const buttonClassNotAllowed = buttonClassDeselected + ' cursor-not-allowed';
   const history = useHistory();
   return (
     <div className="flex flex-row flex-nowrap">
@@ -66,14 +65,6 @@ const NavHeader = ({ classSelector, location }: NavHeaderProps): JSX.Element => 
           }}
         >
           Mission Tracker
-        </button>
-        <button
-          className={buttonClassNotAllowed}
-          onClick={() => {
-            //history.push('/');
-          }}
-        >
-          Events Tracker
         </button>
       </div>
     </div>

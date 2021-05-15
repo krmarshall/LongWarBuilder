@@ -16,7 +16,7 @@ const SetResources = ({ missionState, missionDispatch }: SetResourceProps): JSX.
           <input
             type="number"
             value={resourceLevel}
-            className="text-gray-700 rounded bg-gray-300 placeholder-gray-500 pl-1 w-12 focus:outline-none"
+            className="text-gray-300 bg-lightGray rounded placeholder-gray-500 pl-1 w-12 focus:outline-none"
             onChange={(event) => {
               let number = Number(event.target.value);
               number = Math.min(number, 4);
@@ -33,7 +33,7 @@ const SetResources = ({ missionState, missionDispatch }: SetResourceProps): JSX.
           <input
             type="number"
             value={threatLevel}
-            className="text-gray-700 rounded bg-gray-300 placeholder-gray-500 pl-1 w-12 focus:outline-none"
+            className="text-gray-300 bg-lightGray rounded placeholder-gray-500 pl-1 w-12 focus:outline-none"
             onChange={(event) => {
               let number = Number(event.target.value);
               number = Math.min(number, 4);

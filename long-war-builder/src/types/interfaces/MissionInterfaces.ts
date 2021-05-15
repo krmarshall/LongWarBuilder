@@ -41,6 +41,7 @@ interface MissionStateInterface {
   calculatedInputs: CalculatedInputsInterface;
   missions: MonthlyMissionsInterface;
   notes: string;
+  retaliationCounter: number;
 }
 
 export type {

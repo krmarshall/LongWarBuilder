@@ -38,7 +38,7 @@ const CalculateResources = ({ missionState, missionDispatch }: CalculateResource
           <input
             type="number"
             value={alienResources}
-            className="text-gray-700 rounded bg-gray-300 placeholder-gray-500 pl-1 w-12 focus:outline-none"
+            className="text-gray-300 bg-lightGray rounded placeholder-gray-500 pl-1 w-12 focus:outline-none"
             onChange={(event) => {
               missionDispatch({
                 type: 'CHANGE_CALCULATED_INPUTS',
@@ -60,7 +60,7 @@ const CalculateResources = ({ missionState, missionDispatch }: CalculateResource
           <input
             type="number"
             value={prevMonthThreatLevel}
-            className="text-gray-700 rounded bg-gray-300 placeholder-gray-500 pl-1 w-8 focus:outline-none"
+            className="text-gray-300 bg-lightGray rounded placeholder-gray-500 pl-1 w-8 focus:outline-none"
             onChange={(event) => {
               let value = Number(event.target.value);
               value = Math.min(value, 4);
@@ -78,7 +78,7 @@ const CalculateResources = ({ missionState, missionDispatch }: CalculateResource
           <input
             type="number"
             value={splashedSmalls}
-            className="text-gray-700 rounded bg-gray-300 placeholder-gray-500 pl-1 w-10 focus:outline-none"
+            className="text-gray-300 bg-lightGray rounded placeholder-gray-500 pl-1 w-10 focus:outline-none"
             onChange={(event) => {
               let value = Number(event.target.value);
               value = Math.max(value, 0);
@@ -95,7 +95,7 @@ const CalculateResources = ({ missionState, missionDispatch }: CalculateResource
           <input
             type="number"
             value={splashedLarges}
-            className="text-gray-700 rounded bg-gray-300 placeholder-gray-500 pl-1 w-10 focus:outline-none"
+            className="text-gray-300 bg-lightGray rounded placeholder-gray-500 pl-1 w-10 focus:outline-none"
             onChange={(event) => {
               let value = Number(event.target.value);
               value = Math.max(value, 0);
