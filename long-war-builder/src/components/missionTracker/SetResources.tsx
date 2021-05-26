@@ -1,11 +1,9 @@
-import { Fragment } from 'react';
-import { MissionStateInterface } from '../../types/interfaces/MissionInterfaces';
+import { Fragment, useContext } from 'react';
+import { missionContext, MissionContextTypeEnums } from '../../context/missionContext';
 
-interface SetResourceProps {
-  missionState: MissionStateInterface;
-  missionDispatch: CallableFunction;
-}
-const SetResources = ({ missionState, missionDispatch }: SetResourceProps): JSX.Element => {
+const SetResources = (): JSX.Element => {
+  //@ts-expect-error 2461
+  const [missionState, missionDispatch] = useContext(missionContext);
   const { resourceLevel, threatLevel } = missionState.calculatedInputs;
 
   return (
@@ -21,7 +19,10 @@ const SetResources = ({ missionState, missionDispatch }: SetResourceProps): JSX.
               let number = Number(event.target.value);
               number = Math.min(number, 4);
               number = Math.max(number, 0);
-              missionDispatch({ type: 'CHANGE_CALCULATED_INPUTS', payload: { resourceLevel: number } });
+              missionDispatch({
+                type: MissionContextTypeEnums.changeCalculatedInput,
+                payload: { resourceLevel: number },
+              });
             }}
           ></input>
         </div>
@@ -38,7 +39,10 @@ const SetResources = ({ missionState, missionDispatch }: SetResourceProps): JSX.
               let number = Number(event.target.value);
               number = Math.min(number, 4);
               number = Math.max(number, 0);
-              missionDispatch({ type: 'CHANGE_CALCULATED_INPUTS', payload: { threatLevel: number } });
+              missionDispatch({
+                type: MissionContextTypeEnums.changeCalculatedInput,
+                payload: { threatLevel: number },
+              });
             }}
           ></input>
         </div>

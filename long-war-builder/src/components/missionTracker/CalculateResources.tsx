@@ -1,12 +1,10 @@
-import { Fragment, useEffect } from 'react';
-import { MissionStateInterface } from '../../types/interfaces/MissionInterfaces';
+import { Fragment, useContext, useEffect } from 'react';
+import { missionContext, MissionContextTypeEnums } from '../../context/missionContext';
 
-interface CalculateResourceProps {
-  missionState: MissionStateInterface;
-  missionDispatch: CallableFunction;
-}
+const CalculateResources = (): JSX.Element => {
+  //@ts-expect-error 2461
+  const [missionState, missionDispatch] = useContext(missionContext);
 
-const CalculateResources = ({ missionState, missionDispatch }: CalculateResourceProps): JSX.Element => {
   const { prevMonthThreatLevel, splashedSmalls, splashedLarges, threatLevel } = missionState.calculatedInputs;
   const { alienResources, resourceLevel } = missionState.calculatedInputs;
 
@@ -14,7 +12,10 @@ const CalculateResources = ({ missionState, missionDispatch }: CalculateResource
     let newResourceLevel = Math.floor(alienResources / 50);
     newResourceLevel = Math.min(newResourceLevel, 4);
     newResourceLevel = Math.max(newResourceLevel, 0);
-    missionDispatch({ type: 'CHANGE_CALCULATED_INPUTS', payload: { resourceLevel: newResourceLevel } });
+    missionDispatch({
+      type: MissionContextTypeEnums.changeCalculatedInput,
+      payload: { resourceLevel: newResourceLevel },
+    });
   }, [missionState.calculatedInputs.alienResources]);
 
   useEffect(() => {
@@ -22,7 +23,10 @@ const CalculateResources = ({ missionState, missionDispatch }: CalculateResource
     newThreatCategory = Math.floor(newThreatCategory / 2);
     newThreatCategory = Math.min(newThreatCategory, 4);
     newThreatCategory = Math.max(newThreatCategory, 0);
-    missionDispatch({ type: 'CHANGE_CALCULATED_INPUTS', payload: { threatLevel: newThreatCategory } });
+    missionDispatch({
+      type: MissionContextTypeEnums.changeCalculatedInput,
+      payload: { threatLevel: newThreatCategory },
+    });
   }, [prevMonthThreatLevel, splashedSmalls, splashedLarges]);
 
   return (
@@ -41,7 +45,7 @@ const CalculateResources = ({ missionState, missionDispatch }: CalculateResource
             className="text-gray-300 bg-lightGray rounded placeholder-gray-500 pl-1 w-12 focus:outline-none"
             onChange={(event) => {
               missionDispatch({
-                type: 'CHANGE_CALCULATED_INPUTS',
+                type: MissionContextTypeEnums.changeCalculatedInput,
                 payload: { alienResources: Number(event.target.value) },
               });
             }}
@@ -66,7 +70,7 @@ const CalculateResources = ({ missionState, missionDispatch }: CalculateResource
               value = Math.min(value, 4);
               value = Math.max(value, 0);
               missionDispatch({
-                type: 'CHANGE_CALCULATED_INPUTS',
+                type: MissionContextTypeEnums.changeCalculatedInput,
                 payload: { prevMonthThreatLevel: value },
               });
             }}
@@ -83,7 +87,7 @@ const CalculateResources = ({ missionState, missionDispatch }: CalculateResource
               let value = Number(event.target.value);
               value = Math.max(value, 0);
               missionDispatch({
-                type: 'CHANGE_CALCULATED_INPUTS',
+                type: MissionContextTypeEnums.changeCalculatedInput,
                 payload: { splashedSmalls: value },
               });
             }}
@@ -100,7 +104,7 @@ const CalculateResources = ({ missionState, missionDispatch }: CalculateResource
               let value = Number(event.target.value);
               value = Math.max(value, 0);
               missionDispatch({
-                type: 'CHANGE_CALCULATED_INPUTS',
+                type: MissionContextTypeEnums.changeCalculatedInput,
                 payload: { splashedLarges: value },
               });
             }}

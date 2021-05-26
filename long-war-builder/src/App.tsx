@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import About from './pages/About';
+import BasePlanner from './pages/BaseBuilder';
 import Empty from './pages/Empty';
 import MissionTracker from './pages/MissionTracker';
 import MissionTrackerAbout from './pages/MissionTrackerAbout';
@@ -26,6 +27,9 @@ const App = (): JSX.Element => {
               </Route>
               <Route exact path="/missions/about">
                 <MissionTrackerAbout />
+              </Route>
+              <Route exact path="/base/:code?">
+                <BasePlanner />
               </Route>
               <Route exact path="/about">
                 <About />

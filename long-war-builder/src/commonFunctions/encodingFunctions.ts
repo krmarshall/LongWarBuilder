@@ -1,4 +1,4 @@
-import { StateInterface, TypeEnums } from '../context';
+import { SoldierStateInterface, SoldierContextTypeEnums } from '../context/soldierContext';
 import { bulkClassData } from '../data/classes';
 import { ClassName, MecName } from '../types/enums/ClassEnums';
 import { EncodeClassEnum, DecodeClassEnum } from '../types/enums/EncodingEnums';
@@ -8,7 +8,7 @@ import { EncodeClassEnum, DecodeClassEnum } from '../types/enums/EncodingEnums';
 // eg. a0129120y010299 = Assault with perks [0, 1, 2, undefined, 1, 2, 0] and psi [0, 1, 0, 2, undefined, undefined]
 //     E2901201x = Shogun with perks [2, undefined, 0, 1, 2, 0, 1] no psi
 
-const encodeBuildToString = (state: StateInterface): string => {
+const encodeBuildToString = (state: SoldierStateInterface): string => {
   const { selectedClass, currentBuild, currentPsi } = state;
   let encodedString = '';
 
@@ -76,7 +76,7 @@ const decodeBuildFromString = (encodedString: string, dispatch: CallableFunction
   console.log(updatePerks);
   console.log(updatePsi);
   dispatch({
-    type: TypeEnums.loadUrlBuild,
+    type: SoldierContextTypeEnums.loadUrlBuild,
     payload: {
       selectedClass: updateClass,
       classData: bulkClassData[updateClass],

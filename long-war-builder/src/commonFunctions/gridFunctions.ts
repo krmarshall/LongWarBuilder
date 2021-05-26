@@ -1,8 +1,8 @@
-import { StateInterface, TypeEnums } from '../context';
+import { SoldierStateInterface, SoldierContextTypeEnums } from '../context/soldierContext';
 import Psi from '../data/psi';
 import rookie from '../data/rookie';
 
-const calculateStats = (state: StateInterface, dispatch: CallableFunction): void => {
+const calculateStats = (state: SoldierStateInterface, dispatch: CallableFunction): void => {
   const { currentBuild, currentPsi, classData } = state;
   const updateStats = {
     health: rookie.health,
@@ -34,7 +34,7 @@ const calculateStats = (state: StateInterface, dispatch: CallableFunction): void
     }
   });
 
-  dispatch({ type: TypeEnums.changeStats, payload: updateStats });
+  dispatch({ type: SoldierContextTypeEnums.changeStats, payload: updateStats });
 };
 
 const setElementAsSelected = (element: HTMLElement | null): void => {

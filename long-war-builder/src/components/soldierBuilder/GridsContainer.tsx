@@ -1,5 +1,5 @@
 import { Fragment, useContext, useEffect, useState } from 'react';
-import { context, StateInterface } from '../../context';
+import { soldierContext, SoldierStateInterface } from '../../context/soldierContext';
 import PerkGrid from './PerkGrid';
 import PsiGrid from './PsiGrid';
 
@@ -7,8 +7,8 @@ const GridsContainer = (): JSX.Element => {
   const [showPerks, setShowPerks] = useState(true);
   //@ts-expect-error 2461
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [state, dispatch] = useContext(context);
-  const { selectedClass, classData } = state as StateInterface;
+  const [state, dispatch] = useContext(soldierContext);
+  const { selectedClass, classData } = state as SoldierStateInterface;
 
   useEffect(() => {
     setShowPerks(true);

@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { context, StateInterface, TypeEnums } from '../../context';
+import { soldierContext, SoldierStateInterface, SoldierContextTypeEnums } from '../../context/soldierContext';
 import { PsiPerkInterface } from '../../types/interfaces/PsiInterfaces';
 
 interface PsiPerkCellProps {
@@ -10,8 +10,8 @@ interface PsiPerkCellProps {
 
 const PsiPerkCell = ({ psiPerk, psiRankIndex, psiPerkIndex }: PsiPerkCellProps): JSX.Element => {
   //@ts-expect-error 2461
-  const [state, dispatch] = useContext(context);
-  const { currentPsi } = state as StateInterface;
+  const [state, dispatch] = useContext(soldierContext);
+  const { currentPsi } = state as SoldierStateInterface;
 
   const selectPsiPerkHandler = () => {
     let updatedPsiBuild;
@@ -21,7 +21,7 @@ const PsiPerkCell = ({ psiPerk, psiRankIndex, psiPerkIndex }: PsiPerkCellProps):
       updatedPsiBuild = [...(currentPsi as Array<number | undefined>)];
     }
     updatedPsiBuild[psiRankIndex] = updatedPsiBuild[psiRankIndex] == psiPerkIndex ? undefined : psiPerkIndex;
-    dispatch({ type: TypeEnums.changeCurrentPsi, payload: updatedPsiBuild });
+    dispatch({ type: SoldierContextTypeEnums.changeCurrentPsi, payload: updatedPsiBuild });
   };
   return (
     <td

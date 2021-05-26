@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { context, StateInterface } from '../../context';
+import { soldierContext, SoldierStateInterface } from '../../context/soldierContext';
 import { RankInterface } from '../../types/interfaces/ClassInterfaces';
 import RankRow from './RankRow';
 import { setElementAsSelected, calculateStats, setElementAsDeselected } from '../../commonFunctions/gridFunctions';
@@ -8,8 +8,8 @@ const PerkGrid = (): JSX.Element => {
   const [perkTable, setPerkTable] = useState(document.getElementById('perkTable'));
 
   //@ts-expect-error 2461
-  const [state, dispatch] = useContext(context);
-  const { classData, currentBuild } = state as StateInterface;
+  const [state, dispatch] = useContext(soldierContext);
+  const { classData, currentBuild } = state as SoldierStateInterface;
 
   useEffect(() => {
     setPerkTable(document.getElementById('perkTable'));
