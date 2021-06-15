@@ -4,7 +4,7 @@ interface BaseStateInterface {
   buildings: Array<Array<string>>;
   powerGenerated: number;
   powerNeeded: number;
-  labBonus: number;
+  researchBonus: number;
   workshopBonus: number;
   satellitesSupported: number;
 }
@@ -26,17 +26,17 @@ enum BaseContextTypeEnums {
 const initialState: BaseStateInterface = {
   buildings: [
     // y 0
-    ['', '', '', 'accessLift', '', '', ''],
+    ['empty', 'empty', 'satelliteUplink', 'accessLift', 'empty', 'empty', 'empty'],
     // y 1
-    ['', '', '', 'accessLift', '', '', ''],
+    ['empty', 'empty', 'empty', 'accessLift', 'empty', 'empty', 'empty'],
     // y 2
-    ['', '', '', 'accessLift', '', '', ''],
+    ['empty', 'empty', 'empty', 'accessLift', 'empty', 'empty', 'empty'],
     // y 3
-    ['', '', '', 'accessLift', '', '', ''],
+    ['empty', 'empty', 'empty', 'accessLift', 'empty', 'empty', 'empty'],
   ],
   powerGenerated: 30,
   powerNeeded: 18,
-  labBonus: 0,
+  researchBonus: 0,
   workshopBonus: 0,
   satellitesSupported: 0,
 };
