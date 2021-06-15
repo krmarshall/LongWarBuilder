@@ -1,22 +1,18 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useContext } from 'react';
+import { baseContext, BaseContextTypeEnums, BaseStateInterface } from '../../context/baseContext';
 import facilities from '../../data/facilities';
 
 const StructureSelector = (): JSX.Element => {
   const [filterFacilities, setFilterFacilities] = useState('');
   const facilityKeys = Object.keys(facilities);
+  // Remove the access lift from the list
+  facilityKeys.splice(0, 1);
   const [facilityKeysFiltered, setFacilityKeysFiltered] = useState(Object.keys(facilities));
 
-  const horizontalScroll = (event: WheelEvent) => {
-    const container = document.getElementById('horScrollContainer');
-    let containerScrollPosition = container?.scrollLeft;
-    if (!containerScrollPosition) {
-      containerScrollPosition = 0;
-    }
-    container?.scrollTo({
-      top: 0,
-      left: containerScrollPosition + event.deltaY,
-    });
-  };
+  // @ts-expect-error 2461
+  const [baseState, baseDispatch] = useContext(baseContext);
+  const { buildings, selectedCellY, selectedCellX } = baseState as BaseStateInterface;
 
   useEffect(() => {
     if (filterFacilities.trim() === '') {
@@ -30,11 +26,27 @@ const StructureSelector = (): JSX.Element => {
       setFacilityKeysFiltered(filteredKeys);
     }
   }, [filterFacilities]);
+
+  const horizontalScroll = (event: React.WheelEvent) => {
+    const container = document.getElementById('horScrollContainer');
+    let containerScrollPosition = container?.scrollLeft;
+    if (!containerScrollPosition) {
+      containerScrollPosition = 0;
+    }
+    container?.scrollTo({
+      top: 0,
+      left: containerScrollPosition + event.deltaY,
+    });
+  };
+
+  const onBuildingClick = (key: string) => {
+    const updatedBuildingGrid = JSON.parse(JSON.stringify(buildings));
+    updatedBuildingGrid[selectedCellY][selectedCellX] = key;
+    baseDispatch({ type: BaseContextTypeEnums.changeBuildings, payload: updatedBuildingGrid });
+  };
+
   return (
-    <div
-      className="m-4 mt-1.5 p-2 bg-darkGray opacity-100 rounded"
-      // style={{ height: '20%' }}
-    >
+    <div className="m-4 mt-1.5 p-2 bg-darkGray opacity-100 rounded">
       <input
         value={filterFacilities}
         onChange={(event) => {
@@ -46,15 +58,26 @@ const StructureSelector = (): JSX.Element => {
       <ul
         className="flex flex-row flex-nowrap overflow-x-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-scrollbarGray rounded-lg"
         onWheel={(event) => {
-          horizontalScroll((event as unknown) as WheelEvent);
+          horizontalScroll(event);
         }}
         id="horScrollContainer"
       >
         {facilityKeysFiltered.map((key) => {
           const facility = facilities[key];
           return (
-            <li key={key} className="flex-none mb-2">
-              <img src={facility.img} alt={key} className="h-24 opacity-60 hover:opacity-80 cursor-pointer"></img>
+            <li
+              key={key}
+              className="flex-none mb-2 "
+              onClick={() => {
+                onBuildingClick(key);
+              }}
+            >
+              <img
+                src={facility.img}
+                alt={key}
+                className="h-24 opacity-80 hover:opacity-100 cursor-pointer"
+                draggable="false"
+              ></img>
             </li>
           );
         })}

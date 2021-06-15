@@ -7,6 +7,8 @@ interface BaseStateInterface {
   researchBonus: number;
   workshopBonus: number;
   satellitesSupported: number;
+  selectedCellY: number;
+  selectedCellX: number;
 }
 
 interface ActionInterface {
@@ -21,6 +23,7 @@ interface ProviderParamsInterface {
 
 enum BaseContextTypeEnums {
   'changeBuildings' = 'changeBuildings',
+  'selectCell' = 'selectCell',
 }
 
 const initialState: BaseStateInterface = {
@@ -39,6 +42,8 @@ const initialState: BaseStateInterface = {
   researchBonus: 0,
   workshopBonus: 0,
   satellitesSupported: 0,
+  selectedCellY: 0,
+  selectedCellX: 0,
 };
 
 const baseContext = createContext(initialState);
@@ -52,6 +57,12 @@ const BaseStateProvider = ({ children }: ProviderParamsInterface): JSX.Element =
       case BaseContextTypeEnums.changeBuildings: {
         const newState = { ...state };
         newState.buildings = action.payload;
+        return newState;
+      }
+      case BaseContextTypeEnums.selectCell: {
+        const newState = { ...state };
+        newState.selectedCellY = action.payload.selectedCellY;
+        newState.selectedCellX = action.payload.selectedCellX;
         return newState;
       }
       default: {
