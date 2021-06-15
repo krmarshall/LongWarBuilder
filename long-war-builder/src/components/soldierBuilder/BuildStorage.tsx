@@ -108,7 +108,10 @@ const BuildStorage = (): JSX.Element => {
 
   const selectPerksFromSelectedBuild = (keyValue: string) => {
     const build = classBuilds[keyValue];
-    dispatch({ type: SoldierContextTypeEnums.loadSavedBuild, payload: { currentBuild: build.perks, currentPsi: build.psi } });
+    dispatch({
+      type: SoldierContextTypeEnums.loadSavedBuild,
+      payload: { currentBuild: build.perks, currentPsi: build.psi },
+    });
   };
 
   const deleteBuild = (keyValue: string) => {
