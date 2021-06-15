@@ -85,7 +85,7 @@ const facilities: FacilitiesListInterface = {
   workshop: {
     img: 'img/facilities/workshop.jpg',
     powerConsumed: 4,
-    workshopBonus: 10,
+    workshopBonus: 1,
     adjacency: AdjacencyEnum.workshop,
   },
 };

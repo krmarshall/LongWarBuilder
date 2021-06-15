@@ -5,6 +5,7 @@ import Empty from './pages/Empty';
 import MissionTracker from './pages/MissionTracker';
 import MissionTrackerAbout from './pages/MissionTrackerAbout';
 import SoldierBuilder from './pages/SoldierBuilder';
+import BaseStateProvider from './context/baseContext';
 
 const App = (): JSX.Element => {
   return (
@@ -29,7 +30,9 @@ const App = (): JSX.Element => {
                 <MissionTrackerAbout />
               </Route>
               <Route exact path="/base/:code?">
-                <BasePlanner />
+                <BaseStateProvider>
+                  <BasePlanner />
+                </BaseStateProvider>
               </Route>
               <Route exact path="/about">
                 <About />

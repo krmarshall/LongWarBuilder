@@ -5,7 +5,8 @@ interface BaseStateInterface {
   powerGenerated: number;
   powerNeeded: number;
   researchBonus: number;
-  workshopBonus: number;
+  workshopCount: number;
+  workshopAdjacencyCount: number;
   satellitesSupported: number;
   selectedCellY: number;
   selectedCellX: number;
@@ -24,6 +25,7 @@ interface ProviderParamsInterface {
 enum BaseContextTypeEnums {
   'changeBuildings' = 'changeBuildings',
   'selectCell' = 'selectCell',
+  'changeStats' = 'changeStats',
 }
 
 const initialState: BaseStateInterface = {
@@ -38,9 +40,10 @@ const initialState: BaseStateInterface = {
     ['empty', 'empty', 'empty', 'accessLift', 'empty', 'empty', 'empty'],
   ],
   powerGenerated: 30,
-  powerNeeded: 18,
+  powerNeeded: 12,
   researchBonus: 0,
-  workshopBonus: 0,
+  workshopCount: 0,
+  workshopAdjacencyCount: 0,
   satellitesSupported: 0,
   selectedCellY: 0,
   selectedCellX: 0,
@@ -51,7 +54,6 @@ const baseContext = createContext(initialState);
 const { Provider } = baseContext;
 
 const BaseStateProvider = ({ children }: ProviderParamsInterface): JSX.Element => {
-  //@ts-expect-error 2769
   const [baseState, baseDispatch] = useReducer((state: BaseStateInterface, action: ActionInterface) => {
     switch (action.type) {
       case BaseContextTypeEnums.changeBuildings: {
@@ -63,6 +65,10 @@ const BaseStateProvider = ({ children }: ProviderParamsInterface): JSX.Element =
         const newState = { ...state };
         newState.selectedCellY = action.payload.selectedCellY;
         newState.selectedCellX = action.payload.selectedCellX;
+        return newState;
+      }
+      case BaseContextTypeEnums.changeStats: {
+        const newState = { ...state, ...action.payload };
         return newState;
       }
       default: {
