@@ -48,6 +48,7 @@ const StructureSelector = (): JSX.Element => {
   return (
     <div className="m-4 mt-1.5 p-2 bg-darkGray opacity-100 rounded">
       <input
+        type="text"
         value={filterFacilities}
         onChange={(event) => {
           setFilterFacilities(event.target.value);

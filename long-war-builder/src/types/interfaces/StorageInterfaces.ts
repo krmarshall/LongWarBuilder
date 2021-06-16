@@ -15,4 +15,8 @@ interface UrlBuildInterface {
   psi?: Array<number | undefined>;
 }
 
-export type { LocalStorageBuild, LocalStorageClassInterface, UrlBuildInterface };
+interface LocalStorageBaseInterface {
+  [key: string]: Array<Array<string>>;
+}
+
+export type { LocalStorageBuild, LocalStorageClassInterface, UrlBuildInterface, LocalStorageBaseInterface };

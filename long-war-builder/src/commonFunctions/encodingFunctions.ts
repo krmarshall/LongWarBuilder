@@ -72,9 +72,6 @@ const decodeBuildFromString = (encodedString: string, dispatch: CallableFunction
     });
   }
 
-  console.log(updateClass);
-  console.log(updatePerks);
-  console.log(updatePsi);
   dispatch({
     type: SoldierContextTypeEnums.loadUrlBuild,
     payload: {
