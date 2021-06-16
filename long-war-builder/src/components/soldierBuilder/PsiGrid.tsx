@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { context, StateInterface } from '../../context';
+import { soldierContext, SoldierStateInterface } from '../../context/soldierContext';
 import Psi from '../../data/psi';
 import { PsiRankInterface } from '../../types/interfaces/PsiInterfaces';
 import PsiRankRow from './PsiRankRow';
@@ -9,8 +9,8 @@ const PsiGrid = (): JSX.Element => {
   const [psiTable, setPsiTable] = useState(document.getElementById('psiTable'));
 
   //@ts-expect-error 2461
-  const [state, dispatch] = useContext(context);
-  const { classData, currentPsi } = state as StateInterface;
+  const [state, dispatch] = useContext(soldierContext);
+  const { classData, currentPsi } = state as SoldierStateInterface;
 
   useEffect(() => {
     setPsiTable(document.getElementById('psiTable'));

@@ -4,7 +4,7 @@ import { ClassName, MecName } from '../types/enums/ClassEnums';
 import { AllStatsInterface, ClassInterface } from '../types/interfaces/ClassInterfaces';
 import { LocalStorageClassInterface } from '../types/interfaces/StorageInterfaces';
 
-interface StateInterface {
+interface SoldierStateInterface {
   selectedClass: ClassName | MecName | '';
   stats: AllStatsInterface;
   classData: ClassInterface | undefined;
@@ -25,7 +25,7 @@ interface ProviderParamsInterface {
   children: React.ReactNode;
 }
 
-enum TypeEnums {
+enum SoldierContextTypeEnums {
   'changeClass' = 'changeClass',
   'changeStats' = 'changeStats',
   'changeCurrentBuild' = 'changeCurrentBuild',
@@ -36,7 +36,7 @@ enum TypeEnums {
   'changeNotification' = 'changeNotification',
 }
 
-const initialState: StateInterface = {
+const initialState: SoldierStateInterface = {
   selectedClass: '',
   stats: {
     health: rookie.health,
@@ -51,15 +51,15 @@ const initialState: StateInterface = {
   notificationMessage: '',
 };
 
-const context = createContext(initialState);
+const soldierContext = createContext(initialState);
 
-const { Provider } = context;
+const { Provider } = soldierContext;
 
-const StateProvider = ({ children }: ProviderParamsInterface): JSX.Element => {
+const SoldierStateProvider = ({ children }: ProviderParamsInterface): JSX.Element => {
   //@ts-expect-error 2769
-  const [state, dispatch] = useReducer((state: StateInterface, action: ActionInterface) => {
+  const [state, dispatch] = useReducer((state: SoldierStateInterface, action: ActionInterface) => {
     switch (action.type) {
-      case TypeEnums.changeClass: {
+      case SoldierContextTypeEnums.changeClass: {
         const newState = { ...state };
         newState.selectedClass = action.payload.selectedClass;
         newState.classData = action.payload.classData;
@@ -67,33 +67,33 @@ const StateProvider = ({ children }: ProviderParamsInterface): JSX.Element => {
         newState.currentPsi = action.payload.currentPsi;
         return newState;
       }
-      case TypeEnums.changeStats: {
+      case SoldierContextTypeEnums.changeStats: {
         const newState = { ...state };
         newState.stats = action.payload;
         return newState;
       }
-      case TypeEnums.changeCurrentBuild: {
+      case SoldierContextTypeEnums.changeCurrentBuild: {
         const newState = { ...state };
         newState.currentBuild = action.payload;
         return newState;
       }
-      case TypeEnums.changeCurrentPsi: {
+      case SoldierContextTypeEnums.changeCurrentPsi: {
         const newState = { ...state };
         newState.currentPsi = action.payload;
         return newState;
       }
-      case TypeEnums.changeClassBuilds: {
+      case SoldierContextTypeEnums.changeClassBuilds: {
         const newState = { ...state };
         newState.classBuilds = action.payload;
         return newState;
       }
-      case TypeEnums.loadSavedBuild: {
+      case SoldierContextTypeEnums.loadSavedBuild: {
         const newState = { ...state };
         newState.currentBuild = action.payload.currentBuild;
         newState.currentPsi = action.payload.currentPsi;
         return newState;
       }
-      case TypeEnums.loadUrlBuild: {
+      case SoldierContextTypeEnums.loadUrlBuild: {
         const newState = { ...state };
         newState.selectedClass = action.payload.selectedClass;
         newState.classData = action.payload.classData;
@@ -101,7 +101,7 @@ const StateProvider = ({ children }: ProviderParamsInterface): JSX.Element => {
         newState.currentPsi = action.payload.currentPsi;
         return newState;
       }
-      case TypeEnums.changeNotification: {
+      case SoldierContextTypeEnums.changeNotification: {
         const newState = { ...state };
         newState.notificationMessage = action.payload;
         return newState;
@@ -116,6 +116,6 @@ const StateProvider = ({ children }: ProviderParamsInterface): JSX.Element => {
   return <Provider value={[state, dispatch]}>{children}</Provider>;
 };
 
-export default StateProvider;
-export { context, TypeEnums };
-export type { StateInterface };
+export default SoldierStateProvider;
+export { soldierContext, SoldierContextTypeEnums };
+export type { SoldierStateInterface };

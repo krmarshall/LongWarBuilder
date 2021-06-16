@@ -1,13 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { missionContext, MissionContextTypeEnums, MissionStateInterface } from '../../context/missionContext';
 import missionsTable from '../../data/missionTable';
-import { MissionStateInterface, MonthlyMissionsInterface } from '../../types/interfaces/MissionInterfaces';
+import { MonthlyMissionsInterface } from '../../types/interfaces/MissionInterfaces';
 
-interface MissionCounterProps {
-  missionState: MissionStateInterface;
-  missionDispatch: CallableFunction;
-}
+const MissionCounter = (): JSX.Element => {
+  //@ts-expect-error 2461
+  const [missionState, missionDispatch] = useContext(missionContext);
 
-const MissionCounter = ({ missionState, missionDispatch }: MissionCounterProps): JSX.Element => {
   const { resourceLevel, threatLevel } = missionState.calculatedInputs;
   const { abduction, terror, research, scout, harvest, hunt, bomb, infiltrate, council } = missionState.missions;
   const { notes, retaliationCounter } = missionState;
@@ -36,7 +35,7 @@ const MissionCounter = ({ missionState, missionDispatch }: MissionCounterProps):
       return;
     }
     const storageObject: MissionStateInterface = JSON.parse(storageString);
-    missionDispatch({ type: 'LOAD_STATE', payload: storageObject });
+    missionDispatch({ type: MissionContextTypeEnums.loadState, payload: storageObject });
   };
 
   const clearMissionsHandler = () => {
@@ -51,7 +50,7 @@ const MissionCounter = ({ missionState, missionDispatch }: MissionCounterProps):
       infiltrate: 0,
       council: 0,
     };
-    missionDispatch({ type: 'CHANGE_MISSIONS', payload: { ...resetMissions } });
+    missionDispatch({ type: MissionContextTypeEnums.changeMissions, payload: { ...resetMissions } });
   };
 
   return (
@@ -74,7 +73,7 @@ const MissionCounter = ({ missionState, missionDispatch }: MissionCounterProps):
               onChange={(event) => {
                 let number = Number(event.target.value);
                 number = Math.max(number, 0);
-                missionDispatch({ type: 'CHANGE_MISSIONS', payload: { abduction: number } });
+                missionDispatch({ type: MissionContextTypeEnums.changeMissions, payload: { abduction: number } });
               }}
             ></input>
             <p>&nbsp;/ {missionData?.abduction}</p>
@@ -90,7 +89,7 @@ const MissionCounter = ({ missionState, missionDispatch }: MissionCounterProps):
                 onChange={(event) => {
                   let number = Number(event.target.value);
                   number = Math.max(number, 0);
-                  missionDispatch({ type: 'CHANGE_MISSIONS', payload: { terror: number } });
+                  missionDispatch({ type: MissionContextTypeEnums.changeMissions, payload: { terror: number } });
                 }}
               ></input>
               <p>&nbsp;/ {missionData?.terror}</p>
@@ -107,7 +106,7 @@ const MissionCounter = ({ missionState, missionDispatch }: MissionCounterProps):
                 onChange={(event) => {
                   let number = Number(event.target.value);
                   number = Math.max(number, 0);
-                  missionDispatch({ type: 'CHANGE_MISSIONS', payload: { research: number } });
+                  missionDispatch({ type: MissionContextTypeEnums.changeMissions, payload: { research: number } });
                 }}
               ></input>
               <p>&nbsp;/ {missionData?.research}</p>
@@ -123,7 +122,7 @@ const MissionCounter = ({ missionState, missionDispatch }: MissionCounterProps):
               onChange={(event) => {
                 let number = Number(event.target.value);
                 number = Math.max(number, 0);
-                missionDispatch({ type: 'CHANGE_MISSIONS', payload: { scout: number } });
+                missionDispatch({ type: MissionContextTypeEnums.changeMissions, payload: { scout: number } });
               }}
             ></input>
             <p>&nbsp;/ {missionData?.scout}</p>
@@ -139,7 +138,7 @@ const MissionCounter = ({ missionState, missionDispatch }: MissionCounterProps):
                 onChange={(event) => {
                   let number = Number(event.target.value);
                   number = Math.max(number, 0);
-                  missionDispatch({ type: 'CHANGE_MISSIONS', payload: { harvest: number } });
+                  missionDispatch({ type: MissionContextTypeEnums.changeMissions, payload: { harvest: number } });
                 }}
               ></input>
               <p>&nbsp;/ {missionData?.harvest}</p>
@@ -156,7 +155,7 @@ const MissionCounter = ({ missionState, missionDispatch }: MissionCounterProps):
                 onChange={(event) => {
                   let number = Number(event.target.value);
                   number = Math.max(number, 0);
-                  missionDispatch({ type: 'CHANGE_MISSIONS', payload: { hunt: number } });
+                  missionDispatch({ type: MissionContextTypeEnums.changeMissions, payload: { hunt: number } });
                 }}
               ></input>
               <p>&nbsp;/ {missionData?.hunt}</p>
@@ -173,7 +172,7 @@ const MissionCounter = ({ missionState, missionDispatch }: MissionCounterProps):
                 onChange={(event) => {
                   let number = Number(event.target.value);
                   number = Math.max(number, 0);
-                  missionDispatch({ type: 'CHANGE_MISSIONS', payload: { bomb: number } });
+                  missionDispatch({ type: MissionContextTypeEnums.changeMissions, payload: { bomb: number } });
                 }}
               ></input>
               <p>&nbsp;/ {missionData?.bomb}</p>
@@ -190,7 +189,7 @@ const MissionCounter = ({ missionState, missionDispatch }: MissionCounterProps):
                 onChange={(event) => {
                   let number = Number(event.target.value);
                   number = Math.max(number, 0);
-                  missionDispatch({ type: 'CHANGE_MISSIONS', payload: { infiltrate: number } });
+                  missionDispatch({ type: MissionContextTypeEnums.changeMissions, payload: { infiltrate: number } });
                 }}
               ></input>
               <p>&nbsp;/ {missionData?.infiltrate}</p>
@@ -206,7 +205,7 @@ const MissionCounter = ({ missionState, missionDispatch }: MissionCounterProps):
               onChange={(event) => {
                 let number = Number(event.target.value);
                 number = Math.max(number, 0);
-                missionDispatch({ type: 'CHANGE_MISSIONS', payload: { council: number } });
+                missionDispatch({ type: MissionContextTypeEnums.changeMissions, payload: { council: number } });
               }}
             ></input>
             <p>&nbsp;/ {missionData?.council}</p>
@@ -221,7 +220,7 @@ const MissionCounter = ({ missionState, missionDispatch }: MissionCounterProps):
               onChange={(event) => {
                 let number = Number(event.target.value);
                 number = Math.max(number, 0);
-                missionDispatch({ type: 'CHANGE_RETALIATION_COUNTER', payload: number });
+                missionDispatch({ type: MissionContextTypeEnums.changeRetaliationCounter, payload: number });
               }}
             ></input>
             <p>&nbsp;/ 3&nbsp;</p>
@@ -262,7 +261,7 @@ const MissionCounter = ({ missionState, missionDispatch }: MissionCounterProps):
             style={{ resize: 'none', height: '40vh' }}
             value={notes}
             onChange={(event) => {
-              missionDispatch({ type: 'CHANGE_NOTES', payload: event.target.value });
+              missionDispatch({ type: MissionContextTypeEnums.changeNotes, payload: event.target.value });
             }}
             className="mt-1 pl-1.5 text-gray-200 rounded bg-lightGray placeholder-gray-500 focus:outline-none 
             w-full overflow-y-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-scrollbarGray"

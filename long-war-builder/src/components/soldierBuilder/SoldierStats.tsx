@@ -1,10 +1,10 @@
 import { useContext, useEffect } from 'react';
-import { context, TypeEnums } from '../../context';
+import { soldierContext, SoldierContextTypeEnums } from '../../context/soldierContext';
 import rookie from '../../data/rookie';
 
 const SoldierStats = (): JSX.Element => {
   //@ts-expect-error 2461
-  const [state, dispatch] = useContext(context);
+  const [state, dispatch] = useContext(soldierContext);
   const { health, mobility, will, aim } = state.stats;
   const { selectedClass } = state;
 
@@ -16,7 +16,7 @@ const SoldierStats = (): JSX.Element => {
       aim: rookie.aim,
     };
 
-    dispatch({ type: TypeEnums.changeStats, payload: statUpdate });
+    dispatch({ type: SoldierContextTypeEnums.changeStats, payload: statUpdate });
   }, [selectedClass]);
 
   return (

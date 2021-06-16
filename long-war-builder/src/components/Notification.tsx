@@ -1,12 +1,12 @@
 import { useContext, useEffect, useState } from 'react';
-import { context, StateInterface, TypeEnums } from '../context';
+import { soldierContext, SoldierStateInterface, SoldierContextTypeEnums } from '../context/soldierContext';
 
 const Notification = (): JSX.Element => {
   const [visible, setVisible] = useState(false);
 
   //@ts-expect-error 2461
-  const [state, dispatch] = useContext(context);
-  const { notificationMessage } = state as StateInterface;
+  const [state, dispatch] = useContext(soldierContext);
+  const { notificationMessage } = state as SoldierStateInterface;
 
   useEffect(() => {
     if (notificationMessage == '') {
@@ -18,7 +18,7 @@ const Notification = (): JSX.Element => {
     }, 3000);
     setTimeout(() => {
       setVisible(false);
-      dispatch({ type: TypeEnums.changeNotification, payload: '' });
+      dispatch({ type: SoldierContextTypeEnums.changeNotification, payload: '' });
     }, 3400);
   }, [notificationMessage]);
 

@@ -66,6 +66,14 @@ const NavHeader = ({ classSelector, location }: NavHeaderProps): JSX.Element => 
         >
           Mission Tracker
         </button>
+        <button
+          className={location == 'base' ? buttonClassSelected : buttonClassDeselected}
+          onClick={() => {
+            history.push('/base');
+          }}
+        >
+          Base Builder <sup className="text-yellow-300">WIP</sup>
+        </button>
       </div>
     </div>
   );

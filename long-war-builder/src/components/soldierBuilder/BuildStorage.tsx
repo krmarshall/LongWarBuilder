@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import { context, StateInterface, TypeEnums } from '../../context';
+import { soldierContext, SoldierStateInterface, SoldierContextTypeEnums } from '../../context/soldierContext';
 import { LocalStorageClassInterface } from '../../types/interfaces/StorageInterfaces';
 import { decodeBuildFromString, encodeBuildToString } from '../../commonFunctions/encodingFunctions';
 
@@ -8,8 +8,8 @@ const BuildStorage = (): JSX.Element => {
   const [buildName, setBuildName] = useState('');
   const [urlLoaded, setUrlLoaded] = useState(false);
   //@ts-expect-error 2461
-  const [state, dispatch] = useContext(context);
-  const { selectedClass, classBuilds, currentBuild, currentPsi } = state as StateInterface;
+  const [state, dispatch] = useContext(soldierContext);
+  const { selectedClass, classBuilds, currentBuild, currentPsi } = state as SoldierStateInterface;
   const [classBuildsKeys, setClassBuildsKeys] = useState<Array<string>>();
 
   //@ts-expect-error 2339
@@ -29,12 +29,12 @@ const BuildStorage = (): JSX.Element => {
   const loadBuildsFromLocalStorage = () => {
     const storageString = localStorage.getItem(selectedClass);
     if (storageString == null) {
-      dispatch({ type: TypeEnums.changeClassBuilds, payload: undefined });
+      dispatch({ type: SoldierContextTypeEnums.changeClassBuilds, payload: undefined });
       setClassBuildsKeys(undefined);
       return;
     }
     const storageObject: LocalStorageClassInterface = JSON.parse(storageString);
-    dispatch({ type: TypeEnums.changeClassBuilds, payload: storageObject });
+    dispatch({ type: SoldierContextTypeEnums.changeClassBuilds, payload: storageObject });
     const keys = Object.keys(storageObject);
     setClassBuildsKeys(keys);
   };
@@ -68,12 +68,11 @@ const BuildStorage = (): JSX.Element => {
     navigator.clipboard
       .writeText(link)
       .then(() => {
-        console.log('Written to clipboard successfully');
-        dispatch({ type: TypeEnums.changeNotification, payload: 'Build Link Copied to Clipboard' });
+        dispatch({ type: SoldierContextTypeEnums.changeNotification, payload: 'Build Link Copied to Clipboard' });
       })
       .catch((error) => {
         console.log(`Error writing to clipboard: ${error}`);
-        dispatch({ type: TypeEnums.changeNotification, payload: 'Error Copying To Clipboard...' });
+        dispatch({ type: SoldierContextTypeEnums.changeNotification, payload: 'Error Copying To Clipboard...' });
       });
   };
 
@@ -100,7 +99,7 @@ const BuildStorage = (): JSX.Element => {
     const updateClassBuilds = { ...classBuilds };
     updateClassBuilds[buildName] = { perks: currentBuild, psi: currentPsi };
     localStorage.setItem(selectedClass, JSON.stringify(updateClassBuilds));
-    dispatch({ type: TypeEnums.changeClassBuilds, payload: updateClassBuilds });
+    dispatch({ type: SoldierContextTypeEnums.changeClassBuilds, payload: updateClassBuilds });
     const keys = Object.keys(updateClassBuilds);
     setClassBuildsKeys(keys);
     setBuildName('');
@@ -108,14 +107,17 @@ const BuildStorage = (): JSX.Element => {
 
   const selectPerksFromSelectedBuild = (keyValue: string) => {
     const build = classBuilds[keyValue];
-    dispatch({ type: TypeEnums.loadSavedBuild, payload: { currentBuild: build.perks, currentPsi: build.psi } });
+    dispatch({
+      type: SoldierContextTypeEnums.loadSavedBuild,
+      payload: { currentBuild: build.perks, currentPsi: build.psi },
+    });
   };
 
   const deleteBuild = (keyValue: string) => {
     const updateClassBuilds = { ...classBuilds };
     delete updateClassBuilds[keyValue];
     localStorage.setItem(selectedClass, JSON.stringify(updateClassBuilds));
-    dispatch({ type: TypeEnums.changeClassBuilds, payload: updateClassBuilds });
+    dispatch({ type: SoldierContextTypeEnums.changeClassBuilds, payload: updateClassBuilds });
     const keys = Object.keys(updateClassBuilds);
     setClassBuildsKeys(keys);
   };
@@ -162,7 +164,7 @@ const BuildStorage = (): JSX.Element => {
       <input
         type="text"
         id="buildName"
-        className="text-gray-700 rounded bg-gray-200 placeholder-gray-500 m-1 p-1"
+        className="text-gray-200 rounded bg-lighterGray placeholder-gray-400 m-1 p-1 focus:outline-none"
         placeholder="Build Name"
         value={buildName}
         onChange={(event) => {

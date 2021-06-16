@@ -1,15 +1,15 @@
 import { useContext, useEffect, useState } from 'react';
 import { ClassImage, ClassName, MecImage, MecName } from '../../types/enums/ClassEnums';
-import { context, StateInterface, TypeEnums } from '../../context';
+import { soldierContext, SoldierStateInterface, SoldierContextTypeEnums } from '../../context/soldierContext';
 import { bulkClassData } from '../../data/classes';
 
 const ClassSelector = (): JSX.Element => {
   const [selectedImage, setSelectedImage] = useState<HTMLElement>();
 
   //@ts-expect-error 2461
-  const [state, dispatch] = useContext(context);
+  const [state, dispatch] = useContext(soldierContext);
 
-  const { selectedClass } = state as StateInterface;
+  const { selectedClass } = state as SoldierStateInterface;
 
   const classList = ['Assault', 'Infantry', 'Rocketeer', 'Gunner', 'Sniper', 'Scout', 'Medic', 'Engineer'];
   const mecList = ['Marauder', 'Valkyrie', 'Archer', 'Goliath', 'Jaeger', 'Pathfinder', 'Guardian', 'Shogun'];
@@ -37,7 +37,7 @@ const ClassSelector = (): JSX.Element => {
 
   const classSelectHandler = (className: ClassName | MecName) => {
     dispatch({
-      type: TypeEnums.changeClass,
+      type: SoldierContextTypeEnums.changeClass,
       payload: {
         selectedClass: className,
         classData: bulkClassData[className],

@@ -1,15 +1,13 @@
+import { useContext } from 'react';
 import { useHistory } from 'react-router';
-import { MissionStateInterface } from '../../types/interfaces/MissionInterfaces';
+import { missionContext, MissionContextTypeEnums } from '../../context/missionContext';
 import CalculateResources from './CalculateResources';
 import SetResources from './SetResources';
 
-interface MissionCalculatorProps {
-  missionState: MissionStateInterface;
-  missionDispatch: CallableFunction;
-}
-
-const MissionTracker = ({ missionState, missionDispatch }: MissionCalculatorProps): JSX.Element => {
+const MissionTracker = (): JSX.Element => {
   const history = useHistory();
+  //@ts-expect-error 2461
+  const [missionState, missionDispatch] = useContext(missionContext);
 
   return (
     <div className="flex flex-col flex-nowrap justify-center content-center text-gray-50 m-4 p-4 mt-1 pt-2 bg-darkGray opacity-100 h-auto rounded shadow-lg">
@@ -30,7 +28,10 @@ const MissionTracker = ({ missionState, missionDispatch }: MissionCalculatorProp
           <p
             className="mr-4 font-medium cursor-pointer"
             onClick={() => {
-              missionDispatch({ type: 'TOGGLE_CALCULATE', payload: !missionState.calculatedInputs.calculateToggle });
+              missionDispatch({
+                type: MissionContextTypeEnums.toggleCalculate,
+                payload: !missionState.calculatedInputs.calculateToggle,
+              });
             }}
           >
             Set
@@ -44,7 +45,7 @@ const MissionTracker = ({ missionState, missionDispatch }: MissionCalculatorProp
                 checked={missionState.calculatedInputs.calculateToggle}
                 onChange={() => {
                   missionDispatch({
-                    type: 'TOGGLE_CALCULATE',
+                    type: MissionContextTypeEnums.toggleCalculate,
                     payload: !missionState.calculatedInputs.calculateToggle,
                   });
                 }}
@@ -58,11 +59,7 @@ const MissionTracker = ({ missionState, missionDispatch }: MissionCalculatorProp
       </div>
 
       <div className="flex flex-row flex-nowrap">
-        {missionState.calculatedInputs.calculateToggle ? (
-          <CalculateResources missionState={missionState} missionDispatch={missionDispatch} />
-        ) : (
-          <SetResources missionState={missionState} missionDispatch={missionDispatch} />
-        )}
+        {missionState.calculatedInputs.calculateToggle ? <CalculateResources /> : <SetResources />}
       </div>
     </div>
   );

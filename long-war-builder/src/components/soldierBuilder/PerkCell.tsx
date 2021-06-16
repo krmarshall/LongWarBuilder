@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { context, StateInterface, TypeEnums } from '../../context';
+import { soldierContext, SoldierStateInterface, SoldierContextTypeEnums } from '../../context/soldierContext';
 import { PerkInterface } from '../../types/interfaces/ClassInterfaces';
 
 interface PerkCellProps {
@@ -10,13 +10,13 @@ interface PerkCellProps {
 
 const PerkCell = ({ perk, rankIndex, perkIndex }: PerkCellProps): JSX.Element => {
   //@ts-expect-error 2461
-  const [state, dispatch] = useContext(context);
-  const { currentBuild } = state as StateInterface;
+  const [state, dispatch] = useContext(soldierContext);
+  const { currentBuild } = state as SoldierStateInterface;
 
   const selectPerkHandler = () => {
     const updatedBuild = [...currentBuild];
     updatedBuild[rankIndex] = updatedBuild[rankIndex] == perkIndex ? undefined : perkIndex;
-    dispatch({ type: TypeEnums.changeCurrentBuild, payload: updatedBuild });
+    dispatch({ type: SoldierContextTypeEnums.changeCurrentBuild, payload: updatedBuild });
   };
 
   return (

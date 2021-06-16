@@ -50,4 +50,44 @@ enum EncodeClassEnum {
   'Shogun' = 'E',
 }
 
-export { EncodeClassEnum, DecodeClassEnum };
+enum EncodeBaseEnum {
+  'accessLift' = 'a',
+  'alienContainment' = 'b',
+  'eleriumGenerator' = 'c',
+  'empty' = 'd',
+  'fissionGenerator' = 'e',
+  'foundry' = 'f',
+  'geneticsLab' = 'g',
+  'gollopChamber' = 'h',
+  'hyperwaveRelay' = 'i',
+  'laboratory' = 'j',
+  'officerTrainingSchool' = 'k',
+  'psionicLab' = 'l',
+  'repairBay' = 'm',
+  'satelliteNexus' = 'n',
+  'satelliteUplink' = 'o',
+  'thermoGenerator' = 'p',
+  'workshop' = 'q',
+}
+
+enum DecodeBaseEnum {
+  'a' = 'accessLift',
+  'b' = 'alienContainment',
+  'c' = 'eleriumGenerator',
+  'd' = 'empty',
+  'e' = 'fissionGenerator',
+  'f' = 'foundry',
+  'g' = 'geneticsLab',
+  'h' = 'gollopChamber',
+  'i' = 'hyperwaveRelay',
+  'j' = 'laboratory',
+  'k' = 'officerTrainingSchool',
+  'l' = 'psionicLab',
+  'm' = 'repairBay',
+  'n' = 'satelliteNexus',
+  'o' = 'satelliteUplink',
+  'p' = 'thermoGenerator',
+  'q' = 'workshop',
+}
+
+export { EncodeClassEnum, DecodeClassEnum, EncodeBaseEnum, DecodeBaseEnum };

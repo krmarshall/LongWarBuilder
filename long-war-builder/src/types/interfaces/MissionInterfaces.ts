@@ -27,27 +27,4 @@ interface MonthlyMissionsInterface {
   council: number;
 }
 
-interface CalculatedInputsInterface {
-  calculateToggle: boolean;
-  resourceLevel: number;
-  alienResources: number;
-  threatLevel: number;
-  prevMonthThreatLevel: number;
-  splashedSmalls: number;
-  splashedLarges: number;
-}
-
-interface MissionStateInterface {
-  calculatedInputs: CalculatedInputsInterface;
-  missions: MonthlyMissionsInterface;
-  notes: string;
-  retaliationCounter: number;
-}
-
-export type {
-  UfoInterface,
-  MissionTypeInterface,
-  BulkMissionTypesInterface,
-  MonthlyMissionsInterface,
-  MissionStateInterface,
-};
+export type { UfoInterface, MissionTypeInterface, BulkMissionTypesInterface, MonthlyMissionsInterface };
