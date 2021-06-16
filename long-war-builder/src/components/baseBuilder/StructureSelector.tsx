@@ -53,7 +53,7 @@ const StructureSelector = (): JSX.Element => {
         onChange={(event) => {
           setFilterFacilities(event.target.value);
         }}
-        className="mb-2 text-gray-300 bg-lightGray rounded placeholder-gray-500 pl-1 focus:outline-none"
+        className="mb-2 p-1 text-gray-200 bg-lighterGray rounded placeholder-gray-400 pl-1 focus:outline-none"
         placeholder="Filter"
       />
       <ul
@@ -68,7 +68,7 @@ const StructureSelector = (): JSX.Element => {
           return (
             <li
               key={key}
-              className="flex-none mb-2 "
+              className="flex-none mb-2 mx-0.5"
               onClick={() => {
                 onBuildingClick(key);
               }}
@@ -76,7 +76,7 @@ const StructureSelector = (): JSX.Element => {
               <img
                 src={`${process.env.PUBLIC_URL}/${facility.img}`}
                 alt={key}
-                className="h-20 opacity-80 hover:opacity-100 cursor-pointer"
+                className="h-20 opacity-80 hover:opacity-100 cursor-pointer rounded-lg"
                 draggable="false"
               ></img>
             </li>

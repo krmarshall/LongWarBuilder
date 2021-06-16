@@ -133,7 +133,7 @@ const BaseStorage = (): JSX.Element => {
       <input
         type="text"
         id="baseName"
-        className="text-gray-700 rounded bg-gray-200 placeholder-gray-500 m-1 p-1"
+        className="text-gray-200 rounded bg-lighterGray placeholder-gray-400 m-1 p-1 focus:outline-none"
         placeholder="Base Name"
         value={baseName}
         onChange={(event) => {

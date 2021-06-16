@@ -72,7 +72,7 @@ const NavHeader = ({ classSelector, location }: NavHeaderProps): JSX.Element => 
             history.push('/base');
           }}
         >
-          Base Builder
+          Base Builder <sup className="text-yellow-300">WIP</sup>
         </button>
       </div>
     </div>

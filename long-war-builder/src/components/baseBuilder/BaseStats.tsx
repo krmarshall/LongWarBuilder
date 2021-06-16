@@ -5,6 +5,7 @@ import { baseContext, BaseStateInterface } from '../../context/baseContext';
 
 const BaseStats = (): JSX.Element => {
   const [workshopBonus, setWorkshopBonus] = useState('0');
+  const [powerClassName, setPowerClassName] = useState('inline-block');
 
   // @ts-expect-error 2461
   const [baseState] = useContext(baseContext);
@@ -25,6 +26,14 @@ const BaseStats = (): JSX.Element => {
     setWorkshopBonus(updatedWorkshopBonus);
   }, [workshopCount, workshopAdjacencyCount]);
 
+  useEffect(() => {
+    if (powerNeeded > powerGenerated) {
+      setPowerClassName('inline-block text-red-500');
+    } else {
+      setPowerClassName('inline-block');
+    }
+  }, [powerGenerated, powerNeeded]);
+
   return (
     <div className="m-4 mt-1.5 ml-0 p-4 bg-darkGray opacity-100 rounded h-auto min-w-max justify-center text-gray-50 shadow-lg">
       <h3 className="text-xl text-center">Base Stats</h3>
@@ -34,7 +43,7 @@ const BaseStats = (): JSX.Element => {
           alt="power"
           className="transform scale-75 object-none mx-auto inline-block"
         />
-        <p className="inline-block">
+        <p className={powerClassName}>
           Power: {powerNeeded} / {powerGenerated}
         </p>
       </div>
