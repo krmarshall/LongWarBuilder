@@ -17,7 +17,7 @@ enum FacilitiesEnum {
   'hyperwaveRelay' = 'hyperwaveRelay',
   'laboratory' = 'laboratory',
   'officerTrainingSchool' = 'officerTrainingSchool',
-  'psionicLabs' = 'psionicLabs',
+  'psionicLab' = 'psionicLab',
   'repairBay' = 'repairBay',
   'satelliteNexus' = 'satelliteNexus',
   'satelliteUplink' = 'satelliteUplink',

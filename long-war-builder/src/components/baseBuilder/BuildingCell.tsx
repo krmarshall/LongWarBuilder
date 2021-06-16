@@ -37,7 +37,12 @@ const BuildingCell = ({ building, yIndex, xIndex }: BuildingCellInterface): JSX.
 
   return (
     <td onClick={onCellClick}>
-      <img src={cellBuilding.img} alt={building} className={cellClassName} draggable="false"></img>
+      <img
+        src={`${process.env.PUBLIC_URL}/${cellBuilding.img}`}
+        alt={building}
+        className={cellClassName}
+        draggable="false"
+      ></img>
     </td>
   );
 };

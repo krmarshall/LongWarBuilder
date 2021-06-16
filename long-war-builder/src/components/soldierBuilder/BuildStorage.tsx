@@ -68,7 +68,6 @@ const BuildStorage = (): JSX.Element => {
     navigator.clipboard
       .writeText(link)
       .then(() => {
-        console.log('Written to clipboard successfully');
         dispatch({ type: SoldierContextTypeEnums.changeNotification, payload: 'Build Link Copied to Clipboard' });
       })
       .catch((error) => {

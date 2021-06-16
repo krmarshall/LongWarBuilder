@@ -1,6 +1,8 @@
 import { useContext } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { decodeBaseFromString, encodeBaseToString } from '../../commonFunctions/encodingFunctions';
 import { baseContext, BaseContextTypeEnums, BaseStateInterface } from '../../context/baseContext';
 import { LocalStorageBaseInterface } from '../../types/interfaces/StorageInterfaces';
 
@@ -8,14 +10,25 @@ const BaseStorage = (): JSX.Element => {
   const [baseName, setBaseName] = useState('');
   const [savedBases, setSavedBases] = useState<LocalStorageBaseInterface>({});
   const [savedBaseKeys, setSavedBaseKeys] = useState<Array<string>>();
+  const [urlLoaded, setUrlLoaded] = useState(false);
 
   // @ts-expect-error 2461
   const [baseState, baseDispatch] = useContext(baseContext);
   const { buildings } = baseState as BaseStateInterface;
 
+  //@ts-expect-error 2339
+  const { code } = useParams();
+
   useEffect(() => {
     loadBasesFromLocalStorage();
   }, []);
+
+  useEffect(() => {
+    if (code != undefined && !urlLoaded) {
+      loadBaseFromQueryParam();
+      setUrlLoaded(true);
+    }
+  }, [code, urlLoaded]);
 
   const saveBaseToStorage = () => {
     if (!baseName) {
@@ -42,6 +55,27 @@ const BaseStorage = (): JSX.Element => {
     const keys = Object.keys(storageObject);
     setSavedBaseKeys(keys);
     setSavedBases(storageObject);
+  };
+
+  const loadBaseFromQueryParam = () => {
+    try {
+      decodeBaseFromString(code, baseDispatch);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const generateBaseUrl = () => {
+    const encodedString = encodeBaseToString(baseState);
+    const link = `https://longwarassistant.netlify.app/base/${encodedString}`;
+    navigator.clipboard
+      .writeText(link)
+      .then(() => {
+        // Notification
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const populateSavedBase = (key: string) => {
@@ -114,7 +148,10 @@ const BaseStorage = (): JSX.Element => {
         >
           Save Base
         </button>
-        <button className="rounded py-1 px-2 m-1 w-max self-center focus:outline-none  bg-gray-700 hover:bg-gray-600">
+        <button
+          className="rounded py-1 px-2 m-1 w-max self-center focus:outline-none  bg-gray-700 hover:bg-gray-600"
+          onClick={generateBaseUrl}
+        >
           Copy Link To Base
         </button>
       </div>

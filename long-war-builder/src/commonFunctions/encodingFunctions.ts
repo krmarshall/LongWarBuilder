@@ -1,7 +1,9 @@
+import { BaseContextTypeEnums, BaseStateInterface } from '../context/baseContext';
 import { SoldierStateInterface, SoldierContextTypeEnums } from '../context/soldierContext';
 import { bulkClassData } from '../data/classes';
 import { ClassName, MecName } from '../types/enums/ClassEnums';
-import { EncodeClassEnum, DecodeClassEnum } from '../types/enums/EncodingEnums';
+import { EncodeClassEnum, DecodeClassEnum, EncodeBaseEnum, DecodeBaseEnum } from '../types/enums/EncodingEnums';
+import { FacilitiesEnum } from '../types/enums/FacilityEnums';
 
 // Encoded string format [a-Z letter = Class][0-2 = Perk Index | 9 = undefined]*7[x = no psi | y = has psi][if psi 0-2 = Perk Index | 9 = undefined]*6
 // See EncodingEnums for classes
@@ -47,7 +49,6 @@ const encodeBuildToString = (state: SoldierStateInterface): string => {
     }
   }
 
-  console.log(encodedString);
   return encodedString;
 };
 
@@ -83,4 +84,46 @@ const decodeBuildFromString = (encodedString: string, dispatch: CallableFunction
   });
 };
 
-export { encodeBuildToString, decodeBuildFromString };
+const encodeBaseToString = (baseState: BaseStateInterface): string => {
+  const { buildings } = baseState;
+  let encodedString = '';
+
+  for (let y = 0; y < buildings.length; y++) {
+    for (let x = 0; x < buildings[y].length; x++) {
+      encodedString += EncodeBaseEnum[buildings[y][x] as FacilitiesEnum];
+    }
+  }
+  return encodedString;
+};
+
+const decodeBaseFromString = (encodedString: string, baseDispatch: CallableFunction): void => {
+  const y0 = Array.from(encodedString.slice(0, 7));
+  const y0Decoded = y0.map((buildingCode) => {
+    // @ts-expect-error 7053
+    return DecodeBaseEnum[buildingCode];
+  });
+
+  const y1 = Array.from(encodedString.slice(7, 14));
+  const y1Decoded = y1.map((buildingCode) => {
+    // @ts-expect-error 7053
+    return DecodeBaseEnum[buildingCode];
+  });
+
+  const y2 = Array.from(encodedString.slice(14, 21));
+  const y2Decoded = y2.map((buildingCode) => {
+    // @ts-expect-error 7053
+    return DecodeBaseEnum[buildingCode];
+  });
+
+  const y3 = Array.from(encodedString.slice(21, 28));
+  const y3Decoded = y3.map((buildingCode) => {
+    // @ts-expect-error 7053
+    return DecodeBaseEnum[buildingCode];
+  });
+
+  const buildings = [y0Decoded, y1Decoded, y2Decoded, y3Decoded];
+
+  baseDispatch({ type: BaseContextTypeEnums.changeBuildings, payload: buildings });
+};
+
+export { encodeBuildToString, decodeBuildFromString, encodeBaseToString, decodeBaseFromString };

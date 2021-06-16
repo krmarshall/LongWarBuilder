@@ -74,9 +74,9 @@ const StructureSelector = (): JSX.Element => {
               }}
             >
               <img
-                src={facility.img}
+                src={`${process.env.PUBLIC_URL}/${facility.img}`}
                 alt={key}
-                className="h-24 opacity-80 hover:opacity-100 cursor-pointer"
+                className="h-20 opacity-80 hover:opacity-100 cursor-pointer"
                 draggable="false"
               ></img>
             </li>
