@@ -20,10 +20,12 @@ const BuildingCell = ({ building, yIndex, xIndex }: BuildingCellInterface): JSX.
   const cellBuilding: FacilityInterface = facilities[building];
 
   useEffect(() => {
-    if (selectedCellY === yIndex && selectedCellX === xIndex) {
-      setCellClassName('opacity-100 border border-gray-400 -m-1');
+    if (xIndex === 3) {
+      setCellClassName('opacity-70');
+    } else if (selectedCellY === yIndex && selectedCellX === xIndex) {
+      setCellClassName('opacity-100 border border-gray-400 -m-1 cursor-pointer');
     } else {
-      setCellClassName('opacity-60');
+      setCellClassName('opacity-70 cursor-pointer');
     }
   }, [selectedCellY, selectedCellX]);
 

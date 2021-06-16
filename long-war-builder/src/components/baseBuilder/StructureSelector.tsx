@@ -56,6 +56,14 @@ const StructureSelector = (): JSX.Element => {
         className="mb-2 p-1 text-gray-200 bg-lighterGray rounded placeholder-gray-400 pl-1 focus:outline-none"
         placeholder="Filter"
       />
+      <p
+        className="inline-block text-gray-300 cursor-pointer"
+        onClick={() => {
+          setFilterFacilities('');
+        }}
+      >
+        &nbsp;X
+      </p>
       <ul
         className="flex flex-row flex-nowrap overflow-x-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-scrollbarGray rounded-lg"
         onWheel={(event) => {
