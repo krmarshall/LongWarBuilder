@@ -45,7 +45,13 @@ const StructureSelector = (): JSX.Element => {
 
   return (
     <div className="m-4 mt-1.5 p-2 bg-darkGray opacity-100 rounded flex flex-col">
-      <h3 className="text-xl text-gray-50 text-center m-auto">Facility Selector</h3>
+      <h3 className="text-xl text-gray-50 text-center m-auto has-tooltip">
+        Facility Selector
+        <span className="tooltip text-center">
+          Select a facility from the list, left clicking a cell on the grid will populate it with that facility, right
+          clicking a cell will empty it.
+        </span>
+      </h3>
       <div className="justify-center content-center m-auto mt-2">
         <input
           type="text"

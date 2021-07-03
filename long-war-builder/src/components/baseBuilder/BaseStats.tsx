@@ -48,7 +48,17 @@ const BaseStats = (): JSX.Element => {
 
   return (
     <div className="m-4 mt-1.5 ml-0 p-4 bg-darkGray opacity-100 rounded h-auto min-w-max justify-center text-gray-50 shadow-lg">
-      <h3 className="text-xl text-center">Base Stats</h3>
+      <div className="flex flex-row">
+        <p className="flex-grow"></p>
+        <h3 className="text-xl m-auto text-center has-tooltip">
+          Base Stats{' '}
+          <span className="tooltip text-center">
+            Adjacencies are included, just not shown on the grid yet. Research is the increased effectiveness of your
+            scientists. Workshop is the cost reduction/material refund you will get back.
+          </span>
+        </h3>
+        <p className="flex-grow"></p>
+      </div>
       <div className="space-x-2">
         <img
           src={`${process.env.PUBLIC_URL}/img/stats/power.png`}
