@@ -1,5 +1,3 @@
-import { useState } from 'react';
-import { useEffect } from 'react';
 import { useContext } from 'react';
 import { baseContext, BaseContextTypeEnums, BaseStateInterface } from '../../context/baseContext';
 import facilities from '../../data/facilities';
@@ -12,29 +10,20 @@ interface BuildingCellInterface {
 }
 
 const BuildingCell = ({ building, yIndex, xIndex }: BuildingCellInterface): JSX.Element => {
-  const [cellClassName, setCellClassName] = useState('opacity-60');
   //@ts-expect-error 2461
   const [baseState, baseDispatch] = useContext(baseContext);
-  const { selectedCellY, selectedCellX } = baseState as BaseStateInterface;
+  const { buildings, selectedFacility } = baseState as BaseStateInterface;
 
   const cellBuilding: FacilityInterface = facilities[building];
-
-  useEffect(() => {
-    if (xIndex === 3) {
-      setCellClassName('opacity-70');
-    } else if (selectedCellY === yIndex && selectedCellX === xIndex) {
-      setCellClassName('opacity-100 border border-gray-400 -m-1 cursor-pointer');
-    } else {
-      setCellClassName('opacity-70 cursor-pointer');
-    }
-  }, [selectedCellY, selectedCellX]);
 
   const onCellClick = () => {
     // Don't allow selection of access lifts
     if (xIndex === 3) {
       return;
     }
-    baseDispatch({ type: BaseContextTypeEnums.selectCell, payload: { selectedCellY: yIndex, selectedCellX: xIndex } });
+    const updatedBuildingGrid = JSON.parse(JSON.stringify(buildings));
+    updatedBuildingGrid[yIndex][xIndex] = selectedFacility;
+    baseDispatch({ type: BaseContextTypeEnums.changeBuildings, payload: updatedBuildingGrid });
   };
 
   return (
@@ -42,7 +31,7 @@ const BuildingCell = ({ building, yIndex, xIndex }: BuildingCellInterface): JSX.
       <img
         src={`${process.env.PUBLIC_URL}/${cellBuilding.img}`}
         alt={building}
-        className={cellClassName}
+        className={xIndex === 3 ? 'cursor-pointer opacity-70' : 'cursor-pointer opacity-70 hover:opacity-100'}
         draggable="false"
       ></img>
     </td>

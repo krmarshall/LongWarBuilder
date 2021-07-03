@@ -27,6 +27,9 @@ module.exports = {
       backgroundImage: (theme) => ({
         background: "url('/src/background.jpg')",
       }),
+      outline: {
+        gray: '2px solid #969da3',
+      },
     },
     scale: {
       0: '0',

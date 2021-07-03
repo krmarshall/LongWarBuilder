@@ -1,4 +1,5 @@
 import { createContext, useReducer } from 'react';
+import { FacilitiesEnum } from '../types/enums/FacilityEnums';
 
 interface BaseStateInterface {
   buildings: Array<Array<string>>;
@@ -8,8 +9,7 @@ interface BaseStateInterface {
   workshopCount: number;
   workshopAdjacencyCount: number;
   satellitesSupported: number;
-  selectedCellY: number;
-  selectedCellX: number;
+  selectedFacility: FacilitiesEnum;
 }
 
 interface ActionInterface {
@@ -24,8 +24,8 @@ interface ProviderParamsInterface {
 
 enum BaseContextTypeEnums {
   'changeBuildings' = 'changeBuildings',
-  'selectCell' = 'selectCell',
   'changeStats' = 'changeStats',
+  'selectFacility' = 'selectFacility',
 }
 
 const initialState: BaseStateInterface = {
@@ -45,8 +45,7 @@ const initialState: BaseStateInterface = {
   workshopCount: 0,
   workshopAdjacencyCount: 0,
   satellitesSupported: 0,
-  selectedCellY: 0,
-  selectedCellX: 0,
+  selectedFacility: FacilitiesEnum.empty,
 };
 
 const baseContext = createContext(initialState);
@@ -61,10 +60,9 @@ const BaseStateProvider = ({ children }: ProviderParamsInterface): JSX.Element =
         newState.buildings = action.payload;
         return newState;
       }
-      case BaseContextTypeEnums.selectCell: {
+      case BaseContextTypeEnums.selectFacility: {
         const newState = { ...state };
-        newState.selectedCellY = action.payload.selectedCellY;
-        newState.selectedCellX = action.payload.selectedCellX;
+        newState.selectedFacility = action.payload;
         return newState;
       }
       case BaseContextTypeEnums.changeStats: {
