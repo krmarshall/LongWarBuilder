@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { ClassImage, ClassName, MecImage, MecName } from '../../types/enums/ClassEnums';
 import { soldierContext, SoldierStateInterface, SoldierContextTypeEnums } from '../../context/soldierContext';
 import { bulkClassData } from '../../data/classes';
