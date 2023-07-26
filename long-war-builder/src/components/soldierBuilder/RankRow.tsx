@@ -17,7 +17,7 @@ const RankRow = ({ rank, rankIndex }: RankRowProps): JSX.Element => {
           className="transform scale-75 object-none mx-auto -mb-1.5"
           draggable="false"
         ></img>
-        <p className="text-sm">{rank.name}</p>
+        <p className="text-base">{rank.name}</p>
       </td>
       {rank.perkProgression.length == 1 ? (
         <Fragment>

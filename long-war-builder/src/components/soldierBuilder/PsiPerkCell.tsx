@@ -35,8 +35,8 @@ const PsiPerkCell = ({ psiPerk, psiRankIndex, psiPerkIndex }: PsiPerkCellProps):
         className="transform scale-56 object-none mx-auto -mb-4 -mt-2"
         draggable="false"
       ></img>
-      <h5 className="text-sm">{psiPerk.perk}</h5>
-      <p className="text-xs">{psiPerk.description}</p>
+      <h5 className="text-base">{psiPerk.perk}</h5>
+      <p className="text-sm text-gray-300">{psiPerk.description}</p>
     </td>
   );
 };

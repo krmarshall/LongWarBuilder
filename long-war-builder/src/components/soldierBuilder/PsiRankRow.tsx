@@ -17,7 +17,7 @@ const PsiRankRow = ({ psiRank, psiRankIndex }: PsiRankRowProps): JSX.Element => 
           className="transform scale-75 object-none mx-auto -mb-1.5"
           draggable="false"
         ></img>
-        <p className="text-sm">{psiRank.name}</p>
+        <p className="text-base">{psiRank.name}</p>
       </td>
       {psiRank.perkProgression.length == 3 &&
         psiRank.perkProgression.map((psiPerk, psiPerkIndex) => {

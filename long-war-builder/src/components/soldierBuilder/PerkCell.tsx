@@ -31,9 +31,9 @@ const PerkCell = ({ perk, rankIndex, perkIndex }: PerkCellProps): JSX.Element =>
         className="transform scale-75 object-none mx-auto -mb-2"
         draggable="false"
       ></img>
-      <h5 className="text-sm">{perk.perk}</h5>
-      <p className="text-xs">{perk.description}</p>
-      <p className="text-xs font-bold underline">
+      <h5 className="text-base">{perk.perk}</h5>
+      <p className="text-sm text-gray-300">{perk.description}</p>
+      <p className="text-sm font-bold underline">
         {perk.mobility ? 'Mobility: ' + perk.mobility : ''} {perk.aim ? 'Aim: ' + perk.aim : ''}{' '}
         {perk.will ? 'Will: ' + perk.will : ''}
       </p>
